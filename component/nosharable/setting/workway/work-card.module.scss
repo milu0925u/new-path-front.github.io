@@ -1,0 +1,108 @@
+.l_work_card {
+  width: 100%;
+  height: 100%;
+  padding: 3%;
+  display: flex;
+  flex-direction: column;
+  .col_work_card {
+    position: relative;
+    margin-top: auto;
+  }
+  #workcard_nextbtn_swiper {
+    float: right;
+    padding: 30px 40px 0 0;
+    margin-top: auto;
+    margin-left: auto;
+  }
+}
+
+.card {
+  width: 100%;
+  height: 280px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10vh;
+  cursor: pointer;
+  > div:first-child {
+    width: 200px;
+    padding-inline: 50px;
+    img {
+      width: 100%;
+      min-height: 100px;
+      max-height: 150px;
+      object-fit: contain;
+    }
+  }
+  .bar {
+    position: absolute;
+    bottom: 5vh;
+    width: 100%;
+    height: 0.7rem;
+    background: rgb(223, 215, 215);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .mouse {
+      padding-inline: 0.5rem;
+      padding-block: 1rem;
+      border-radius: 50px;
+      background: var(--main-blue);
+    }
+  }
+}
+.rwd_chosen_line {
+  display: none;
+}
+
+// 拉桿線 變圓
+.col_work_card > div > div > div:first-child > .card .bar {
+  border-radius: 20px 0 0 20px;
+}
+.col_work_card > div > div > div:last-child > .card .bar {
+  border-radius: 0 50px 50px 0;
+}
+
+@media screen and (max-width: 1200px) {
+  .l_work_card {
+    display: flex;
+    flex-direction: column;
+    // gap: 15px;
+    > div {
+      display: flex;
+      justify-content: center;
+    }
+    .col_work_card {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: auto;
+      margin-block: 20px;
+    }
+    #workcard_nextbtn_swiper {
+      float: none;
+      padding: 0;
+    }
+  }
+  .card {
+    justify-content: center;
+    gap: 5vh;
+    .bar {
+      display: none;
+    }
+    > div:last-child {
+      font-size: 40px;
+      color: black;
+    }
+  }
+  .rwd_chosen_line {
+    display: initial;
+  }
+}
+
+@media screen and (max-height: 600px) {
+  .l_work_card {
+    gap: 15px;
+  }
+}

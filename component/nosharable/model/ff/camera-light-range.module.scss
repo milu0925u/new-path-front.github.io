@@ -1,0 +1,50 @@
+.exposure {
+  width: 70%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  .exposure_icon {
+    padding-inline: 0.5vw;
+    img {
+      width: 100%;
+      max-width: 2rem;
+      object-fit: contain;
+    }
+  }
+  div:nth-child(2) {
+    width: 100%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.line {
+  width: 88%;
+  height: 5px;
+  border-radius: 50px;
+  background: black;
+}
+
+.range {
+  appearance: none;
+  -webkit-appearance: none;
+  position: absolute;
+  background: none;
+  top: 5px;
+  left: 0;
+  width: 100%;
+  transition: width 0.5s ease-in-out;
+
+  &::-webkit-slider-thumb {
+    appearance: none;
+    -webkit-appearance: none;
+    position: relative;
+    transition: 0.5s;
+    width: 1.8rem;
+    height: 1.8rem;
+    cursor: pointer;
+    background: url('/images/function/exposure/range-hand-up.svg') no-repeat;
+  }
+}

@@ -1,0 +1,133 @@
+// 全部清單
+.col_list {
+  width: 65%;
+  height: 100%;
+  border-radius: 20px;
+  padding-block: 16px;
+  padding-inline: 20px;
+  position: relative;
+
+  &.col_list_bg {
+    background: var(--white);
+  }
+
+  > div:first-child {
+    display: grid;
+    grid-template-areas: 'input btn btn . ';
+    grid-template-columns: auto 140px 50px 20px;
+    gap: 50px;
+    align-items: center;
+  }
+  .list_model_title {
+    display: grid;
+    gap: 12px;
+    grid-template-columns: 30px auto 200px;
+    grid-template-rows: 25px;
+  }
+}
+// 加工清單用
+.list_radius {
+  border-radius: 0 20px 20px 20px;
+}
+// 選擇的顯示
+.chosen_list {
+  width: 35%;
+  display: flex;
+  flex-direction: column;
+  font-weight: bolder;
+  > div:first-child {
+    background: var(--white);
+    width: 100%;
+    height: 85%;
+    border-radius: 20px;
+    padding: 30px 20px 30px 20px;
+    font-size: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .chosen_name {
+    background: var(--main-blue-light);
+    width: 100%;
+    padding-block: 12px;
+    padding-inline: 50px;
+    border-radius: 30px;
+    text-align: center;
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .chosen_img {
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    img {
+      border-radius: 10px;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+  .chosen_weld_img {
+    height: 40px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    img {
+      width: 100%;
+      max-width: 45px;
+      height: 100%;
+    }
+  }
+  .empty_chosen {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .col_list {
+    width: 100%;
+    padding: 0;
+    &.col_list_bg {
+      background: transparent;
+    }
+    > div:first-child {
+      display: flex;
+    }
+    .list_f {
+      margin-bottom: 16px;
+      :not(:first-child) {
+        display: none;
+      }
+    }
+    .list_model {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 25px;
+    }
+  }
+
+  .list_radius {
+    border-radius: 20px;
+    > :last-child {
+      display: none;
+    }
+  }
+  .chosen_list {
+    width: 100%;
+    > div:first-child {
+      height: auto;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .col_list .list_model .list_model_title {
+    display: none;
+  }
+}

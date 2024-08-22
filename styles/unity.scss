@@ -1,0 +1,645 @@
+.l_unity {
+  width: 100%;
+  padding: 10px;
+  display: grid;
+  grid-template-areas:
+    "importbtn . name robot beil"
+    ". . name deep beil"
+    "lefttool unity unity unity setting"
+    "lefttool . bottomtool extend  mouse";
+  grid-template-columns: 150px 12vw calc(100vw - 30vw - 300px) 12vw 150px;
+  grid-template-rows: 45px 35px auto 80px;
+
+  i {
+    font-size: 26px;
+  }
+}
+
+//功能區塊分類
+
+//匯入
+.importbtn {
+  grid-area: importbtn;
+  margin: auto;
+}
+// 繪圖工具
+.draw_tools {
+  grid-area: lefttool;
+  width: 80px;
+  max-height: 520px;
+  background: var(--white-op08);
+  border-radius: 100px;
+  padding-block: 2vh;
+  position: relative;
+  margin-left: 20px;
+
+  .draw_list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    width: 80px;
+    height: 80px;
+    line-height: 15px;
+    cursor: pointer;
+    span {
+      font-size: 12px;
+    }
+    &:hover {
+      border-radius: 50%;
+      background: #c4c4c4;
+    }
+  }
+  .draw_point {
+    position: absolute;
+    top: 100px;
+    right: -70px;
+    background: var(--white-op05);
+    border-radius: 10px;
+    font-size: 12px;
+    padding-block: 12px;
+    cursor: pointer;
+    > div {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      width: 70px;
+      height: 70px;
+      padding: 5px;
+      border: 3px dashed transparent;
+      img {
+        max-width: 35px;
+        width: 100%;
+        height: 100%;
+      }
+      &:active {
+        border: 3px dashed var(--main-blue);
+      }
+    }
+  }
+}
+//命名
+.naming {
+  grid-area: name;
+  min-width: 150px;
+  max-width: 200px;
+  height: 35px;
+  background: white;
+  border-radius: 30px;
+  padding-inline: 14px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  input {
+    width: 100%;
+    font-size: 12px;
+    padding: 10px 5px 10px 10px;
+  }
+  i {
+    font-size: 18px;
+  }
+}
+// 下方工具列
+.save_btn {
+  grid-area: bottomtool;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--white-op08);
+  border-radius: 100px;
+  padding-inline: 2vw;
+  margin-inline: auto;
+  margin-bottom: auto;
+  > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    width: 70px;
+    height: 70px;
+    cursor: pointer;
+    img {
+      max-width: 24px;
+      width: 100%;
+    }
+    span {
+      display: none;
+      font-size: 12px;
+    }
+    &:hover {
+      border-radius: 50%;
+      background: #c4c4c4;
+
+      span {
+        display: block;
+      }
+    }
+  }
+}
+// unity畫面
+.unity_screen {
+  grid-area: unity;
+  height: 100%;
+  width: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  #draw,
+  #edit {
+    border: none;
+    outline: none;
+    height: calc(100vh * 0.625);
+    width: 100vh;
+  }
+}
+// 手臂姿態的on off
+.robot_attitude {
+  grid-area: robot;
+  margin: auto;
+  .switch {
+    position: relative;
+    display: block;
+    width: 75px;
+    height: 25px;
+    input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border-radius: 30px;
+      background-color: rgb(255, 79, 79);
+      -webkit-transition: 0.4s;
+      transition: 0.4s;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      &::before {
+        position: absolute;
+        content: "";
+        height: 35px;
+        width: 35px;
+        top: -5px;
+        right: 0px;
+        -webkit-transition: 0.4s;
+        transition: 0.4s;
+        background: url("/images/bar.svg");
+        background-size: 100% 100%;
+      }
+    }
+    input:checked + .slider {
+      background-color: rgb(31, 160, 14);
+    }
+    input:checked + .slider:before {
+      -webkit-transform: translateX(-40px);
+      -ms-transform: translateX(-40px);
+      transform: translateX(-40px);
+    }
+    span {
+      color: white;
+    }
+  }
+}
+// 手臂姿態的深度
+.robot_deep {
+  grid-area: deep;
+  color: white;
+  margin-left: auto;
+}
+
+// 通知
+.beil {
+  grid-area: beil;
+  border-radius: 50%;
+  background: var(--white-op08);
+  width: 80px;
+  height: 80px;
+  margin: auto;
+  img {
+    max-width: 30px;
+    width: 100%;
+  }
+}
+.beil-active {
+  position: relative;
+  --beil-color: rgb(22, 90, 157);
+  img {
+    animation: sway 0.6s ease-in 0.1s infinite;
+  }
+  span {
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    font-size: 12px;
+    width: 80px;
+    height: 25px;
+    border-radius: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--beil-color);
+    box-shadow: 0 2px 10px rgba(52, 74, 170, 0.8);
+  }
+  div {
+    position: absolute;
+    bottom: -13px;
+    right: 15px;
+    width: 20px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--beil-color);
+    transform: rotate(20deg);
+    box-shadow: 2px 0 10px rgba(52, 74, 170, 0.8);
+  }
+  div:before {
+    content: "";
+    position: absolute;
+    bottom: -0px;
+    left: -1px;
+    width: 15px;
+    height: 30px;
+    border-radius: 50%;
+    background: #d9d9d9;
+  }
+}
+// 設定
+.setting {
+  grid-area: setting;
+  border-radius: 50%;
+  background: var(--white-op08);
+  width: 80px;
+  height: 80px;
+  margin: auto;
+  margin-top: 30px;
+  &:hover {
+    cursor: pointer;
+    opacity: 0.6;
+  }
+  img {
+    max-width: 30px;
+    width: 100%;
+  }
+}
+// 滑鼠
+.mouse {
+  grid-area: mouse;
+  border-radius: 50%;
+  background: var(--white-op08);
+  width: 80px;
+  height: 80px;
+  margin: auto;
+  img {
+    max-width: 30px;
+    width: 100%;
+  }
+}
+
+//展開/收起的按鈕
+.extend {
+  grid-area: extend;
+  margin: auto;
+  cursor: pointer;
+  svg {
+    background: var(--white-op08);
+    padding: 10px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+  }
+}
+
+// 成功彈跳訊息
+.unity_none {
+  display: none;
+}
+// 隱藏工具欄
+.unity_unvisible {
+  visibility: hidden;
+  opacity: 0;
+}
+.unity_visible {
+  visibility: visible;
+  opacity: 1;
+}
+// 背景不可使用
+.unity_black_bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.478);
+}
+
+.chosen_pen {
+  border: 2px solid var(--main-blue);
+  border-radius: 50%;
+}
+
+.show {
+  height: 100%;
+  background: var(--white-op08);
+  border-radius: 20px;
+  font-size: 18px;
+  font-weight: bolder;
+  padding: 24px;
+  position: relative;
+  transition: all 0.3s ease-in-out;
+  .col_show_title {
+    height: 10%;
+    font-size: 30px;
+    text-align: center;
+  }
+  .col_show_function {
+    height: 90%;
+    display: flex;
+
+    .show_function {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      > div {
+        position: relative;
+        text-align: center;
+        span {
+          background: rgb(199, 190, 190);
+          padding: 5px;
+          border-radius: 50%;
+          position: absolute;
+          top: 0;
+          right: -10px;
+          width: 20px;
+          height: 20px;
+          font-size: 12px;
+        }
+      }
+    }
+    .show_list {
+      overflow: hidden;
+      padding-top: 70px;
+      div {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        padding-block: 8px;
+        .bar_w100 {
+          width: 100%;
+        }
+        .bar_w0 {
+          width: 0;
+        }
+      }
+    }
+  }
+  .bar {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+    img {
+      max-width: 7vh;
+      width: 100%;
+    }
+  }
+}
+.show_w100 {
+  width: 100%;
+}
+.show_w0 {
+  width: 200px;
+}
+
+@keyframes sway {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  40% {
+    transform: rotate(-25deg) scale(1.1);
+  }
+  80% {
+    transform: rotate(10deg) scale(1.1);
+  }
+}
+
+// RWD 後的工具列
+.rwd_toolbar {
+  display: none;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+  z-index: 1;
+  top: 0;
+  transition: all 1s ease-in-out;
+  button {
+    flex: 0 0 auto;
+    width: 40px;
+    height: 40px;
+    margin: 5px;
+    border-radius: 50%;
+    background: #7b899d;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.493),
+      inset 1px 1px 2px rgba(255, 255, 255, 0.268);
+    &:hover {
+      background: #486891;
+    }
+    &:active {
+      transform: translateY(5px);
+    }
+    img {
+      width: 100%;
+      height: 100%;
+      padding: 10px;
+    }
+  }
+
+  input[type="range"],
+  input[type="range"]::-webkit-slider-runnable-track,
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+  }
+  /* input range 主體樣式 */
+  input[type="range"] {
+    height: 30px;
+    width: 90%;
+    overflow: hidden;
+    cursor: pointer;
+    outline: none;
+    background: transparent;
+  }
+  /* 滑動軌道 樣式 */
+  input[type="range"]::-webkit-slider-runnable-track {
+    height: 6px;
+    width: 50px;
+    border-radius: 10px;
+    background: #7b899d;
+  }
+  /* 滑動鈕 樣式 */
+  input[type="range"]::-webkit-slider-thumb {
+    position: relative;
+    height: 16px;
+    width: 16px;
+    margin-top: -5px;
+    background-color: rgb(255, 254, 254);
+    border-radius: 50%;
+  }
+  /* Remove this container when use*/
+  .component-title {
+    width: 100%;
+    position: absolute;
+    z-index: 100;
+    top: 30px;
+    left: 0;
+    padding: 0;
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #888;
+    text-align: center;
+  }
+  /* The switch - the box around the slider */
+  .switch_container {
+    width: 51px;
+    height: 31px;
+    position: relative;
+  }
+  /* Hide default HTML checkbox */
+  .checkbox {
+    opacity: 0;
+    width: 0;
+    height: 0;
+    position: absolute;
+  }
+  .switch {
+    width: 100%;
+    height: 100%;
+    display: block;
+    background-color: #e9e9eb;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: all 0.2s ease-out;
+  }
+  /* The slider */
+  .slider {
+    width: 27px;
+    height: 27px;
+    position: absolute;
+    left: calc(50% - 27px / 2 - 12px);
+    top: calc(50% - 27px / 2);
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.15), 0px 3px 1px rgba(0, 0, 0, 0.06);
+    transition: all 0.2s ease-out;
+    cursor: pointer;
+  }
+
+  .checkbox:checked + .switch {
+    background-color: #34c759;
+  }
+
+  .checkbox:checked + .switch .slider {
+    left: calc(50% - 27px / 2 + 12px);
+    top: calc(50% - 27px / 2);
+  }
+}
+// 展開動畫
+.rwd_tool_animation {
+  position: absolute;
+  opacity: 0;
+  top: 0;
+}
+// 每一顆小圈圈位置
+.rwd_tool_circle {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  transition: all 1s ease-in-out;
+  i {
+    font-size: 20px;
+  }
+}
+
+.rwd_arrow {
+  z-index: 1;
+  transition: all 0.3s ease;
+}
+.rwd_arrow-90 {
+  transform: rotate(-90deg);
+}
+
+#show {
+  // width: 100vw;
+  // height: 80vh;
+  // aspect-ratio: 16/10;
+  display: flex;
+  margin: auto;
+}
+
+@media screen and (max-height: 900px) {
+  // 通知
+  .beil {
+    width: 65px;
+    height: 65px;
+    img {
+      max-width: 28px;
+    }
+  }
+  // 設定
+  .setting {
+    width: 65px;
+    height: 65px;
+    img {
+      max-width: 24px;
+    }
+  }
+  // 滑鼠
+  .mouse {
+    width: 65px;
+    height: 65px;
+    img {
+      max-width: 20px;
+    }
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .l_unity {
+    display: inline-block;
+    padding: 0;
+  }
+  .l_unity > div:not(.unity_screen):not(.rwd_toolbar),
+  .l_unity > button {
+    opacity: 0;
+    visibility: hidden;
+    display: none;
+  }
+
+  // RWD
+  .rwd_toolbar {
+    display: flex;
+    width: 100%;
+  }
+
+  .unity_screen {
+    #draw,
+    #edit,
+    #show {
+      width: 100%;
+      height: auto;
+    }
+  }
+}

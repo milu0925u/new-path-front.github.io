@@ -1,0 +1,59 @@
+.l_run {
+  flex: 1;
+  border-radius: 30px;
+  background: var(--white-op08);
+  padding-inline: 20px;
+  padding-top: 30px;
+  .run_screen {
+    height: 50vh;
+    position: relative;
+    background: var(--white);
+    border-radius: 20px;
+    img {
+      width: 100%;
+      height: 100%;
+      border-radius: 20px;
+    }
+  }
+  .run_btn {
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+  }
+  .rwd_run_btn {
+    display: none;
+    justify-content: space-around;
+  }
+}
+
+.run {
+  width: 100%;
+  height: 100%;
+  padding-block: 3rem;
+  padding-inline: 2rem;
+  > div:first-child {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 30px;
+  }
+  .btnGroup {
+    height: auto;
+    display: flex;
+    justify-content: space-around;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .l_run {
+    .run_screen {
+    }
+    .run_btn {
+      display: none;
+    }
+    .rwd_run_btn {
+      display: flex;
+    }
+  }
+}

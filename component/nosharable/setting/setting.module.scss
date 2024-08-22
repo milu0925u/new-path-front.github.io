@@ -1,0 +1,23 @@
+.write_work_setting_name {
+  min-width: 300px;
+  max-width: 500px;
+  width: 100%;
+  height: 300px;
+  padding: 40px;
+  border-radius: 20px;
+  background-color: var(--white);
+  margin: auto;
+  .write_work_setting_name_btn {
+    display: flex;
+    justify-content: space-around;
+    align-items: end;
+    height: 80%;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .write_work_setting_name {
+    margin: 0;
+    margin-inline: auto;
+  }
+}

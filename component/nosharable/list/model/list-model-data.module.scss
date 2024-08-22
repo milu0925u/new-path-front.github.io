@@ -1,0 +1,105 @@
+.data {
+  min-height: 25vh;
+  max-height: 30vh;
+  height: 100%;
+  padding-right: 10px;
+  overflow-x: hidden;
+  .grid_list {
+    display: grid;
+    gap: 12px;
+    grid-template-columns: 30px auto 180px;
+    grid-template-rows: 40px;
+    align-items: center;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-block: 5px;
+    cursor: pointer;
+    font-weight: 600;
+  }
+  .bg_grey {
+    background: rgb(206, 202, 202);
+  }
+
+  .bg_blue {
+    background: var(--main-blue-light);
+  }
+}
+
+.data_work {
+  font-weight: 600;
+  padding-right: 10px;
+  overflow-x: hidden;
+  .grid_list {
+    display: grid;
+    gap: 12px;
+    grid-template-columns: 30px auto auto 180px;
+    grid-template-rows: 40px;
+    align-items: center;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-block: 5px;
+    cursor: pointer;
+  }
+  .bg_grey {
+    background: rgb(206, 202, 202);
+  }
+
+  .bg_blue {
+    background: var(--main-blue-light);
+  }
+}
+
+.list_empty {
+  width: 100%;
+  height: 100%;
+  min-height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media screen and (max-width: 1200px) {
+  .data {
+    max-height: 300px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .data .grid_list {
+    grid-template-columns: 30px auto 150px;
+  }
+  .data_work .grid_list {
+    grid-template-columns: 30px auto;
+    grid-template-rows: auto auto auto;
+    grid-template-areas:
+      "input workway"
+      "input name"
+      "input date";
+    gap: 5px;
+    padding: 16px;
+
+    input {
+      grid-area: input;
+    }
+  }
+}
+
+@media screen and (max-width: 568px) {
+  .data .grid_list {
+    gap: 0;
+    grid-template-columns: 50px auto;
+    grid-template-areas: "box name" "box date";
+    grid-template-rows: 30px 20px;
+    padding: 10px;
+
+    input {
+      grid-area: box;
+    }
+    div:nth-child(2) {
+      grid-area: name;
+    }
+    div:nth-child(3) {
+      grid-area: date;
+    }
+  }
+}

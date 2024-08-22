@@ -1,0 +1,54 @@
+.unity {
+  display: flex;
+  justify-content: center;
+  position: relative;
+
+  .loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+@media screen and (min-width: 2000px) {
+  .unity {
+    display: flex;
+    justify-content: center;
+  }
+
+  .unity_screen {
+    width: 80%;
+  }
+}
+
+@media screen and (min-width: 1900px) and (max-width: 2000px) {
+  .unity_screen {
+    width: 85%;
+  }
+}
+
+@media screen and (min-width: 1700px) and (max-width: 1900px) {
+  .unity_screen {
+    width: 90%;
+  }
+}
+
+@media screen and (min-width: 1500px) and (max-width: 1700px) {
+  .unity_screen {
+    width: 95%;
+  }
+}
+
+@media screen and (min-width: 1200px) and (max-width: 1500px) {
+  .unity_screen {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .unity_screen {
+    width: 100%;
+    height: 100%;
+  }
+}

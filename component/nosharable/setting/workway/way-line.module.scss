@@ -1,0 +1,34 @@
+.model_main_content div {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  max-width: 2.5rem;
+  max-height: 2.5rem;
+  border-width: 7px 0 0 7px;
+  border-style: solid;
+  border-color: var(--black);
+  border-radius: 5px;
+}
+
+.model_main_content .shape1 {
+  top: 0;
+  left: 4%;
+}
+
+.model_main_content .shape2 {
+  bottom: 0;
+  left: 4%;
+  transform: rotate(-90deg);
+}
+
+.model_main_content .shape3 {
+  top: 0;
+  right: 4%;
+  transform: rotate(90deg);
+}
+
+.model_main_content .shape4 {
+  bottom: 0;
+  right: 4%;
+  transform: rotate(-180deg);
+}

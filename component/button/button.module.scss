@@ -1,0 +1,106 @@
+.button {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  border-radius: 30px;
+  padding-inline: 18px;
+  padding-block: 8px;
+  font-weight: bolder;
+  transition: all 0.3s ease-in-out;
+  border: 3px solid var(--white);
+  cursor: pointer;
+  white-space: nowrap;
+  i {
+    font-size: 18px;
+  }
+  &.btnnone {
+    gap: 0 !important;
+  }
+}
+
+.back {
+  background: var(--main-blue-light);
+  border: 3px solid var(--white);
+  color: black;
+  &:hover {
+    border: 3px solid var(--main-blue);
+  }
+  &:active {
+    background: var(--main-blue);
+    color: white;
+  }
+}
+.next {
+  background: var(--main-orange-light);
+  border: 3px solid var(--white);
+  color: black;
+
+  &:hover {
+    border: 3px solid var(--main-orange);
+  }
+  &:active {
+    background: var(--main-orange);
+    color: white;
+  }
+}
+
+.start {
+  background: var(--main-green-light);
+  border: 3px solid var(--white);
+  color: black;
+  &:hover {
+    border: 3px solid var(--main-green);
+  }
+  &:active {
+    background: var(--main-green);
+    color: white;
+  }
+}
+
+.stop {
+  background: var(--main-red-light);
+  border: 3px solid var(--white);
+  color: black;
+  &:hover {
+    border: 3px solid var(--main-red);
+  }
+  &:active {
+    background: var(--main-red);
+    color: white;
+  }
+}
+
+.whitebutton {
+  width: 70px;
+  height: 70px;
+  margin: 5px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  color: black;
+  span {
+    font-size: 12px;
+  }
+  &:hover {
+    background: var(--main-blue-light);
+  }
+  &:active {
+    background: var(--main-blue);
+    color: white;
+  }
+}
+
+.file {
+  position: relative;
+  input[type='file'] {
+    position: absolute;
+    display: none;
+  }
+}
