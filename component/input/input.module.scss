@@ -7,29 +7,29 @@
   font-size: 14px;
   min-width: 100px;
   height: 30px;
-  width: 300px;
+  width: 150px;
 }
 
 /* Chrome, Safari, Edge, Opera */
-.input_default[type='number']::-webkit-outer-spin-button,
-.input_default[type='number']::-webkit-inner-spin-button {
+.input_default[type="number"]::-webkit-outer-spin-button,
+.input_default[type="number"]::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
 
 /* Firefox */
-.input_default[type='number'] {
+.input_default[type="number"] {
   -moz-appearance: textfield;
 }
 
 @media screen and (max-width: 1200px) {
   .input_default {
-    width: 50%;
+    width: 40%;
   }
 }
 
 @media screen and (max-width: 568px) {
   .input_default {
-    width: 80%;
+    width: 100%;
   }
 }

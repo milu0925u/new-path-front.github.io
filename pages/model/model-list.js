@@ -32,9 +32,6 @@ export default function ModelList() {
     dispatch(readModelAction());
   }, []);
 
-  const handleReturn = () => {
-    router.back();
-  };
   const handleNext = () => {
     if (current.id) {
       dispatch(unityOpenAction());
@@ -70,8 +67,8 @@ export default function ModelList() {
         <div className="bg-sky"></div>
         <div className="container">
           <RWDTitle title={datas.modellist} icon="icon-model-list" bgcolor="1">
-            <ReturnWhiteButton handleReturnBTN={handleReturn} />
             <DeleteWhiteButton handleDeleteBTN={handleDeleteBTN} />
+            <button className="rwd-display-none-btn"></button>
           </RWDTitle>
           <div className="content content-pd content-blue-full">
             <ListModel
@@ -91,7 +88,7 @@ export default function ModelList() {
                 icon="icon-chooseModel"
                 handleOrangeBTN={handleNext}
               />
-              <ReturnBlueButton handleReturnBTN={handleReturn} />
+              <button className="rwd-display-none-btn"></button>
             </div>
           </div>
         </div>

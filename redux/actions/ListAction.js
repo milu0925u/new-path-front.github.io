@@ -6,7 +6,8 @@ import {
   DATA_POINT_CHOSEN,
   DATA_POINT_DELETE,
   DATA_PATH_READ,
-  // DATA_PATH_CHOSEN,
+  DATA_PATH_CHOSEN,
+  DATA_PATH_DELETE,
   DATA_WORKING_READ,
   DATA_WORKING_CREATE_NAME,
   DATA_WORKING_CREATE_WAY,
@@ -18,6 +19,14 @@ import {
   PUBLIC_LOADING,
   DATA_CENTER_CONTROL_READ,
   DATA_ABNORMAL_LOG_READ,
+  WORK_START_METHOD,
+  WORK_START_PATH,
+  WORK_START_EQ,
+  WORK_START_PARAM,
+  WORK_START_ROBOT,
+  DATA_EQ_READ,
+  DATA_EQ_DELETE,
+  DATA_EQ_CHOSEN,
 } from "../constants";
 import axios from "axios";
 import toast from "react-hot-toast";
@@ -49,7 +58,7 @@ export const readModelAction = () => async (dispatch) => {
 export const deleteModelAction = (groupid) => async (dispatch) => {
   try {
     if (groupid.length > 0) {
-      const { data } = await axios.delete(`${modeldomain}/${groupid}`);
+      const { data } = await axios.delete(`${domain}/model/${groupid}`);
       if (data.success) {
         toast.success("刪除成功!");
         dispatch({
@@ -134,22 +143,43 @@ export const readPathAction = () => async (dispatch) => {
         "ngrok-skip-browser-warning": "1",
       },
     });
+
     dispatch({
       type: DATA_PATH_READ,
-      payload: data,
+      payload: data.data,
     });
   } catch (error) {
     console.log("讀路徑失敗", error);
   }
 };
-// export const SetFixDataAction = (data) => (dispatch) => {
-//   try {
-//     dispatch({
-//       type: DATA_PATH_CHOSEN,
-//       payload: data,
-//     })
-//   } catch (error) {}
-// }
+export const deletePathAction = (groupid) => async (dispatch) => {
+  try {
+    if (groupid.length > 0) {
+      const { data } = await axios.delete(`${domain}/point/${groupid}`);
+      if (data.success) {
+        toast.success("刪除成功!");
+        dispatch({
+          type: DATA_PATH_DELETE,
+          payload: data.data,
+        });
+      }
+    } else {
+      toast.error("你未選擇項目");
+    }
+  } catch (error) {
+    console.log("標點刪除錯誤", error);
+  }
+};
+export const SetPathDataAction = (data) => (dispatch) => {
+  try {
+    dispatch({
+      type: DATA_PATH_CHOSEN,
+      payload: data,
+    });
+  } catch (error) {
+    console.log("標點current選擇錯誤", error);
+  }
+};
 
 /* ----------- working list ----------- */
 export const readWorkingAction = (work) => async (dispatch) => {
@@ -332,5 +362,73 @@ export const readOneabnormallogAction = (id) => async (dispatch) => {
     }
   } catch (error) {
     toast.error("read log fail");
+  }
+};
+
+/* ----------- equitment list ----------- */
+export const readEqAction = () => async (dispatch) => {
+  try {
+    const { data } = await axios.get(`${domain}/equitment`, {
+      headers: {
+        "ngrok-skip-browser-warning": "1",
+      },
+    });
+
+    dispatch({
+      type: DATA_EQ_READ,
+      payload: data.data,
+    });
+  } catch (error) {
+    console.log("讀路徑失敗", error);
+  }
+};
+export const deleteEqAction = (groupid) => async (dispatch) => {
+  try {
+    if (groupid.length > 0) {
+      const { data } = await axios.delete(`${domain}/equitment/${groupid}`);
+      if (data.success) {
+        toast.success("刪除成功!");
+        dispatch({
+          type: DATA_EQ_DELETE,
+          payload: data.data,
+        });
+      }
+    } else {
+      toast.error("你未選擇項目");
+    }
+  } catch (error) {
+    console.log("標點刪除錯誤", error);
+  }
+};
+export const SetEqAction = (data) => (dispatch) => {
+  try {
+    dispatch({
+      type: DATA_EQ_CHOSEN,
+      payload: data,
+    });
+  } catch (error) {
+    console.log("設備失敗", error);
+  }
+};
+
+/* ----------- start 開啟手臂條件 ----------- */
+
+export const startAction = (name, data) => async (dispatch) => {
+  try {
+    if (name === 1) {
+      await dispatch({ type: WORK_START_PATH, payload: data });
+    } else if (name === 2) {
+      await dispatch({ type: WORK_START_EQ, payload: data });
+    } else if (name === 3) {
+      await dispatch({ type: WORK_START_PARAM, payload: data });
+    } else if (name === 4) {
+      await dispatch({ type: WORK_START_ROBOT, payload: data });
+    } else if (name === 5) {
+      await dispatch({ type: WORK_START_METHOD, payload: data });
+    } else {
+      throw new Error(`Invalid action name: ${name}`);
+    }
+  } catch (error) {
+    toast.error(`read robot start fail`);
   }
 };

@@ -1,32 +1,24 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
-import style from './info.module.scss'
-import BlueButton from '@/component/button/blue-button'
-import { useRouter } from 'next/router'
+import React from "react";
+import { useSelector } from "react-redux";
+import style from "./info.module.scss";
+import BlueButton from "@/component/button/blue-button";
+import { useRouter } from "next/router";
 export default function LeftcontentParam() {
-  const { datas } = useSelector((state) => state.public)
-  const router = useRouter()
-  const handleBlueBTN = () => {
-    router.push('/processing/equitment')
-  }
+  const { datas } = useSelector((state) => state.public);
+  const { create } = useSelector((state) => state.workList);
+  const { path, method } = useSelector((state) => state.start);
+  const router = useRouter();
 
   return (
     <div className={style.l_left_info}>
       <div className={style.left_info_title}>
-        <img src={`/images/work/weld.svg`} />
+        <img src={`/images/work/${method}.svg`} />
         <span>{datas.weldingprocess}</span>
-      </div>
-      <div className={style.left_info_equitment_btn}>
-        <BlueButton
-          text={datas.equipmentsetup}
-          icon="icon-execute"
-          handleBlueBTN={handleBlueBTN}
-        />
       </div>
       <div className={style.left_info_content}>
         <div className={style.block}>
           <h6>{datas.selectprocessingpath}</h6>
-          <p>輪框544546</p>
+          <p>{path ? path.name : "未選擇"}</p>
         </div>
         <div>
           <h6>{datas.equipmentsetup}</h6>
@@ -42,5 +34,5 @@ export default function LeftcontentParam() {
         </div>
       </div>
     </div>
-  )
+  );
 }

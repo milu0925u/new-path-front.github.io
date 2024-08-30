@@ -1,7 +1,7 @@
-import React from 'react'
-import style from './list-model-data.module.scss'
-import Loading from '@/component/loading/loading'
-import { useSelector } from 'react-redux'
+import React from "react";
+import style from "./list-model-data.module.scss";
+import Loading from "@/component/loading/loading";
+import { useSelector } from "react-redux";
 
 export default function ListModelData({
   currentid,
@@ -9,15 +9,16 @@ export default function ListModelData({
   handleChosenDelete,
   handleChoose,
 }) {
-  const { loading } = useSelector((state) => state.public)
+  const { loading } = useSelector((state) => state.public);
 
   if (loading) {
     return (
       <div className={style.data}>
         <Loading />
       </div>
-    )
+    );
   }
+
   return (
     <div className={style.data}>
       {datasList?.length > 0 ? (
@@ -29,7 +30,7 @@ export default function ListModelData({
               currentid == item.id ? style.bg_blue : style.bg_grey
             }`}
             onClick={(e) => {
-              handleChoose(e)
+              handleChoose(e);
             }}
           >
             <input
@@ -37,7 +38,7 @@ export default function ListModelData({
               name="model"
               value={item.id}
               onChange={(e) => {
-                handleChosenDelete(e)
+                handleChosenDelete(e);
               }}
             />
             <div>{item.name}</div>
@@ -48,5 +49,5 @@ export default function ListModelData({
         <div className={style.list_empty}>沒有檔案</div>
       )}
     </div>
-  )
+  );
 }

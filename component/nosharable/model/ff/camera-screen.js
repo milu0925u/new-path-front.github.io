@@ -1,11 +1,11 @@
-import React from 'react'
-import style from './camera-screen.module.scss'
-import { useSelector } from 'react-redux'
-export default function CameraScreen({ datas }) {
-  const { camera } = useSelector((state) => state.public)
+import React from "react";
+import style from "./camera-screen.module.scss";
+import { useSelector } from "react-redux";
+export default function CameraScreen() {
+  const { camera } = useSelector((state) => state.public);
   return (
     <>
-      {camera ? (
+      {camera == "success" ? (
         <div className={style.success}>
           <div></div>
         </div>
@@ -15,5 +15,5 @@ export default function CameraScreen({ datas }) {
         </div>
       )}
     </>
-  )
+  );
 }

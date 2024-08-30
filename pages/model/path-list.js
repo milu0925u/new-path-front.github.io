@@ -1,56 +1,55 @@
-import React, { useState, useEffect } from 'react'
-import { useRouter } from 'next/router'
-import { useDispatch, useSelector } from 'react-redux'
+import React, { useState, useEffect } from "react";
+import { useRouter } from "next/router";
+import { useDispatch, useSelector } from "react-redux";
 
-import OrangeButton from '@/component/button/orange-button'
-import RWDTitle from '@/component/layout/rwd-title'
-import ReturnBlueButton from '@/component/button/return-blue-button'
-import ReturnWhiteButton from '@/component/button/return-white-button'
-import DeleteWhiteButton from '@/component/button/delete-white-button'
-import WhiteButton from '@/component/button/white-button'
+import OrangeButton from "@/component/button/orange-button";
+import RWDTitle from "@/component/layout/rwd-title";
+import DeleteWhiteButton from "@/component/button/delete-white-button";
+import WhiteButton from "@/component/button/white-button";
 
-import Listpath from '@/component/nosharable/list/list-path'
-import Choosepath from '@/component/nosharable/list/choose/choose-path'
+import Listpath from "@/component/nosharable/list/list-path";
+import Choosepath from "@/component/nosharable/list/choose/choose-path";
 
-import { unityOpenAction } from '@/redux/actions/publicAction'
-import { readPathAction } from '@/redux/actions/ListAction'
-import toast from 'react-hot-toast'
-import LayoutMain from '@/component/layout/layout-main'
-import { FaTools } from 'react-icons/fa'
+import { unityOpenAction } from "@/redux/actions/publicAction";
+import { readPathAction } from "@/redux/actions/ListAction";
+import toast from "react-hot-toast";
+import LayoutMain from "@/component/layout/layout-main";
+import { FaTools } from "react-icons/fa";
 export default function PathList() {
-  const dispatch = useDispatch()
-  const router = useRouter()
-  const { datas } = useSelector((state) => state.public)
-  const { current } = useSelector((state) => state.pathList)
+  const dispatch = useDispatch();
+  const router = useRouter();
+  const { datas } = useSelector((state) => state.public);
+  const { current } = useSelector((state) => state.pathList);
+  const { path } = useSelector((state) => state.start);
+
   useEffect(() => {
-    dispatch(readPathAction())
-  }, [])
+    dispatch(readPathAction());
+  }, []);
 
-  const handleReturn = () => {}
   const handleNext = () => {
-    if (!current.id) {
-      dispatch(unityOpenAction())
-      router.push('/')
+    if (current.id) {
+      // dispatch(unityOpenAction());
+      router.push("/processing/processing-chose");
     } else {
-      toast.error('您未選擇路徑')
+      toast.error("您未選擇路徑");
     }
-  }
-  const handleDelete = () => {}
+  };
+  const handleDelete = () => {};
 
-  const [opentool, setOpentool] = useState(false)
+  const [opentool, setOpentool] = useState(false);
   const handleOpenTool = () => {
-    setOpentool(!opentool)
-  }
+    setOpentool(!opentool);
+  };
   const handleEdit = () => {
     if (current.id) {
       unitySortAlert().then((result) => {
         if (result.isConfirmed) {
-          dispatch(unityOpenAction())
-          router.push('/draw/show')
+          dispatch(unityOpenAction());
+          router.push("/draw/show");
         }
-      })
+      });
     }
-  }
+  };
 
   return (
     <>
@@ -65,21 +64,16 @@ export default function PathList() {
             switchState={opentool}
             handleclose={handleOpenTool}
           >
-            <ReturnWhiteButton handleReturnBTN={handleReturn} />
-            <WhiteButton
-              text={datas.toolbox}
-              icon="icon-toolbox"
-              handleBlueBTN={handleOpenTool}
-            />
+            <DeleteWhiteButton handleDeleteBTN={handleDelete} />
+
             <WhiteButton
               text={datas.modify}
               icon="icon-edit"
               handleBlueBTN={handleEdit}
             />
-            <DeleteWhiteButton handleDeleteBTN={handleDelete} />
           </RWDTitle>
           <div className="content content-pd content-blue-full">
-            <Listpath handleBlueBTN={handleReturn} />
+            <Listpath handleBlueBTN={handleEdit} />
             <Choosepath>
               <OrangeButton
                 text={datas.selectpath}
@@ -93,11 +87,11 @@ export default function PathList() {
                 icon="icon-choosePoint"
                 handleOrangeBTN={handleNext}
               />
-              <ReturnBlueButton handleReturnBTN={handleReturn} />
+              <button className="rwd-display-none-btn"></button>
             </div>
           </div>
         </div>
       </LayoutMain>
     </>
-  )
+  );
 }

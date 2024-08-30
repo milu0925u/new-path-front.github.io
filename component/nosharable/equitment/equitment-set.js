@@ -1,25 +1,27 @@
-import React, { useEffect, useState, useRef } from 'react'
-import style from './equitment-set.module.scss'
-import BlueButton from '@/component/button/blue-button'
-import { useSelector } from 'react-redux'
+import React, { useEffect, useState, useRef } from "react";
+import style from "./equitment-set.module.scss";
+import BlueButton from "@/component/button/blue-button";
+import { useSelector, useDispatch } from "react-redux";
+import { readEqAction } from "@/redux/actions/ListAction";
 
-import EqMaintainance from './maintainance/eq-maintainance'
-import EqList from './list/eq-list'
-import RobotMaintainance from './maintainance/robot-maintainance'
-import RobotList from './list/robot-list'
-import CameraMaintainance from './maintainance/camera-maintainance'
-import CameraList from './list/camera-list'
-import SecurityMaintainance from './maintainance/security-maintainance'
-import SecurityList from './list/security-list'
-import GasMaintainance from './maintainance/gas-maintainance'
-import GasList from './list/gas-list'
-import InternetList from './list/internet-list'
-import InternetMaintainance from './maintainance/internet-maintainance'
-import ConsumablesMaintainance from './maintainance/consumables-maintainance'
-import ConsumablesList from './list/consumables-list'
+import EqMaintainance from "./maintainance/eq-maintainance";
+import EqList from "./list/eq-list";
+import RobotMaintainance from "./maintainance/robot-maintainance";
+import RobotList from "./list/robot-list";
+import CameraMaintainance from "./maintainance/camera-maintainance";
+import CameraList from "./list/camera-list";
+import SecurityMaintainance from "./maintainance/security-maintainance";
+import SecurityList from "./list/security-list";
+import GasMaintainance from "./maintainance/gas-maintainance";
+import GasList from "./list/gas-list";
+import InternetList from "./list/internet-list";
+import InternetMaintainance from "./maintainance/internet-maintainance";
+import ConsumablesMaintainance from "./maintainance/consumables-maintainance";
+import ConsumablesList from "./list/consumables-list";
 export default function EquitmentSet() {
-  const { datas } = useSelector((state) => state.public)
-  const [equitment, setEquitment] = useState([])
+  const dispatch = useDispatch();
+  const { datas } = useSelector((state) => state.public);
+  const [equitment, setEquitment] = useState([]);
   useEffect(() => {
     setEquitment([
       {
@@ -50,83 +52,87 @@ export default function EquitmentSet() {
         id: 7,
         name: datas.networkequipment,
       },
-    ])
-  }, [datas])
-  const [active, setActive] = useState(1)
-  const handleEquitment = () => {}
+    ]);
+  }, [datas]);
+  const [active, setActive] = useState(1);
+  const handleEquitment = () => {};
+  // 讀取資料表
+  useEffect(() => {
+    dispatch(readEqAction());
+  }, []);
 
   const renderScreen1 = () => {
     if (active === 1) {
-      return <EqMaintainance />
+      return <EqMaintainance />;
     } else if (active === 2) {
-      return <RobotMaintainance />
+      return <RobotMaintainance />;
     } else if (active === 3) {
-      return <CameraMaintainance />
+      return <CameraMaintainance />;
     } else if (active === 4) {
-      return <ConsumablesMaintainance />
+      return <ConsumablesMaintainance />;
     } else if (active === 5) {
-      return <SecurityMaintainance />
+      return <SecurityMaintainance />;
     } else if (active === 6) {
-      return <GasMaintainance />
+      return <GasMaintainance />;
     } else if (active === 7) {
-      return <InternetMaintainance />
+      return <InternetMaintainance />;
     }
-  }
+  };
 
   const renderScreen2 = () => {
     if (active === 1) {
-      return <EqList />
+      return <EqList />;
     } else if (active === 2) {
-      return <RobotList />
+      return <RobotList />;
     } else if (active === 3) {
-      return <CameraList />
+      return <CameraList />;
     } else if (active === 4) {
-      return <ConsumablesList />
+      return <ConsumablesList />;
     } else if (active === 5) {
-      return <SecurityList />
+      return <SecurityList />;
     } else if (active === 6) {
-      return <GasList />
+      return <GasList />;
     } else if (active === 7) {
-      return <InternetList />
+      return <InternetList />;
     }
-  }
+  };
 
   //swiper
-  const swiperRef = useRef()
-  const [isDragging, setIsDragging] = useState(false)
-  const [startX, setStartX] = useState(null)
-  const [scrollLeft, setScrollLeft] = useState(0)
+  const swiperRef = useRef();
+  const [isDragging, setIsDragging] = useState(false);
+  const [startX, setStartX] = useState(null);
+  const [scrollLeft, setScrollLeft] = useState(0);
 
   const handleMouseDown = (e) => {
-    setIsDragging(true)
+    setIsDragging(true);
 
-    setStartX(e.clientX - swiperRef.current.offsetLeft) //每次開始的位置
-    setScrollLeft(swiperRef.current.scrollLeft) //移動的距離
-  }
+    setStartX(e.clientX - swiperRef.current.offsetLeft); //每次開始的位置
+    setScrollLeft(swiperRef.current.scrollLeft); //移動的距離
+  };
   const handleMouseMove = (e) => {
-    if (!isDragging) return
-    const x = e.clientX - swiperRef.current.offsetLeft
-    const scrollX = x - startX
-    swiperRef.current.scrollLeft = scrollLeft - scrollX
-  }
+    if (!isDragging) return;
+    const x = e.clientX - swiperRef.current.offsetLeft;
+    const scrollX = x - startX;
+    swiperRef.current.scrollLeft = scrollLeft - scrollX;
+  };
   const handleMouseUp = () => {
-    setIsDragging(false)
-  }
+    setIsDragging(false);
+  };
   // 手機板移動
   const handleTouchStart = (e) => {
-    setIsDragging(true)
-    setStartX(e.touches[0].clientX - swiperRef.current.offsetLeft)
-    setScrollLeft(swiperRef.current.scrollLeft)
-  }
+    setIsDragging(true);
+    setStartX(e.touches[0].clientX - swiperRef.current.offsetLeft);
+    setScrollLeft(swiperRef.current.scrollLeft);
+  };
   const handleTouchMove = (e) => {
-    if (!isDragging) return
-    const x = e.touches[0].clientX - swiperRef.current.offsetLeft
-    const scrollX = x - startX
-    swiperRef.current.scrollLeft = scrollLeft - scrollX
-  }
+    if (!isDragging) return;
+    const x = e.touches[0].clientX - swiperRef.current.offsetLeft;
+    const scrollX = x - startX;
+    swiperRef.current.scrollLeft = scrollLeft - scrollX;
+  };
   const handleTouchEnd = () => {
-    setIsDragging(false)
-  }
+    setIsDragging(false);
+  };
   return (
     <div className={style.l_equitment}>
       <div className={style.l_title}>
@@ -152,14 +158,14 @@ export default function EquitmentSet() {
             <div
               key={i}
               onClick={() => {
-                setActive(item.id)
+                setActive(item.id);
               }}
-              className={item.id === active ? style.nav_btn_active : ''}
+              className={item.id === active ? style.nav_btn_active : ""}
             >
               <BlueButton
                 text={item.name}
-                handleBlueBTN={handleEquitment}
                 btnnone={true}
+                handleBlueBTN={handleEquitment}
               />
             </div>
           ))}
@@ -168,5 +174,5 @@ export default function EquitmentSet() {
         <div className={style.col_equitment}>{renderScreen2()}</div>
       </div>
     </div>
-  )
+  );
 }

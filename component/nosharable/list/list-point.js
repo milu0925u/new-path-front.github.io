@@ -1,51 +1,51 @@
-import React, { useEffect, useState } from 'react'
-import style from './list.module.scss'
-import Search from './model/search'
-import { useDispatch, useSelector } from 'react-redux'
-import ListModelData from './model/list-model-data'
-import { SetShowDataAction } from '@/redux/actions/ListAction'
-import WhiteButton from '@/component/button/white-button'
-import { useRouter } from 'next/router'
+import React, { useEffect, useState } from "react";
+import style from "./list.module.scss";
+import Search from "./model/search";
+import { useDispatch, useSelector } from "react-redux";
+import ListModelData from "./model/list-model-data";
+import { SetShowDataAction } from "@/redux/actions/ListAction";
+import WhiteButton from "@/component/button/white-button";
+import { useRouter } from "next/router";
 export default function ListPoint({
   handleSort,
   handleChosenDelete,
   handleDeleteBTN,
 }) {
-  const dispatch = useDispatch()
-  const domain = process.env.NEXT_PUBLIC_DOMAIN
-  const { datas } = useSelector((state) => state.public)
-  const { current, data } = useSelector((state) => state.pointList)
+  const dispatch = useDispatch();
+  const domain = process.env.NEXT_PUBLIC_DOMAIN;
+  const { datas } = useSelector((state) => state.public);
+  const { current, data } = useSelector((state) => state.pointList);
   // 所有資料 / 顯示資料
-  const [alldatasList, setAllDatasList] = useState([])
-  const [datasList, setDatasList] = useState([])
+  const [alldatasList, setAllDatasList] = useState([]);
+  const [datasList, setDatasList] = useState([]);
   useEffect(() => {
     if (data) {
-      setDatasList(data)
-      setAllDatasList(data)
+      setDatasList(data);
+      setAllDatasList(data);
     }
-  }, [data])
-  const [currentId, setCurrentId] = useState()
+  }, [data]);
+  const [currentId, setCurrentId] = useState();
   useEffect(() => {
     if (current) {
-      setCurrentId(current.id)
+      setCurrentId(current.id);
     }
-  }, [current])
+  }, [current]);
 
   // choose
   const handleChoose = (e) => {
-    const id = Number(e.currentTarget.dataset.id)
+    const id = Number(e.currentTarget.dataset.id);
     if (id) {
-      const [currentData] = datasList.filter((item) => item.id == id)
+      const [currentData] = datasList.filter((item) => item.id == id);
       let newData = {
         ...currentData,
         model_path: `${domain}/${currentData.model_path}`,
         image_path: `${domain}/${currentData.image_path}`,
-      }
+      };
 
-      dispatch(SetShowDataAction(newData))
-      localStorage.setItem('point', JSON.stringify(newData))
+      dispatch(SetShowDataAction(newData));
+      localStorage.setItem("point", JSON.stringify(newData));
     }
-  }
+  };
 
   return (
     <>
@@ -55,6 +55,11 @@ export default function ListPoint({
           <WhiteButton
             text={datas.modify}
             icon="icon-edit"
+            handleBlueBTN={handleSort}
+          />
+          <WhiteButton
+            text={datas.path}
+            icon="icon-path"
             handleBlueBTN={handleSort}
           />
           <WhiteButton
@@ -78,5 +83,5 @@ export default function ListPoint({
         </div>
       </div>
     </>
-  )
+  );
 }

@@ -1,5 +1,5 @@
-import { configureStore } from '@reduxjs/toolkit'
-import { publicReducer } from './reducers/publicReducer'
+import { configureStore } from "@reduxjs/toolkit";
+import { publicReducer } from "./reducers/publicReducer";
 import {
   modelReducer,
   pointReducer,
@@ -7,7 +7,9 @@ import {
   workingReducer,
   centralControlReducer,
   abnormalLogReducer,
-} from './reducers/listReducer'
+  startReducer,
+  eqReducer,
+} from "./reducers/listReducer";
 
 const reducer = {
   public: publicReducer,
@@ -15,13 +17,15 @@ const reducer = {
   pointList: pointReducer,
   pathList: pathReducer,
   workList: workingReducer,
+  eq: eqReducer,
   centralControl: centralControlReducer,
   log: abnormalLogReducer,
-}
+  start: startReducer,
+};
 
-const preloadedState = {}
+const preloadedState = {};
 
 export const store = configureStore({
   reducer: reducer,
   preloadedState: preloadedState,
-})
+});

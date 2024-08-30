@@ -67,13 +67,12 @@ const DrawUnity = ({
     URL.revokeObjectURL(url);
     const formData = new FormData();
     formData.append("blob", blob);
+    console.log(formData);
   }, []);
 
   // 有在內部上傳檔案時觸發
   const [isUpload, setIsUpload] = useState(false);
   const handleNews = useCallback(() => {
-    console.log("212");
-
     setIsUpload(true);
   }, []);
 
@@ -215,6 +214,8 @@ const DrawUnity = ({
       }
       sendMessage("Canvas_Import", "LoadID", Number(data.id));
       sendMessage("Canvas_Import", "LoadPly", data.model_path);
+      console.log(data);
+
       await objDownload(data.model_path);
     };
     const objDownload = async (objPath) => {

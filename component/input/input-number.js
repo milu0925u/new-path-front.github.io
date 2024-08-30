@@ -1,5 +1,5 @@
-import React from 'react'
-import style from './input.module.scss'
+import React from "react";
+import style from "./input.module.scss";
 export default function InputNumber({ handleInputValue, textvalue }) {
   return (
     <input
@@ -7,8 +7,8 @@ export default function InputNumber({ handleInputValue, textvalue }) {
       className={style.input_default}
       value={textvalue}
       onChange={(e) => {
-        handleInputValue(e)
+        handleInputValue(e);
       }}
     />
-  )
+  );
 }

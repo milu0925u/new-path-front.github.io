@@ -1,107 +1,77 @@
 .l_screen {
   position: relative;
   width: 60%;
-  min-height: 400px;
+  height: 100%;
+  min-height: 500px;
 }
 
 .screen_title {
-  position: absolute;
-  top: 30px;
+  height: 50px;
   width: 100%;
   display: flex;
+  align-items: center;
   justify-content: center;
   font-size: 30px;
 }
 
 .fail {
   width: 100%;
-  height: 100%;
+  height: calc(100% - 100px);
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 5rem;
   img {
     width: 100%;
     height: 100%;
     object-fit: contain;
-    max-width: 200px;
+    max-width: 15vw;
+    min-width: 150px;
   }
 }
 .success {
-  width: 100%;
-  height: 100%;
-  position: relative;
+  height: calc(100% - 50px);
   display: flex;
   justify-content: center;
   align-items: center;
-  div {
+  position: relative;
+  > div {
     position: absolute;
-    background: url('/images/icon/point.svg') no-repeat;
-    background-size: contain;
-    max-width: 30px;
-    max-height: 30px;
-    width: 50px;
-    height: 50px;
     cursor: pointer;
-    &:hover {
-      position: absolute;
-      background: url('/images/icon/point-hover.svg') no-repeat;
-      background-size: contain;
-      max-width: 30px;
-      max-height: 30px;
-    }
   }
-  span {
-    position: absolute;
-    top: 0;
-    left: -20px;
+  > div:nth-child(1) {
+    transform: rotate(0deg) translateY(-160px) rotate(0deg);
+  }
+  > div:nth-child(2) {
+    transform: rotate(45deg) translateY(-170px) rotate(-45deg);
+  }
+  > div:nth-child(3) {
+    transform: rotate(90deg) translateY(-180px) rotate(-90deg);
+  }
+  > div:nth-child(4) {
+    transform: rotate(135deg) translateY(-170px) rotate(-135deg);
+  }
+  > div:nth-child(5) {
+    transform: rotate(180deg) translateY(-160px) rotate(-180deg);
+  }
+  > div:nth-child(6) {
+    transform: rotate(225deg) translateY(-170px) rotate(-225deg);
+  }
+  > div:nth-child(7) {
+    transform: rotate(270deg) translateY(-180px) rotate(-270deg);
+  }
+  > div:nth-child(8) {
+    transform: rotate(315deg) translateY(-170px) rotate(-315deg);
   }
 
-  div:nth-child(1) {
-    top: 13vh;
+  i {
+    font-size: 40px;
   }
-  div:nth-child(2) {
-    top: 20vh;
-    right: 14vw;
-  }
-  div:nth-child(3) {
-    right: 7vw;
-  }
-  div:nth-child(4) {
-    bottom: 20vh;
-    right: 14vw;
-  }
-  div:nth-child(5) {
-    bottom: 13vh;
-  }
-  div:nth-child(6) {
-    bottom: 20vh;
-    left: 14vw;
-  }
-  div:nth-child(7) {
-    left: 7vw;
-  }
-  div:nth-child(8) {
-    top: 20vh;
-    left: 14vw;
-  }
+
   img {
     width: 100%;
     height: 100%;
     max-width: 200px;
     max-height: 200px;
-  }
-
-  .active {
-    position: absolute;
-    top: -3px;
-    left: 1px;
-    background: url('/images/icon/ok-red.svg') no-repeat;
-    background-size: contain;
-    width: 50px;
-    height: 50px;
-    max-width: 25px;
-    max-height: 25px;
   }
 }
 
@@ -117,37 +87,10 @@
   }
 
   .success {
-    div:nth-child(1) {
-      top: 3vh;
-    }
-    div:nth-child(2) {
-      right: 22vw;
-    }
-    div:nth-child(4) {
-      right: 22vw;
-    }
-    div:nth-child(5) {
-      bottom: 3vh;
-    }
-    div:nth-child(6) {
-      left: 22vw;
-    }
-    div:nth-child(8) {
-      left: 22vw;
-    }
-
     .fail {
       img {
         max-width: 20%;
       }
-    }
-  }
-}
-
-@media screen and (max-width: 576px) {
-  .success {
-    img {
-      max-width: 150px;
     }
   }
 }

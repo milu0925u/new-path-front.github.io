@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
-import style from './list.module.scss'
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import style from "./list.module.scss";
 
-import WhiteButton from '@/component/button/white-button'
+import WhiteButton from "@/component/button/white-button";
 
-import Search from './model/search'
-import ListNav from './process/list-nav'
-import ListModelData from './model/list-model-data'
+import Search from "./model/search";
+import ListNav from "./process/list-nav";
+import ListModelData from "./model/list-model-data";
 export default function ListWork({
   select,
   handleSelect,
@@ -16,17 +16,17 @@ export default function ListWork({
   handleDeleteBTN,
   handleChosenDelete,
 }) {
-  const { datas } = useSelector((state) => state.public)
-  const { data } = useSelector((state) => state.workList)
+  const { datas } = useSelector((state) => state.public);
+  const { data } = useSelector((state) => state.workList);
 
   useEffect(() => {
-    setAllDatasList(data.data)
-    setDatasList(data.data)
-  }, [data.data])
+    setAllDatasList(data.data);
+    setDatasList(data.data);
+  }, [data.data]);
 
   // 所有資料 / 顯示資料
-  const [alldatasList, setAllDatasList] = useState([])
-  const [datasList, setDatasList] = useState([])
+  const [alldatasList, setAllDatasList] = useState([]);
+  const [datasList, setDatasList] = useState([]);
 
   return (
     <div
@@ -60,5 +60,5 @@ export default function ListWork({
       </div>
       <ListNav select={select} handleSelect={handleSelect} />
     </div>
-  )
+  );
 }

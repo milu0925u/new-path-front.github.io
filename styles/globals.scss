@@ -16,13 +16,26 @@
   --main-green: #40da87;
   --main-green-light: #98d3b4;
   --main-green-light-op05: rgba(64, 218, 135, 0.5);
+  $color: red;
 
-  --header: 60px;
-  --footer: 55px;
+  --header: 70px;
+  --footer: 70px;
   --rwd-btn: 10px;
 
-  --sidebar-width: 300px;
+  --sidebar-width: 250px;
   --margin-top: 100px;
+}
+
+@media screen and (max-width: 1400px) {
+  :root {
+    --sidebar-width: 220px;
+  }
+}
+@media screen and (max-width: 768px) {
+  :root {
+    --header: 50px;
+    --footer: 60px;
+  }
 }
 
 /* --------------- background --------------- */
@@ -165,7 +178,7 @@ main {
 
   .content {
     position: relative;
-    width: 90%;
+    width: 80%;
     height: calc(100vh - var(--header) - var(--footer) - 50px - 100px);
     min-height: 500px;
     margin-inline: auto;
@@ -194,6 +207,9 @@ main {
       width: 75%;
       height: 100%;
     }
+  }
+  .content-margin {
+    margin-top: 100px;
   }
 
   .content-abnormal-log {
@@ -231,14 +247,20 @@ main {
   }
 }
 
+@media screen and (max-width: 490px) {
+  .container .content {
+    width: 90%;
+  }
+}
+
 @media screen and (max-width: 1200px) {
   main {
-    height: calc(100% - var(--header) - var(--footer));
+    // height: calc(100% - var(--header) - var(--footer));
   }
 
   .container {
     .content {
-      height: calc(100% - var(--header) - var(--footer));
+      // height: calc(100% - var(--header) - var(--footer));
       min-height: auto;
       flex-direction: column;
       margin-top: 0;

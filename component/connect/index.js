@@ -1,30 +1,40 @@
-import React from 'react'
-import style from './connect.module.scss'
-import { useSelector } from 'react-redux'
+import React from "react";
+import style from "./connect.module.scss";
+import { useSelector } from "react-redux";
 export default function Connect({ icon }) {
-  const { equitment } = useSelector((state) => state.public)
+  const { camera } = useSelector((state) => state.public);
 
   const renderConnetScreen = () => {
-    switch (equitment) {
-      case true: {
-        return <div className={style.success}></div>
-      }
-      case false: {
+    switch (camera) {
+      case "success": {
         return (
-          <div className={style.fail}>
-            <i className="icon-cancle"></i>
+          <div className={style.line}>
+            <div className={style.success}></div>
           </div>
-        )
+        );
+      }
+      case "fail": {
+        return (
+          <div className={style.line}>
+            <div className={style.fail}>
+              <i className="icon-cancle"></i>
+            </div>
+          </div>
+        );
       }
       default:
-        return <div className={style.connect_line}></div>
+        return <div className={style.connect_line}></div>;
     }
-  }
+  };
   return (
-    <div className={style.image_block}>
+    <div
+      className={`${style.image_block} ${
+        camera === "success" ? style.success : style.fail
+      }`}
+    >
       <i className={icon}></i>
-      <div className={style.line}>{renderConnetScreen()}</div>
+      {renderConnetScreen()}
       <i className="icon-screen"></i>
     </div>
-  )
+  );
 }

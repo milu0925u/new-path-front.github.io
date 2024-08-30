@@ -18,15 +18,14 @@ import { createdWayWorkingAction } from "@/redux/actions/ListAction";
 
 import RWDTitle from "@/component/layout/rwd-title";
 import BlueButton from "@/component/button/blue-button";
-export default function Process1() {
+export default function ChosenWorkWay() {
   const dispatch = useDispatch();
   const router = useRouter();
 
-  useEffect(() => {
-    dispatch(pageNextAction("workway"));
-  }, []);
-
   const { datas } = useSelector((state) => state.public);
+  const { path } = useSelector((state) => state.start);
+
+  console.log(path);
 
   // 傳入陣列
   const [work, setWork] = useState(null);
@@ -42,15 +41,11 @@ export default function Process1() {
     ]);
   }, [datas]);
   // page
-  const handleReturn = () => {
-    dispatch(pageNextAction("/"));
-    router.back();
-  };
   const handleNext = () => {
-    dispatch(pageNextAction("name"));
     dispatch(
       createdWayWorkingAction(Number(swiperRef.current.swiper.realIndex) + 1)
     );
+    router.push("/processing/processing-equitment");
   };
   // choose work way
   const [clickItem, setClickItem] = useState(1);
@@ -60,13 +55,13 @@ export default function Process1() {
   // swiper
   const [windowWidth, setWindowWidth] = useState(null);
   useEffect(() => {
-    const handleResize = () => {
-      setWindowWidth(window.innerWidth);
-    };
-    window.addEventListener("resize", handleResize);
     handleResize();
+    window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, [windowWidth]);
+  const handleResize = () => {
+    setWindowWidth(window.innerWidth);
+  };
 
   const swiperRef = useRef(null);
 
@@ -79,17 +74,20 @@ export default function Process1() {
         title={datas.chooseprocessingmethod}
         icon="icon-choose-work-way"
       >
-        <ReturnWhiteButton handleReturnBTN={handleReturn} />
+        <button className="rwd-display-none-btn"></button>
         <button className="rwd-display-none-btn"></button>
       </RWDTitle>
       <div className="content content-white-full">
         <div className={style.l_work_card}>
-          <div>
+          <div className={style.chosen_card}>
             <BlueButton
-              text={datas.importpath}
+              text={datas.selectpath}
               icon="icon-importpath"
               handleBlueBTN={handleBlueBTN}
             />
+            <div className={style.l_work_card_pathname}>
+              {path ? path.name : "未選擇"}
+            </div>
           </div>
           <div className={style.col_work_card}>
             <Swiper slidesPerView={windowWidth < 1200 ? 1 : 7} ref={swiperRef}>
@@ -107,15 +105,12 @@ export default function Process1() {
               <WayLine />
             </div>
           </div>
-          <div id={style.workcard_nextbtn_swiper}>
+          <div className={style.work_card_btn}>
             <OrangeButton
               text={datas.confirm}
               icon="icon-ok"
               handleOrangeBTN={handleNext}
             />
-          </div>
-          <div className="rwd-btn">
-            <ReturnBlueButton handleReturnBTN={handleReturn} />
           </div>
         </div>
       </div>

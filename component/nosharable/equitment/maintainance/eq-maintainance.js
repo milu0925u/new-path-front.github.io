@@ -1,9 +1,12 @@
-import React from 'react'
-import style from '../equitment-set.module.scss'
-import { useSelector } from 'react-redux'
-import Connect from '@/component/connect'
+import React from "react";
+import style from "../equitment-set.module.scss";
+import { useSelector } from "react-redux";
+import Connect from "@/component/connect";
 export default function EqMaintainance() {
-  const { datas } = useSelector((state) => state.public)
+  const { datas } = useSelector((state) => state.public);
+  const { eq } = useSelector((state) => state.start);
+
+  console.log(eq);
 
   return (
     <div className={style.maintainance}>
@@ -27,5 +30,5 @@ export default function EqMaintainance() {
         <Connect icon="icon-weld" />
       </div>
     </div>
-  )
+  );
 }

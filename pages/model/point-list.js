@@ -90,18 +90,12 @@ export default function PointList() {
           switchState={opentool}
           handleclose={handleOpenTool}
         >
-          <ReturnWhiteButton handleReturnBTN={handleReturn} />
-          <WhiteButton
-            text={datas.toolbox}
-            icon="icon-toolbox"
-            handleBlueBTN={handleOpenTool}
-          />
+          <DeleteWhiteButton handleDeleteBTN={handleDeleteBTN} />
           <WhiteButton
             text={datas.modify}
             icon="icon-edit"
             handleBlueBTN={handleSort}
           />
-          <DeleteWhiteButton handleDeleteBTN={handleDeleteBTN} />
         </RWDTitle>
         <div className="content content-pd content-blue-full">
           <ListPoint
@@ -122,7 +116,7 @@ export default function PointList() {
               icon="icon-choosePoint"
               handleOrangeBTN={handleNext}
             />
-            <ReturnBlueButton handleReturnBTN={handleReturn} />
+            <button className="rwd-display-none-btn"></button>
           </div>
         </div>
       </div>

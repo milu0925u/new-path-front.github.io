@@ -1,5 +1,5 @@
 import style from "./navbar.module.scss";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useLayoutEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 
@@ -16,42 +16,41 @@ export default function Navbar() {
   const handleNavigation = (e) => {
     e.preventDefault();
     let link = e.currentTarget.dataset.href;
+    console.log(link);
+
     if (link.includes("draw")) {
-      dispatch(pageNextAction(""));
       dispatch(unityOpenAction());
     }
     if (unity) {
       unityLeaveAlert().then((result) => {
         if (result.isConfirmed) {
           dispatch(unityCloseAction());
-          dispatch(pageNextAction(""));
           router.push(link);
         }
       });
     } else {
-      dispatch(pageNextAction(""));
       router.push(link);
     }
   };
 
   // navbar > and <
-  const [click, setClick] = useState(false);
+  const [click, setClick] = useState(true);
   const handleClick = () => {
     setClick(!click);
   };
 
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth > 1400) {
-        setClick(true);
-      }
-    };
+  useLayoutEffect(() => {
+    handleResize();
     window.addEventListener("resize", handleResize);
-
     return () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+  const handleResize = () => {
+    if (window.innerWidth > 1400) {
+      setClick(true);
+    }
+  };
 
   return (
     <div
@@ -59,50 +58,51 @@ export default function Navbar() {
         click ? style.navbar_open : style.navbar_close
       }`}
     >
-      <ul>
-        {click ? (
-          <li className={style.title}>
-            <span className={style.one}>{datas.pathconfigurationsetup}</span>
-          </li>
-        ) : (
-          <li></li>
-        )}
-        {datas?.model?.map((item) => (
-          <li
-            key={item.name}
-            data-href={item.href}
-            onClick={(e) => {
-              handleNavigation(e);
-            }}
-            role="button"
-          >
-            <i className={item.icon}></i>
-            {click ? <div>{item.name}</div> : ""}
-          </li>
-        ))}
-      </ul>
-      <ul>
-        {click ? (
-          <li className={style.title}>
-            <span className={style.two}>{datas.executeprocessing}</span>
-          </li>
-        ) : (
-          <li>　　</li>
-        )}
-        {datas?.execute?.map((item) => (
-          <li
-            key={item.name}
-            data-href={item.href}
-            onClick={(e) => {
-              handleNavigation(e);
-            }}
-          >
-            <i className={item.icon}></i>
-            {click ? <div>{item.name}</div> : ""}
-          </li>
-        ))}
-      </ul>
-
+      <div className={style.navbar_body}>
+        <ul>
+          {click ? (
+            <li className={style.title}>
+              <span className={style.one}>{datas.pathconfigurationsetup}</span>
+            </li>
+          ) : (
+            <li></li>
+          )}
+          {datas?.model?.map((item) => (
+            <li
+              key={item.name}
+              data-href={item.href}
+              onClick={(e) => {
+                handleNavigation(e);
+              }}
+              role="button"
+            >
+              <i className={item.icon}></i>
+              {click ? <div>{item.name}</div> : ""}
+            </li>
+          ))}
+        </ul>
+        <ul>
+          {click ? (
+            <li className={style.title}>
+              <span className={style.two}>{datas.executeprocessing}</span>
+            </li>
+          ) : (
+            <li>　　</li>
+          )}
+          {datas?.execute?.map((item) => (
+            <li
+              key={item.name}
+              data-href={item.href}
+              onClick={(e) => {
+                handleNavigation(e);
+              }}
+            >
+              <i className={item.icon}></i>
+              {click ? <div>{item.name}</div> : ""}
+            </li>
+          ))}
+        </ul>
+      </div>
       <button
         className={`${style.bar} ${click ? style.barOpen : style.barClose}`}
         onClick={handleClick}

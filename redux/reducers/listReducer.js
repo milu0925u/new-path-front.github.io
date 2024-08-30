@@ -18,120 +18,127 @@ import {
   DATA_WORKING_CHOSEN,
   DATA_CENTER_CONTROL_READ,
   DATA_ABNORMAL_LOG_READ,
-} from '../constants'
+  WORK_START_METHOD,
+  WORK_START_PATH,
+  WORK_START_EQ,
+  WORK_START_PARAM,
+  WORK_START_ROBOT,
+  DATA_EQ_READ,
+  DATA_EQ_DELETE,
+  DATA_EQ_CHOSEN,
+} from "../constants";
 
-let initialA = { current: {}, data: [] }
-let initialB = { current: {}, data: [] }
-let initialC = { current: {}, data: [] }
-let initialD = { current: {}, data: [], create: {} }
-let initialE = { data: [] }
-let initialF = { data: [] }
+let initialA = { current: {}, data: [] };
+let initialB = { current: {}, data: [] };
+let initialC = { current: {}, data: [] };
+let initialD = { current: {}, data: [], create: {} };
+let initialE = { data: [] };
+let initialF = { data: [] };
+let initialG = { path: {}, method: "weld", eq: {}, param: {}, robot: {} };
+let initialH = { current: {}, data: [] };
 
 export const modelReducer = (state = initialA, action) => {
   switch (action.type) {
     case DATA_MODEL_READ: {
-      return { ...state, data: action.payload }
+      return { ...state, data: action.payload };
     }
     case DATA_MODEL_DELETE: {
-      return { ...state, data: action.payload }
+      return { ...state, data: action.payload };
     }
     case DATA_MODEL_CHOSEN: {
-      return { ...state, current: action.payload }
+      return { ...state, current: action.payload };
     }
     default:
-      return state
+      return state;
   }
-}
-
+};
 export const pointReducer = (state = initialB, action) => {
   switch (action.type) {
     case DATA_POINT_READ: {
-      return { ...state, data: action.payload }
+      return { ...state, data: action.payload };
     }
     case DATA_POINT_DELETE: {
-      return { ...state, data: action.payload }
+      return { ...state, data: action.payload };
     }
     case DATA_POINT_CHOSEN: {
-      return { ...state, current: action.payload }
+      return { ...state, current: action.payload };
     }
     default:
-      return state
+      return state;
   }
-}
-
+};
 export const pathReducer = (state = initialC, action) => {
   switch (action.type) {
     case DATA_PATH_READ: {
-      return { ...state, data: action.payload }
+      return { ...state, data: action.payload };
     }
     case DATA_PATH_DELETE: {
-      return { ...state, data: action.payload }
+      return { ...state, data: action.payload };
     }
     case DATA_PATH_CHOSEN: {
-      return { ...state, current: action.payload }
+      return { ...state, current: action.payload };
     }
     default:
-      return state
+      return state;
   }
-}
-
+};
 export const workingReducer = (state = initialD, action) => {
   switch (action.type) {
     case DATA_WORKING_READ: {
-      return { ...state, data: action.payload }
+      return { ...state, data: action.payload };
     }
     case DATA_WORKING_DELETE: {
-      return { ...state, data: action.payload }
+      return { ...state, data: action.payload };
     }
     case DATA_WORKING_CHOSEN: {
-      return { ...state, current: action.payload }
+      return { ...state, current: action.payload };
     }
     case DATA_WORKING_CREATE_CLEAR: {
-      return { ...state, create: {} }
+      return { ...state, create: {} };
     }
     case DATA_WORKING_CREATE_WAY: {
-      let wayid
+      let wayid;
       switch (action.payload) {
         case 1:
-        case 'weld': {
-          wayid = 'weld'
-          break
+        case "weld": {
+          wayid = "weld";
+          break;
         }
         case 2:
-        case 'polish': {
-          wayid = 'polish'
-          break
+        case "polish": {
+          wayid = "polish";
+          break;
         }
         case 3:
-        case 'debur': {
-          wayid = 'debur'
-          break
+        case "debur": {
+          wayid = "debur";
+          break;
         }
         case 4:
-        case 'spray': {
-          wayid = 'spray'
-          break
+        case "spray": {
+          wayid = "spray";
+          break;
         }
         case 5:
-        case 'drill': {
-          wayid = 'drill'
-          break
+        case "drill": {
+          wayid = "drill";
+          break;
         }
         case 6:
-        case 'glue': {
-          wayid = 'glue'
-          break
+        case "glue": {
+          wayid = "glue";
+          break;
         }
         case 7:
-        case 'cut': {
-          wayid = 'cut'
-          break
+        case "cut": {
+          wayid = "cut";
+          break;
         }
       }
-      return { ...state, create: { way: wayid } }
+      return { ...state, create: { way: wayid } };
     }
     case DATA_WORKING_CREATE_NAME: {
-      return { ...state, create: { ...state.create, name: action.payload } }
+      return { ...state, create: { ...state.create, name: action.payload } };
     }
     case DATA_WORKING_CREATE_PARAM: {
       return {
@@ -140,76 +147,116 @@ export const workingReducer = (state = initialD, action) => {
           ...state.create,
           [action.payload.name]: action.payload.value,
         },
-      }
+      };
     }
-
-    case DATA_WORKING_METHOD:
-      return { ...state, create: { ...state.create, method: action.payload } }
+    case DATA_WORKING_METHOD: {
+      return { ...state, create: { ...state.create, method: action.payload } };
+    }
     default:
-      return state
+      return state;
   }
-}
+};
 export const centralControlReducer = (state = initialE, action) => {
   switch (action.type) {
     case DATA_CENTER_CONTROL_READ:
-      let work
+      let work;
       const updatedData = action.payload.map((item) => {
         switch (item.method) {
           case 1:
-          case 'weld': {
-            work = '焊接加工'
-            break
+          case "weld": {
+            work = "焊接加工";
+            break;
           }
 
           case 2:
-          case 'polish': {
-            work = '拋光加工'
-            break
+          case "polish": {
+            work = "拋光加工";
+            break;
           }
 
           case 3:
-          case 'debur': {
-            work = '去毛邊加工'
-            break
+          case "debur": {
+            work = "去毛邊加工";
+            break;
           }
 
           case 4:
-          case 'spray': {
-            work = '噴塗加工'
-            break
+          case "spray": {
+            work = "噴塗加工";
+            break;
           }
 
           case 5:
-          case 'drill': {
-            work = '鑽孔加工'
-            break
+          case "drill": {
+            work = "鑽孔加工";
+            break;
           }
 
           case 6:
-          case 'glue': {
-            work = '塗膠加工'
-            break
+          case "glue": {
+            work = "塗膠加工";
+            break;
           }
 
           case 7:
-          case 'cut': {
-            work = '切割加工'
-            break
+          case "cut": {
+            work = "切割加工";
+            break;
           }
         }
-        return { ...item, work }
-      })
-      return { ...state, data: updatedData }
+        return { ...item, work };
+      });
+      return { ...state, data: updatedData };
     default:
-      return state
+      return state;
   }
-}
+};
 export const abnormalLogReducer = (state = initialF, action) => {
   switch (action.type) {
     case DATA_ABNORMAL_LOG_READ: {
-      return { ...state, data: action.payload }
+      return { ...state, data: action.payload };
     }
     default:
-      return state
+      return state;
   }
-}
+};
+
+export const eqReducer = (state = initialH, action) => {
+  switch (action.type) {
+    case DATA_EQ_READ: {
+      return { ...state, data: action.payload };
+    }
+    case DATA_EQ_DELETE: {
+      return { ...state, data: action.payload };
+    }
+    case DATA_EQ_CHOSEN: {
+      if (action.payload.type === "weld") {
+        return { ...state, current: action.payload };
+      }
+    }
+    default:
+      return state;
+  }
+};
+
+export const startReducer = (state = initialG, action) => {
+  switch (action.type) {
+    case WORK_START_METHOD: {
+      return { ...state, method: action.payload };
+    }
+    case WORK_START_PATH: {
+      return { ...state, path: action.payload };
+    }
+    case WORK_START_EQ: {
+      return { ...state, eq: action.payload };
+    }
+    case WORK_START_PARAM: {
+      return { ...state, param: action.payload };
+    }
+    case WORK_START_ROBOT: {
+      return { ...state, robot: action.payload };
+    }
+    default:
+      return state;
+  }
+};

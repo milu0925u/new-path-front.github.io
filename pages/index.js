@@ -1,5 +1,4 @@
-import LayoutMain from '@/component/layout/layout-main'
-
+import LayoutMain from "@/component/layout/layout-main";
 export default function Home() {
   return (
     <>
@@ -8,5 +7,5 @@ export default function Home() {
         <div className="bg-tool"></div>
       </LayoutMain>
     </>
-  )
+  );
 }

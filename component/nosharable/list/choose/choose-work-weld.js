@@ -1,12 +1,12 @@
-import React from 'react'
-import style from '../list.module.scss'
-import { useSelector } from 'react-redux'
-import OrangeButton from '@/component/button/orange-button'
+import React from "react";
+import style from "../list.module.scss";
+import { useSelector } from "react-redux";
+import OrangeButton from "@/component/button/orange-button";
 export default function ChooseWorkWeld({ handleOrangeBTN }) {
-  const { datas } = useSelector((state) => state.public)
-  const { current } = useSelector((state) => state.workList)
+  const { datas } = useSelector((state) => state.public);
+  const { current } = useSelector((state) => state.workList);
 
-  console.log(current)
+  console.log(current);
 
   return (
     <div className={style.chosen_list}>
@@ -52,5 +52,5 @@ export default function ChooseWorkWeld({ handleOrangeBTN }) {
         />
       </div>
     </div>
-  )
+  );
 }

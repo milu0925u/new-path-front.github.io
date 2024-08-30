@@ -43,13 +43,27 @@
     }
   }
 }
+@media screen and (max-width: 768px) {
+  .header {
+    .header_f {
+      > button {
+        i {
+          font-size: 16px;
+        }
+        span {
+          font-size: 12px;
+        }
+      }
+    }
+  }
+}
 
 /* 左側欄位 - bar */
 .navbar {
   width: var(--sidebar-width);
   background-color: var(--white);
   font-weight: bolder;
-  transition: all 0.1s ease-in;
+  transition: all 0.4s ease;
   position: relative;
   white-space: nowrap;
   .title {
@@ -63,6 +77,11 @@
     .two {
       color: var(--main-orange);
     }
+  }
+
+  .navbar_body {
+    width: 100%;
+    overflow-x: hidden;
   }
 
   ul {
@@ -122,12 +141,16 @@
     width: 80px;
   }
 }
+
 @media screen and (min-width: 1400px) {
   .bar {
     display: none;
   }
 }
-@media screen and (max-width: 992px) {
+@media screen and (max-width: 1200px) {
+  .navbar {
+    display: none;
+  }
 }
 
 // 手機板的選單
@@ -197,9 +220,6 @@
   }
 }
 @media screen and (max-width: 1200px) {
-  .navbar {
-    display: none;
-  }
   .mobile_menu {
     display: inline-block;
   }
@@ -230,15 +250,39 @@
     gap: 5px;
     cursor: pointer;
     span {
-      font-size: 12px;
+      font-size: 14px;
     }
     i {
-      font-size: 18px;
+      font-size: 24px;
     }
   }
 }
 @media screen and (max-width: 1200px) {
   .footer {
     display: flex;
+  }
+}
+@media screen and (max-width: 992px) {
+  .footer {
+    div {
+      span {
+        font-size: 13px;
+      }
+      i {
+        font-size: 22px;
+      }
+    }
+  }
+}
+@media screen and (max-width: 768px) {
+  .footer {
+    div {
+      span {
+        font-size: 12px;
+      }
+      i {
+        font-size: 18px;
+      }
+    }
   }
 }

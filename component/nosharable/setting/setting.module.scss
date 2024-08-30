@@ -1,23 +1,95 @@
-.write_work_setting_name {
-  min-width: 300px;
-  max-width: 500px;
-  width: 100%;
-  height: 300px;
-  padding: 40px;
-  border-radius: 20px;
-  background-color: var(--white);
-  margin: auto;
-  .write_work_setting_name_btn {
+.l_right_setting {
+  flex: 1;
+  background: var(--white-op08);
+  border-radius: 30px;
+  padding: 3%;
+  font-weight: bolder;
+  display: flex;
+  flex-direction: column;
+  .col_right_setting {
     display: flex;
-    justify-content: space-around;
-    align-items: end;
-    height: 80%;
+    > div {
+      padding: 20px;
+      > div {
+        padding-block: 10px;
+      }
+    }
+  }
+  .setting_btn {
+    margin-left: auto;
+  }
+  input[type="number"] {
+    min-width: 100px;
+    height: 30px;
+    text-align: center;
+    border: 2px solid var(--white);
+    background: var(--main-blue-light);
+    border-radius: 20px;
+    font-size: 14px;
+  }
+  /* Chrome, Safari, Edge, Opera */
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Firefox */
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
+
+  /* General styling */
+  input[type="number"] {
+    appearance: none;
   }
 }
 
+.right_setting_name {
+  width: 300px;
+  border-radius: 100px;
+  background: var(--white);
+  display: flex;
+  gap: 10px;
+  padding: 8px 15px;
+  border: 1px solid black;
+  margin-block: 30px;
+}
+
+.flex_text {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  gap: 10px;
+}
+
 @media screen and (max-width: 1200px) {
-  .write_work_setting_name {
-    margin: 0;
-    margin-inline: auto;
+  .l_right_setting {
+    align-items: center;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .l_right_setting {
+    .col_right_setting {
+      display: block;
+      > div {
+        padding: 15px;
+        > div {
+          padding-block: 8px;
+        }
+      }
+    }
+  }
+  .flex_text {
+    justify-content: center;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .flex_text {
+    input {
+      width: 50px;
+    }
   }
 }

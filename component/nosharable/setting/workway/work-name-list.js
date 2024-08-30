@@ -1,21 +1,24 @@
-import React from 'react'
-import style from '@/component/nosharable/list/model/search.module.scss'
-import CancleX from '@/component/nosharable/list/model/cancleX'
-import { useSelector } from 'react-redux'
+import React from "react";
+import style from "@/component/nosharable/setting/setting.module.scss";
+import { createdNameWorkingAction } from "@/redux/actions/ListAction";
+import { useDispatch, useSelector } from "react-redux";
 export default function WorkNameList({ setName }) {
-  const { datas } = useSelector((state) => state.public)
+  const { datas } = useSelector((state) => state.public);
+  const { create } = useSelector((state) => state.workList);
+  const dispatch = useDispatch();
+  const onChangeSetName = (name) => {
+    dispatch(createdNameWorkingAction(name, create.way));
+  };
   return (
-    <div className={`${style.search} ${style.search_w50}`}>
-      <div className={style.work_name}>
-        <i className="icon-workname"></i>
-      </div>
+    <div className={`${style.right_setting_name}`}>
+      <i className="icon-workname"></i>
       <input
         type="text"
         placeholder={datas.enterprocessingconfigurationname}
         onChange={(e) => {
-          setName(e.target.value)
+          onChangeSetName(e.target.value);
         }}
       />
     </div>
-  )
+  );
 }

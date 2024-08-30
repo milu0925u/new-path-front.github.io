@@ -6,13 +6,21 @@
   flex-direction: column;
   .col_work_card {
     position: relative;
-    margin-top: auto;
   }
   #workcard_nextbtn_swiper {
     float: right;
     padding: 30px 40px 0 0;
     margin-top: auto;
     margin-left: auto;
+  }
+  .l_work_card_pathname {
+    padding: 20px 0px 20px 20px;
+  }
+  .work_card_btn {
+    display: flex;
+    justify-content: end;
+    padding-right: 100px;
+    padding-top: 50px;
   }
 }
 
@@ -66,13 +74,7 @@
 
 @media screen and (max-width: 1200px) {
   .l_work_card {
-    display: flex;
-    flex-direction: column;
-    // gap: 15px;
-    > div {
-      display: flex;
-      justify-content: center;
-    }
+    gap: 15px;
     .col_work_card {
       display: flex;
       justify-content: center;
@@ -80,9 +82,9 @@
       min-height: auto;
       margin-block: 20px;
     }
-    #workcard_nextbtn_swiper {
-      float: none;
-      padding: 0;
+    .work_card_btn {
+      justify-content: center;
+      padding-right: 0;
     }
   }
   .card {
@@ -95,6 +97,11 @@
       font-size: 40px;
       color: black;
     }
+  }
+  .chosen_card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
   .rwd_chosen_line {
     display: initial;

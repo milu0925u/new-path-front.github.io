@@ -10,13 +10,13 @@
   &.col_list_bg {
     background: var(--white);
   }
-
-  > div:first-child {
-    display: grid;
-    grid-template-areas: 'input btn btn . ';
-    grid-template-columns: auto 140px 50px 20px;
-    gap: 50px;
+  .list_f {
+    display: flex;
     align-items: center;
+    justify-content: space-between;
+    > div:first-child {
+      width: 20vw;
+    }
   }
   .list_model_title {
     display: grid;
@@ -101,7 +101,11 @@
     }
     .list_f {
       margin-bottom: 16px;
-      :not(:first-child) {
+      > div:first-child {
+        width: 100%;
+      }
+      div:not(:first-child),
+      button {
         display: none;
       }
     }
