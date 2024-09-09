@@ -12,17 +12,14 @@ import { unityOpenAction } from "@/redux/actions/publicAction";
 import {
   readModelAction,
   deleteModelAction,
-  SetDrawDataAction,
+  SetModelAction,
 } from "@/redux/actions/ListAction";
 
 import { deleteAlert } from "@/component/alert/alert";
 import toast from "react-hot-toast";
 
-import ReturnBlueButton from "@/component/button/return-blue-button";
-import ReturnWhiteButton from "@/component/button/return-white-button";
 import DeleteWhiteButton from "@/component/button/delete-white-button";
 
-import LayoutMain from "@/component/layout/layout-main";
 export default function ModelList() {
   const dispatch = useDispatch();
   const router = useRouter();
@@ -55,44 +52,42 @@ export default function ModelList() {
       if (result.isConfirmed) {
         dispatch(deleteModelAction(deleteItem));
         setDeleteItem([]);
-        dispatch(SetDrawDataAction({}));
+        dispatch(SetModelAction({}));
       }
     });
   };
 
   return (
     <>
-      <LayoutMain>
-        <div className="bg-clouds"></div>
-        <div className="bg-sky"></div>
-        <div className="container">
-          <RWDTitle title={datas.modellist} icon="icon-model-list" bgcolor="1">
-            <DeleteWhiteButton handleDeleteBTN={handleDeleteBTN} />
-            <button className="rwd-display-none-btn"></button>
-          </RWDTitle>
-          <div className="content content-pd content-blue-full">
-            <ListModel
-              handleChosenDelete={handleChosenDelete}
-              handleDeleteBTN={handleDeleteBTN}
+      <div className="bg-clouds"></div>
+      <div className="bg-sky"></div>
+      <div className="container">
+        <RWDTitle title={datas.modellist} icon="icon-model-list" bgcolor="1">
+          <DeleteWhiteButton handleDeleteBTN={handleDeleteBTN} />
+          <button className="rwd-display-none-btn"></button>
+        </RWDTitle>
+        <div className="content content-pd content-blue-full">
+          <ListModel
+            handleChosenDelete={handleChosenDelete}
+            handleDeleteBTN={handleDeleteBTN}
+          />
+          <ChooseModel>
+            <OrangeButton
+              text={datas.selectmodel}
+              icon="icon-chooseModel"
+              handleOrangeBTN={handleNext}
             />
-            <ChooseModel>
-              <OrangeButton
-                text={datas.selectmodel}
-                icon="icon-chooseModel"
-                handleOrangeBTN={handleNext}
-              />
-            </ChooseModel>
-            <div className="rwd-btn">
-              <OrangeButton
-                text={datas.selectmodel}
-                icon="icon-chooseModel"
-                handleOrangeBTN={handleNext}
-              />
-              <button className="rwd-display-none-btn"></button>
-            </div>
+          </ChooseModel>
+          <div className="rwd-btn">
+            <OrangeButton
+              text={datas.selectmodel}
+              icon="icon-chooseModel"
+              handleOrangeBTN={handleNext}
+            />
+            <button className="rwd-display-none-btn"></button>
           </div>
         </div>
-      </LayoutMain>
+      </div>
     </>
   );
 }

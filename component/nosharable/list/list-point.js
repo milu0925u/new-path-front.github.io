@@ -3,7 +3,7 @@ import style from "./list.module.scss";
 import Search from "./model/search";
 import { useDispatch, useSelector } from "react-redux";
 import ListModelData from "./model/list-model-data";
-import { SetShowDataAction } from "@/redux/actions/ListAction";
+import { SetPointAction } from "@/redux/actions/ListAction";
 import WhiteButton from "@/component/button/white-button";
 import { useRouter } from "next/router";
 export default function ListPoint({
@@ -42,7 +42,7 @@ export default function ListPoint({
         image_path: `${domain}/${currentData.image_path}`,
       };
 
-      dispatch(SetShowDataAction(newData));
+      dispatch(SetPointAction(newData));
       localStorage.setItem("point", JSON.stringify(newData));
     }
   };

@@ -1,31 +1,30 @@
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { useRouter } from 'next/router'
-import BlueButton from '@/component/button/blue-button'
-import CCLeft from '@/component/nosharable/info/cc-left-info'
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useRouter } from "next/router";
+import BlueButton from "@/component/button/blue-button";
+import CCLeft from "@/component/nosharable/info/cc-left-info";
 import {
   readcontrolAction,
   readabnormallogAction,
-} from '@/redux/actions/ListAction'
+} from "@/redux/actions/ListAction";
 
-import ReturnWhiteButton from '@/component/button/return-white-button'
+import ReturnWhiteButton from "@/component/button/return-white-button";
 
-import RWDTitle from '@/component/layout/rwd-title'
-import LayoutMain from '@/component/layout/layout-main'
+import RWDTitle from "@/component/layout/rwd-title";
 export default function AbnormalLog() {
-  const dispatch = useDispatch()
-  const router = useRouter()
-  const { datas } = useSelector((state) => state.public)
+  const dispatch = useDispatch();
+  const router = useRouter();
+  const { datas } = useSelector((state) => state.public);
   useEffect(() => {
-    dispatch(readcontrolAction())
-    dispatch(readabnormallogAction())
-  }, [])
+    dispatch(readcontrolAction());
+    dispatch(readabnormallogAction());
+  }, []);
 
   const handleReturn = () => {
-    router.back()
-  }
+    router.back();
+  };
   return (
-    <LayoutMain>
+    <>
       <div className="bg-abnormal"></div>
       <div className="container">
         <RWDTitle icon="icon-abnormal-log" title={datas.abnormalsignalrecord}>
@@ -43,6 +42,6 @@ export default function AbnormalLog() {
           </div>
         </div>
       </div>
-    </LayoutMain>
-  )
+    </>
+  );
 }

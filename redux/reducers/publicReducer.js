@@ -8,15 +8,16 @@ import {
   PUBLIC_LOADING,
 } from "../constants";
 
+// 顯示連線狀態
 let initial = {
   loading: false,
-  language: null,
   unity: false,
   camera: null,
   robot: false,
   equitment: false,
-  prevpage: "/",
-  pageset: null, //當前頁面名稱
+  security: false,
+  gas: false,
+  network: false,
   datas: {},
 };
 export const publicReducer = (state = initial, action) => {
@@ -29,10 +30,6 @@ export const publicReducer = (state = initial, action) => {
       return { ...state, unity: action.payload };
     case PUBLIC_CAMERA_STATE:
       return { ...state, camera: action.payload };
-    case PUBLIC_CURRENT_PAGE:
-      return { ...state, pageset: action.payload };
-    case PUBLIC_PREVIOUS_PAGE:
-      return { ...state, prepage: action.payload };
     case PUBLIC_LOADING:
       return { ...state, loading: action.payload };
     default:

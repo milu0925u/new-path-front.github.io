@@ -6,7 +6,7 @@ import RWDTitle from "@/component/layout/rwd-title";
 import { pageNextAction } from "@/redux/actions/publicAction";
 import {
   SaveSetWorkingAction,
-  SetWorkingDataAction,
+  SetWorkListAction,
   wirteParamWorkingAction,
 } from "@/redux/actions/ListAction";
 import RightcontentParam from "@/component/nosharable/info/eq-right-info";
@@ -32,9 +32,8 @@ export default function ParamSettingEdit() {
   // save param
   const handleSave = () => {
     dispatch(SaveSetWorkingAction(create)); //儲存設定
-    dispatch(SetWorkingDataAction()); //把正在選擇的清除
+    dispatch(SetWorkListAction()); //把正在選擇的清除
     router.push("/processing/processing-list", undefined, { shallow: true });
-    dispatch(pageNextAction(""));
   };
 
   return (

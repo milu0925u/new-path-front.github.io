@@ -1,43 +1,40 @@
 import {
   DATA_MODEL_READ,
-  DATA_MODEL_DELETE,
   DATA_MODEL_CHOSEN,
+  DATA_MODEL_DELETE,
   DATA_POINT_READ,
-  DATA_POINT_DELETE,
   DATA_POINT_CHOSEN,
+  DATA_POINT_DELETE,
   DATA_PATH_READ,
-  DATA_PATH_DELETE,
   DATA_PATH_CHOSEN,
+  DATA_PATH_DELETE,
   DATA_WORKING_READ,
-  DATA_WORKING_METHOD,
-  DATA_WORKING_CREATE_CLEAR,
-  DATA_WORKING_CREATE_NAME,
-  DATA_WORKING_CREATE_WAY,
-  DATA_WORKING_CREATE_PARAM,
-  DATA_WORKING_DELETE,
   DATA_WORKING_CHOSEN,
+  DATA_WORKING_DELETE,
+  DATA_WORKING_UPDATE,
+  DATA_WORKING_CREATE,
+  DATA_EQUITMENT_READ,
+  PUBLIC_LOADING,
   DATA_CENTER_CONTROL_READ,
   DATA_ABNORMAL_LOG_READ,
-  WORK_START_METHOD,
-  WORK_START_PATH,
-  WORK_START_EQ,
-  WORK_START_PARAM,
-  WORK_START_ROBOT,
-  DATA_EQ_READ,
-  DATA_EQ_DELETE,
-  DATA_EQ_CHOSEN,
+  DATA_EQUITMENT_READ_DEFAULT,
 } from "../constants";
 
-let initialA = { current: {}, data: [] };
-let initialB = { current: {}, data: [] };
-let initialC = { current: {}, data: [] };
-let initialD = { current: {}, data: [], create: {} };
-let initialE = { data: [] };
-let initialF = { data: [] };
-let initialG = { path: {}, method: "weld", eq: {}, param: {}, robot: {} };
-let initialH = { current: {}, data: [] };
+let init_model = { current: {}, data: [] };
+let init_point = { current: {}, data: [] };
+let init_path = { current: {}, data: [] };
+let init_work = {
+  current: {},
+  data: [],
+  eqdata: [],
+  create: {},
+  eqdatadefault: [],
+};
+let init_center = { data: [] };
+let init_log = { data: [] };
 
-export const modelReducer = (state = initialA, action) => {
+// 所有模型、標點清單
+export const modelReducer = (state = init_model, action) => {
   switch (action.type) {
     case DATA_MODEL_READ: {
       return { ...state, data: action.payload };
@@ -52,7 +49,7 @@ export const modelReducer = (state = initialA, action) => {
       return state;
   }
 };
-export const pointReducer = (state = initialB, action) => {
+export const pointReducer = (state = init_point, action) => {
   switch (action.type) {
     case DATA_POINT_READ: {
       return { ...state, data: action.payload };
@@ -67,7 +64,7 @@ export const pointReducer = (state = initialB, action) => {
       return state;
   }
 };
-export const pathReducer = (state = initialC, action) => {
+export const pathReducer = (state = init_path, action) => {
   switch (action.type) {
     case DATA_PATH_READ: {
       return { ...state, data: action.payload };
@@ -82,7 +79,8 @@ export const pathReducer = (state = initialC, action) => {
       return state;
   }
 };
-export const workingReducer = (state = initialD, action) => {
+// 加工參數
+export const workingReducer = (state = init_work, action) => {
   switch (action.type) {
     case DATA_WORKING_READ: {
       return { ...state, data: action.payload };
@@ -93,70 +91,23 @@ export const workingReducer = (state = initialD, action) => {
     case DATA_WORKING_CHOSEN: {
       return { ...state, current: action.payload };
     }
-    case DATA_WORKING_CREATE_CLEAR: {
-      return { ...state, create: {} };
+    case DATA_WORKING_UPDATE: {
+      return { ...state, data: action.payload };
     }
-    case DATA_WORKING_CREATE_WAY: {
-      let wayid;
-      switch (action.payload) {
-        case 1:
-        case "weld": {
-          wayid = "weld";
-          break;
-        }
-        case 2:
-        case "polish": {
-          wayid = "polish";
-          break;
-        }
-        case 3:
-        case "debur": {
-          wayid = "debur";
-          break;
-        }
-        case 4:
-        case "spray": {
-          wayid = "spray";
-          break;
-        }
-        case 5:
-        case "drill": {
-          wayid = "drill";
-          break;
-        }
-        case 6:
-        case "glue": {
-          wayid = "glue";
-          break;
-        }
-        case 7:
-        case "cut": {
-          wayid = "cut";
-          break;
-        }
-      }
-      return { ...state, create: { way: wayid } };
+    case DATA_WORKING_CREATE: {
+      return { ...state, create: { ...state.create, ...action.payload } };
     }
-    case DATA_WORKING_CREATE_NAME: {
-      return { ...state, create: { ...state.create, name: action.payload } };
+    case DATA_EQUITMENT_READ: {
+      return { ...state, eqdata: action.payload };
     }
-    case DATA_WORKING_CREATE_PARAM: {
-      return {
-        ...state,
-        create: {
-          ...state.create,
-          [action.payload.name]: action.payload.value,
-        },
-      };
-    }
-    case DATA_WORKING_METHOD: {
-      return { ...state, create: { ...state.create, method: action.payload } };
+    case DATA_EQUITMENT_READ_DEFAULT: {
+      return { ...state, eqdatadefault: action.payload };
     }
     default:
       return state;
   }
 };
-export const centralControlReducer = (state = initialE, action) => {
+export const centralControlReducer = (state = init_center, action) => {
   switch (action.type) {
     case DATA_CENTER_CONTROL_READ:
       let work;
@@ -211,50 +162,10 @@ export const centralControlReducer = (state = initialE, action) => {
       return state;
   }
 };
-export const abnormalLogReducer = (state = initialF, action) => {
+export const abnormalLogReducer = (state = init_log, action) => {
   switch (action.type) {
     case DATA_ABNORMAL_LOG_READ: {
       return { ...state, data: action.payload };
-    }
-    default:
-      return state;
-  }
-};
-
-export const eqReducer = (state = initialH, action) => {
-  switch (action.type) {
-    case DATA_EQ_READ: {
-      return { ...state, data: action.payload };
-    }
-    case DATA_EQ_DELETE: {
-      return { ...state, data: action.payload };
-    }
-    case DATA_EQ_CHOSEN: {
-      if (action.payload.type === "weld") {
-        return { ...state, current: action.payload };
-      }
-    }
-    default:
-      return state;
-  }
-};
-
-export const startReducer = (state = initialG, action) => {
-  switch (action.type) {
-    case WORK_START_METHOD: {
-      return { ...state, method: action.payload };
-    }
-    case WORK_START_PATH: {
-      return { ...state, path: action.payload };
-    }
-    case WORK_START_EQ: {
-      return { ...state, eq: action.payload };
-    }
-    case WORK_START_PARAM: {
-      return { ...state, param: action.payload };
-    }
-    case WORK_START_ROBOT: {
-      return { ...state, robot: action.payload };
     }
     default:
       return state;

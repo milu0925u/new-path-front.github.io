@@ -4,11 +4,7 @@ import style from "./list.module.scss";
 import Search from "./model/search";
 import { useDispatch, useSelector } from "react-redux";
 import ListModelData from "./model/list-model-data";
-import {
-  startAction,
-  SetPathDataAction,
-  deleteModelAction,
-} from "@/redux/actions/ListAction";
+import { SetPathAction, deleteModelAction } from "@/redux/actions/ListAction";
 
 import WhiteButton from "@/component/button/white-button";
 
@@ -54,14 +50,7 @@ export default function ListPath({ handleBlueBTN }) {
     const id = Number(e.currentTarget.dataset.id);
     if (id) {
       const [currentData] = datasList.filter((item) => item.id == id);
-      // let newData = {
-      //   ...currentData,
-      //   ply_path: `${domain}/${currentData.ply_path}`,
-      //   image_path: `${domain}/${currentData.image_path}`,
-      // };
-
-      dispatch(startAction(1, currentData));
-      dispatch(SetPathDataAction(currentData));
+      dispatch(SetPathAction(currentData));
       localStorage.setItem("path", JSON.stringify(currentData));
     }
   };
@@ -74,7 +63,7 @@ export default function ListPath({ handleBlueBTN }) {
         <WhiteButton
           text={datas.delete}
           icon="icon-delete"
-          handleBlueBTN={handleBlueBTN}
+          handleBlueBTN={handleDelete}
         />
       </div>
       <div className={style.list_model}>
@@ -86,7 +75,7 @@ export default function ListPath({ handleBlueBTN }) {
         <ListModelData
           currentid={currentId}
           datasList={datasList}
-          handleChosenDelete={handleChosenDelete}
+          handleChosenDelete={handleDelete}
           handleChoose={handleChoose}
         />
       </div>

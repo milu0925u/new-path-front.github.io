@@ -9,6 +9,8 @@ import {
   abnormalLogReducer,
   startReducer,
   eqReducer,
+  mcReducer,
+  csbReducer,
 } from "./reducers/listReducer";
 
 const reducer = {
@@ -17,10 +19,8 @@ const reducer = {
   pointList: pointReducer,
   pathList: pathReducer,
   workList: workingReducer,
-  eq: eqReducer,
   centralControl: centralControlReducer,
   log: abnormalLogReducer,
-  start: startReducer,
 };
 
 const preloadedState = {};

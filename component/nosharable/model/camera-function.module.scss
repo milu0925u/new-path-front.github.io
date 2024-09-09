@@ -38,6 +38,9 @@
         border: 3px solid var(--main-blue);
         color: var(--white);
       }
+      input[type="file"] {
+        display: none;
+      }
       .function_ok_btn {
         border: none;
         border-radius: 0;
@@ -52,9 +55,6 @@
         &:active {
           transform: translate(0, 5px);
         }
-      }
-      input {
-        display: none;
       }
     }
     .function_param_btn {

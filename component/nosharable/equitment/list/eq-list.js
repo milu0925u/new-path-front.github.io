@@ -4,19 +4,18 @@ import { useDispatch, useSelector } from "react-redux";
 import OrangeButton from "@/component/button/orange-button";
 import Search from "@/component/nosharable/list/model/search";
 import WhiteButton from "@/component/button/white-button";
-import { SetEqAction } from "@/redux/actions/ListAction";
+import { useRouter } from "next/router";
 
-export default function EqList({ handleNext }) {
+export default function EqList({ handleNext, text, handleActive }) {
   const { datas } = useSelector((state) => state.public);
-  const { data, current } = useSelector((state) => state.eq);
-  const { method } = useSelector((state) => state.start);
+  const { eqdata, create } = useSelector((state) => state.workList);
 
-  const [active, setActive] = useState(null);
-  const dispatch = useDispatch();
-
+  const router = useRouter();
   useEffect(() => {
-    dispatch(SetEqAction(active));
-  }, [active]);
+    if (create.method === undefined) {
+      router.push("/processing/processing-chose");
+    }
+  }, [router]);
 
   return (
     <div className={style.maintainance_list}>
@@ -26,17 +25,15 @@ export default function EqList({ handleNext }) {
           <WhiteButton text={datas.delete} icon="icon-delete" />
         </div>
         <div className={style.item}>
-          {data
-            .filter((item) => item.type === method)
-            .map((item, i) => (
+          {Array.isArray(eqdata[create.method]) &&
+            eqdata.weld.map((item) => (
               <div
-                key={i}
-                onClick={() => {
-                  setActive(item);
-                }}
-                className={item.id === active?.id ? style.active : ""}
+                key={item.id}
+                data-value={item}
+                onClick={() => handleActive(item)}
+                className={item.id === text?.id ? style.active : ""}
               >
-                {item.machine_name}
+                {item.name}
               </div>
             ))}
         </div>

@@ -1,9 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import style from "./equitment-set.module.scss";
 import BlueButton from "@/component/button/blue-button";
-import { useSelector, useDispatch } from "react-redux";
-import { readEqAction } from "@/redux/actions/ListAction";
-
+import { useDispatch, useSelector } from "react-redux";
 import EqMaintainance from "./maintainance/eq-maintainance";
 import EqList from "./list/eq-list";
 import RobotMaintainance from "./maintainance/robot-maintainance";
@@ -18,9 +16,13 @@ import InternetList from "./list/internet-list";
 import InternetMaintainance from "./maintainance/internet-maintainance";
 import ConsumablesMaintainance from "./maintainance/consumables-maintainance";
 import ConsumablesList from "./list/consumables-list";
+import { createWorkListAction } from "@/redux/actions/ListAction";
+
 export default function EquitmentSet() {
   const dispatch = useDispatch();
   const { datas } = useSelector((state) => state.public);
+  const { eqdata, create } = useSelector((state) => state.workList);
+  // 選單得動態生成
   const [equitment, setEquitment] = useState([]);
   useEffect(() => {
     setEquitment([
@@ -54,47 +56,106 @@ export default function EquitmentSet() {
       },
     ]);
   }, [datas]);
+  // 設備設定選項的顏色
   const [active, setActive] = useState(1);
-  const handleEquitment = () => {};
-  // 讀取資料表
-  useEffect(() => {
-    dispatch(readEqAction());
-  }, []);
+  const handleActiveColor = (e) => {
+    const value = Number(e.currentTarget.parentElement.getAttribute("value"));
+    setActive(value);
+    setText(null);
+  };
+  // 保養日期
+  const [text, setText] = useState(null);
+  const [csbtext, setcsbText] = useState([]);
+  const handleActive = (data) => {
+    setText(data);
+  };
+  const handleCSBActive = (data) => {
+    setcsbText((prev) => {
+      if (prev?.some((item) => item.id === data.id)) {
+        return prev.filter((item) => item.id !== data.id);
+      } else {
+        return [...prev, data];
+      }
+    });
+  };
 
   const renderScreen1 = () => {
     if (active === 1) {
-      return <EqMaintainance />;
+      return <EqMaintainance text={text} />;
     } else if (active === 2) {
-      return <RobotMaintainance />;
+      return <RobotMaintainance text={text} />;
     } else if (active === 3) {
-      return <CameraMaintainance />;
+      return <CameraMaintainance text={text} />;
     } else if (active === 4) {
-      return <ConsumablesMaintainance />;
+      return <ConsumablesMaintainance text={text} />;
     } else if (active === 5) {
-      return <SecurityMaintainance />;
+      return <SecurityMaintainance text={text} />;
     } else if (active === 6) {
-      return <GasMaintainance />;
+      return <GasMaintainance text={text} />;
     } else if (active === 7) {
-      return <InternetMaintainance />;
+      return <InternetMaintainance text={text} />;
     }
   };
-
+  // 清單列表
   const renderScreen2 = () => {
     if (active === 1) {
-      return <EqList />;
+      return (
+        <EqList text={text} handleActive={handleActive} handleNext={handleOK} />
+      );
     } else if (active === 2) {
-      return <RobotList />;
+      return (
+        <RobotList
+          text={text}
+          handleActive={handleActive}
+          handleNext={handleOK}
+        />
+      );
     } else if (active === 3) {
-      return <CameraList />;
+      return (
+        <CameraList
+          text={text}
+          handleActive={handleActive}
+          handleNext={handleOK}
+        />
+      );
     } else if (active === 4) {
-      return <ConsumablesList />;
+      return (
+        <ConsumablesList
+          csbtext={csbtext}
+          handleCSBActive={handleCSBActive}
+          handleNext={handleOK}
+        />
+      );
     } else if (active === 5) {
-      return <SecurityList />;
+      return (
+        <SecurityList
+          text={text}
+          handleActive={handleActive}
+          handleNext={handleOK}
+        />
+      );
     } else if (active === 6) {
-      return <GasList />;
+      return (
+        <GasList
+          text={text}
+          handleActive={handleActive}
+          handleNext={handleOK}
+        />
+      );
     } else if (active === 7) {
-      return <InternetList />;
+      return (
+        <InternetList
+          text={text}
+          handleActive={handleActive}
+          handleNext={handleOK}
+        />
+      );
     }
+  };
+  // 清單裡面確認按鈕
+  const handleOK = () => {
+    let method = text.type;
+    dispatch(createWorkListAction({ [method]: text }));
   };
 
   //swiper
@@ -154,18 +215,16 @@ export default function EquitmentSet() {
           onTouchEnd={handleTouchEnd}
           onTouchCancel={handleTouchEnd}
         >
-          {equitment.map((item, i) => (
+          {equitment.map((item) => (
             <div
-              key={i}
-              onClick={() => {
-                setActive(item.id);
-              }}
+              key={item.id}
+              value={item.id}
               className={item.id === active ? style.nav_btn_active : ""}
             >
               <BlueButton
                 text={item.name}
                 btnnone={true}
-                handleBlueBTN={handleEquitment}
+                handleBlueBTN={handleActiveColor}
               />
             </div>
           ))}

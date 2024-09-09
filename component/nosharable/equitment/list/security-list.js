@@ -5,10 +5,10 @@ import OrangeButton from "@/component/button/orange-button";
 import Search from "@/component/nosharable/list/model/search";
 import WhiteButton from "@/component/button/white-button";
 
-export default function SecurityList() {
+export default function SecurityList({ handleNext, text, handleActive }) {
   const { datas } = useSelector((state) => state.public);
-  const { data } = useSelector((state) => state.eq);
-  const [active, setActive] = useState(1);
+  const { eqdata } = useSelector((state) => state.workList);
+  const [active, setActive] = useState(null);
 
   return (
     <div className={style.maintainance_list}>
@@ -18,21 +18,24 @@ export default function SecurityList() {
           <WhiteButton text={datas.delete} icon="icon-delete" />
         </div>
         <div className={style.item}>
-          {data.map((item, i) => (
-            <div
-              key={i}
-              onClick={() => {
-                setActive(item.id);
-              }}
-              className={item.id === active ? style.active : ""}
-            >
-              {item.name}
-            </div>
-          ))}
+          {Array.isArray(eqdata.security) &&
+            eqdata.security.map((item) => (
+              <div
+                key={item.id}
+                onClick={() => handleActive(item)}
+                className={item.id === text?.id ? style.active : ""}
+              >
+                {item.name}
+              </div>
+            ))}
         </div>
       </div>
       <div className="nextbtn">
-        <OrangeButton text={datas.confirm} icon="icon-ok" />
+        <OrangeButton
+          text={datas.confirm}
+          icon="icon-ok"
+          handleOrangeBTN={handleNext}
+        />
       </div>
     </div>
   );

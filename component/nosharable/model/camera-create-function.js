@@ -5,12 +5,12 @@ import Connect from "@/component/connect";
 export default function CameraFunction({
   children,
   handleConnect,
+  setsettingname,
   handleImportData,
 }) {
   const { datas } = useSelector((state) => state.public);
 
   const [active, setActive] = useState(false);
-  const fileRef = useRef();
   return (
     <div className={`${style.l_function} ${style.bg_function}`}>
       <h3 className="content-title">{datas.adjustscanningsettings}</h3>
@@ -29,19 +29,22 @@ export default function CameraFunction({
             className={active == datas.basicsettings ? style.active : ""}
             onClick={() => {
               setActive(datas.basicsettings);
+              setsettingname("origin.yml");
             }}
           >
             {datas.basicsettings}
           </button>
 
           <input
-            id="file"
+            id="upload"
             type="file"
+            name="setting"
             accept=".yml, .yaml"
             onChange={handleImportData}
+            multiple
           />
           <label
-            htmlFor="file"
+            htmlFor="upload"
             onClick={() => {
               setActive(datas.importcustomsettings);
             }}

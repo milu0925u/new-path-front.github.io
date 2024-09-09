@@ -21,24 +21,11 @@ export const DATA_PATH_CHOSEN = "DATA_PATH_CHOSEN";
 export const DATA_WORKING_READ = "DATA_WORKING_READ";
 export const DATA_WORKING_DELETE = "DATA_WORKING_DELETE";
 export const DATA_WORKING_CHOSEN = "DATA_WORKING_CHOSEN";
-/* ---------- 加工清單-創建新檔 ---------- */
-export const DATA_WORKING_CREATE_CLEAR = "DATA_WORKING_CREATE_CLEAR";
-export const DATA_WORKING_CREATE_NAME = "DATA_WORKING_CREATE_NAME";
-export const DATA_WORKING_CREATE_WAY = "DATA_WORKING_CREATE_WAY";
-export const DATA_WORKING_CREATE_PARAM = "DATA_WORKING_CREATE_PARAM";
-/* ---------- 設備 ---------- */
-export const DATA_EQ_READ = "DATA_EQ_READ";
-export const DATA_EQ_DELETE = "DATA_EQ_DELETE";
-export const DATA_EQ_CHOSEN = "DATA_EQ_CHOSEN";
-/* ---------- 執行 加工 ---------- */
-export const WORK_START_EQ = "WORK_START_EQ";
-export const WORK_START_METHOD = "WORK_START_METHOD";
-export const WORK_START_PATH = "WORK_START_PATH";
-export const WORK_START_PARAM = "WORK_START_PARAM";
-export const WORK_START_ROBOT = "WORK_START_ROBOT";
+export const DATA_WORKING_UPDATE = "DATA_WORKING_UPDATE";
+export const DATA_WORKING_CREATE = "DATA_WORKING_CREATE";
+export const DATA_EQUITMENT_READ_DEFAULT = "DATA_EQUITMENT_READ_DEFAULT";
 
-/* ---------- 加工清單-方法設定 ---------- */
-export const DATA_WORKING_METHOD = "DATA_WORKING_METHOD";
+export const DATA_EQUITMENT_READ = "DATA_EQUITMENT_READ";
 /* 中央控制 */
 export const DATA_CENTER_CONTROL_READ = "DATA_CENTER_CONTROL_READ";
 /* 異常日誌 */

@@ -1,29 +1,28 @@
-import React from 'react'
-import { useRouter } from 'next/router'
-import { useSelector } from 'react-redux'
+import React from "react";
+import { useRouter } from "next/router";
+import { useSelector } from "react-redux";
 // import mqtt from 'mqtt'
-import LeftcontentParam from '@/component/nosharable//info/eq-left-info'
+import LeftcontentParam from "@/component/nosharable//info/eq-left-info";
 
-import RWDTitle from '@/component/layout/rwd-title'
-import ReturnBlueButton from '@/component/button/return-blue-button'
-import ReturnWhiteButton from '@/component/button/return-white-button'
-import RunScreen from '@/component/nosharable/execute/run/run-screen'
-import OrangeButton from '@/component/button/orange-button'
+import RWDTitle from "@/component/layout/rwd-title";
+import ReturnBlueButton from "@/component/button/return-blue-button";
+import ReturnWhiteButton from "@/component/button/return-white-button";
+import RunScreen from "@/component/nosharable/execute/run/run-screen";
+import OrangeButton from "@/component/button/orange-button";
 
-import LayoutMain from '@/component/layout/layout-main'
 export default function ProcessingView() {
-  const router = useRouter()
+  const router = useRouter();
 
-  const { datas } = useSelector((state) => state.public)
+  const { datas } = useSelector((state) => state.public);
   // page
   const handleReturn = () => {
-    router.back()
-  }
-  const handleNext = () => {}
+    router.back();
+  };
+  const handleNext = () => {};
 
   // const [message, setMessage] = useState('')
-  const handlePause = async () => {}
-  const handleStop = async () => {}
+  const handlePause = async () => {};
+  const handleStop = async () => {};
 
   const handleStart = () => {
     // const client = mqtt.connect('http://172.16.11.40:8081')
@@ -47,10 +46,10 @@ export default function ProcessingView() {
     //   client.removeAllListeners()
     //   client.end()
     // }
-  }
+  };
 
   return (
-    <LayoutMain>
+    <>
       <div className="bg-execute"></div>
       <div className="container">
         <RWDTitle title={datas.processingsetting} icon="icon-processing">
@@ -75,6 +74,6 @@ export default function ProcessingView() {
           </div>
         </div>
       </div>
-    </LayoutMain>
-  )
+    </>
+  );
 }

@@ -5,10 +5,10 @@ import OrangeButton from "@/component/button/orange-button";
 import Search from "@/component/nosharable/list/model/search";
 import WhiteButton from "@/component/button/white-button";
 
-export default function RobotList({ handleNext }) {
+export default function RobotList({ handleNext, handleActive, text }) {
   const { datas } = useSelector((state) => state.public);
-  const { data } = useSelector((state) => state.eq);
-  const [active, setActive] = useState(1);
+  const { eqdata } = useSelector((state) => state.workList);
+  const [active, setActive] = useState(null);
 
   return (
     <div className={style.maintainance_list}>
@@ -18,15 +18,12 @@ export default function RobotList({ handleNext }) {
           <WhiteButton text={datas.delete} icon="icon-delete" />
         </div>
         <div className={style.item}>
-          {data
-            .filter((item) => item.type === "robot")
-            .map((item, i) => (
+          {Array.isArray(eqdata.robot) &&
+            eqdata.robot.map((item) => (
               <div
-                key={i}
-                onClick={() => {
-                  setActive(item.id);
-                }}
-                className={item.id === active ? style.active : ""}
+                key={item.id}
+                onClick={() => handleActive(item)}
+                className={item.id === text?.id ? style.active : ""}
               >
                 {item.name}
               </div>

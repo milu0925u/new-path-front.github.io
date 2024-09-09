@@ -1,5 +1,5 @@
 import style from "./navbar.module.scss";
-import { useEffect, useState, useLayoutEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 
@@ -39,7 +39,7 @@ export default function Navbar() {
     setClick(!click);
   };
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => {

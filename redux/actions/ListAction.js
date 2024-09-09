@@ -9,32 +9,19 @@ import {
   DATA_PATH_CHOSEN,
   DATA_PATH_DELETE,
   DATA_WORKING_READ,
-  DATA_WORKING_CREATE_NAME,
-  DATA_WORKING_CREATE_WAY,
-  DATA_WORKING_CREATE_PARAM,
-  DATA_WORKING_CREATE_CLEAR,
-  DATA_WORKING_METHOD,
   DATA_WORKING_CHOSEN,
   DATA_WORKING_DELETE,
+  DATA_WORKING_UPDATE,
+  DATA_WORKING_CREATE,
+  DATA_EQUITMENT_READ,
+  DATA_EQUITMENT_READ_DEFAULT,
   PUBLIC_LOADING,
   DATA_CENTER_CONTROL_READ,
   DATA_ABNORMAL_LOG_READ,
-  WORK_START_METHOD,
-  WORK_START_PATH,
-  WORK_START_EQ,
-  WORK_START_PARAM,
-  WORK_START_ROBOT,
-  DATA_EQ_READ,
-  DATA_EQ_DELETE,
-  DATA_EQ_CHOSEN,
 } from "../constants";
 import axios from "axios";
 import toast from "react-hot-toast";
 
-import {
-  pageNextAction,
-  pagePreviousAction,
-} from "@/redux/actions/publicAction";
 const domain = process.env.NEXT_PUBLIC_DOMAIN;
 
 /* ----------- model list ----------- */
@@ -73,7 +60,7 @@ export const deleteModelAction = (groupid) => async (dispatch) => {
     console.log("模型刪除錯誤", error);
   }
 };
-export const SetDrawDataAction = (data) => async (dispatch) => {
+export const SetModelAction = (data) => async (dispatch) => {
   try {
     await dispatch({
       type: DATA_MODEL_CHOSEN,
@@ -83,7 +70,6 @@ export const SetDrawDataAction = (data) => async (dispatch) => {
     console.log("模型current選擇錯誤", error);
   }
 };
-
 /* ----------- point list ----------- */
 export const readPointAction = () => async (dispatch) => {
   try {
@@ -124,7 +110,7 @@ export const deletePointAction = (groupid) => async (dispatch) => {
     console.log("標點刪除錯誤", error);
   }
 };
-export const SetShowDataAction = (data) => (dispatch) => {
+export const SetPointAction = (data) => (dispatch) => {
   try {
     dispatch({
       type: DATA_POINT_CHOSEN,
@@ -134,7 +120,6 @@ export const SetShowDataAction = (data) => (dispatch) => {
     console.log("標點current選擇錯誤", error);
   }
 };
-
 /* ----------- path list ----------- */
 export const readPathAction = () => async (dispatch) => {
   try {
@@ -170,7 +155,7 @@ export const deletePathAction = (groupid) => async (dispatch) => {
     console.log("標點刪除錯誤", error);
   }
 };
-export const SetPathDataAction = (data) => (dispatch) => {
+export const SetPathAction = (data) => (dispatch) => {
   try {
     dispatch({
       type: DATA_PATH_CHOSEN,
@@ -180,17 +165,61 @@ export const SetPathDataAction = (data) => (dispatch) => {
     console.log("標點current選擇錯誤", error);
   }
 };
-
 /* ----------- working list ----------- */
-export const readWorkingAction = (work) => async (dispatch) => {
+export const readWorkListAction = () => async (dispatch) => {
   try {
     dispatch({ type: PUBLIC_LOADING, payload: true });
 
-    const { data } = await axios.get(`${domain}/work/${work}`, {
+    const { data } = await axios.get(`${domain}/work`, {
       headers: {
         "ngrok-skip-browser-warning": "1",
       },
     });
+    dispatch({
+      type: DATA_WORKING_READ,
+      payload: data.data,
+    });
+
+    dispatch({ type: PUBLIC_LOADING, payload: false });
+  } catch (error) {
+    toast.error("read working fail");
+  }
+};
+export const deleteWorkListAction = (type) => async (dispatch) => {
+  try {
+    const { data } = await axios.delete(`${domain}/work/${type}`);
+
+    dispatch({
+      type: DATA_WORKING_DELETE,
+      payload: data,
+    });
+  } catch (error) {
+    toast.error("刪除失敗");
+  }
+};
+export const SetWorkListAction = (data) => async (dispatch) => {
+  try {
+    await dispatch({
+      type: DATA_WORKING_CHOSEN,
+      payload: data,
+    });
+  } catch (error) {
+    toast.error("choose working fail");
+  }
+};
+
+export const updateWorkListAction = (datas) => async (dispatch) => {
+  try {
+    const { data } = await axios.patch(
+      `${domain}/work`,
+      {
+        headers: {
+          "ngrok-skip-browser-warning": "1",
+        },
+      },
+      data
+    );
+
     dispatch({
       type: DATA_WORKING_READ,
       payload: data,
@@ -201,92 +230,50 @@ export const readWorkingAction = (work) => async (dispatch) => {
     toast.error("read working fail");
   }
 };
-export const SetWorkingDataAction = (data) => async (dispatch) => {
+export const createWorkListAction = (data) => async (dispatch) => {
   try {
-    await dispatch({
-      type: DATA_WORKING_CHOSEN,
-      payload: data,
-    });
+    dispatch({ type: DATA_WORKING_CREATE, payload: data });
   } catch (error) {
-    toast.error("choose working fail");
-  }
-};
-export const deleteWorkingDataAction = (way, array) => async (dispatch) => {
-  try {
-    const { data } = await axios.post(`${domain}/work/delete/${way}`, array);
-    if (data?.success === true) {
-      dispatch({
-        type: DATA_WORKING_DELETE,
-        payload: data,
-      });
-    }
-  } catch (error) {
-    toast.error("刪除失敗");
+    toast.error("read working fail");
   }
 };
 
-// ----------- create working list
-//PART1 寫入加工方式
-export const createdWayWorkingAction = (wayid) => async (dispatch) => {
-  dispatch({
-    type: DATA_WORKING_CREATE_WAY,
-    payload: wayid,
-  });
-};
-//PART2 寫入命名
-export const editNameWorkingAction = (name, method) => async (dispatch) => {
+export const readEqAction = () => async (dispatch) => {
   try {
-    dispatch({
-      type: DATA_WORKING_CREATE_NAME,
-      payload: name,
+    dispatch({ type: PUBLIC_LOADING, payload: true });
+    const { data } = await axios.get(`${domain}/equitment`, {
+      headers: {
+        "ngrok-skip-browser-warning": "1",
+      },
     });
-    dispatch({
-      type: DATA_WORKING_METHOD,
-      payload: method,
-    });
-  } catch (error) {
-    console.log(error, "創建名稱失敗");
-  }
-};
-//PART2 檢查命名是否重複
-export const createdNameWorkingAction = (name, way) => async (dispatch) => {
-  try {
-    const { data } = await axios.post(`${domain}/work/check/${way}`, name);
-    if (data?.success === true) {
-      dispatch(editNameWorkingAction(name, "create"));
-      dispatch(pagePreviousAction("name"));
-      dispatch(pageNextAction("param"));
-    }
-  } catch (error) {
-    toast.error("命名重複");
-  }
-};
-//PART4 寫入加工參數
-export const wirteParamWorkingAction = (name, param) => async (dispatch) => {
-  try {
-    dispatch({
-      type: DATA_WORKING_CREATE_PARAM,
-      payload: { name: name, value: param },
-    });
-  } catch (error) {
-    console.log(error, "加入參數失敗");
-  }
-};
-//PART4 儲存參數設定
-export const SaveSetWorkingAction = (datas) => async (dispatch) => {
-  try {
-    if (datas.method === "create") {
-      await axios.post(`${domain}/work/save/${datas.way}`, datas);
-    } else if (datas.method === "modify") {
-      await axios.patch(`${domain}/work/modify/${datas.way}`, datas);
-    }
 
     dispatch({
-      type: DATA_WORKING_CREATE_CLEAR,
-      payload: false,
+      type: DATA_EQUITMENT_READ,
+      payload: data.data,
     });
+
+    dispatch({ type: PUBLIC_LOADING, payload: false });
   } catch (error) {
-    console.log(error, "儲存參數錯誤");
+    toast.error("read working fail");
+  }
+};
+export const readdefaultEqAction = () => async (dispatch) => {
+  try {
+    dispatch({ type: PUBLIC_LOADING, payload: true });
+    const { data } = await axios.get(`${domain}/equitment/defaultt`, {
+      headers: {
+        "ngrok-skip-browser-warning": "1",
+      },
+    });
+
+    dispatch({
+      type: DATA_EQUITMENT_READ_DEFAULT,
+      payload: data.data,
+    });
+
+    dispatch({ type: PUBLIC_LOADING, payload: false });
+  } catch (error) {
+    toast.error("read working fail");
   }
 };
 
@@ -308,7 +295,6 @@ export const readcontrolAction = () => async (dispatch) => {
     toast.error("read equitment fail");
   }
 };
-
 export const readOnecontrolAction = (id) => async (dispatch) => {
   try {
     const { data } = await axios.get(`${domain}/control/${id}`, {
@@ -326,7 +312,6 @@ export const readOnecontrolAction = (id) => async (dispatch) => {
     toast.error("read equitment fail");
   }
 };
-
 /* ----------- abnormal log list ----------- */
 export const readabnormallogAction = () => async (dispatch) => {
   try {
@@ -345,7 +330,6 @@ export const readabnormallogAction = () => async (dispatch) => {
     toast.error("read log fail");
   }
 };
-
 export const readOneabnormallogAction = (id) => async (dispatch) => {
   try {
     const { data } = await axios.get(`${logdomain}/${id}`, {
@@ -362,73 +346,5 @@ export const readOneabnormallogAction = (id) => async (dispatch) => {
     }
   } catch (error) {
     toast.error("read log fail");
-  }
-};
-
-/* ----------- equitment list ----------- */
-export const readEqAction = () => async (dispatch) => {
-  try {
-    const { data } = await axios.get(`${domain}/equitment`, {
-      headers: {
-        "ngrok-skip-browser-warning": "1",
-      },
-    });
-
-    dispatch({
-      type: DATA_EQ_READ,
-      payload: data.data,
-    });
-  } catch (error) {
-    console.log("讀路徑失敗", error);
-  }
-};
-export const deleteEqAction = (groupid) => async (dispatch) => {
-  try {
-    if (groupid.length > 0) {
-      const { data } = await axios.delete(`${domain}/equitment/${groupid}`);
-      if (data.success) {
-        toast.success("刪除成功!");
-        dispatch({
-          type: DATA_EQ_DELETE,
-          payload: data.data,
-        });
-      }
-    } else {
-      toast.error("你未選擇項目");
-    }
-  } catch (error) {
-    console.log("標點刪除錯誤", error);
-  }
-};
-export const SetEqAction = (data) => (dispatch) => {
-  try {
-    dispatch({
-      type: DATA_EQ_CHOSEN,
-      payload: data,
-    });
-  } catch (error) {
-    console.log("設備失敗", error);
-  }
-};
-
-/* ----------- start 開啟手臂條件 ----------- */
-
-export const startAction = (name, data) => async (dispatch) => {
-  try {
-    if (name === 1) {
-      await dispatch({ type: WORK_START_PATH, payload: data });
-    } else if (name === 2) {
-      await dispatch({ type: WORK_START_EQ, payload: data });
-    } else if (name === 3) {
-      await dispatch({ type: WORK_START_PARAM, payload: data });
-    } else if (name === 4) {
-      await dispatch({ type: WORK_START_ROBOT, payload: data });
-    } else if (name === 5) {
-      await dispatch({ type: WORK_START_METHOD, payload: data });
-    } else {
-      throw new Error(`Invalid action name: ${name}`);
-    }
-  } catch (error) {
-    toast.error(`read robot start fail`);
   }
 };

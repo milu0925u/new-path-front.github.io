@@ -8,7 +8,7 @@ import WhiteButton from "@/component/button/white-button";
 
 import Search from "./model/search";
 import ListModelData from "./model/list-model-data";
-import { readModelAction, SetDrawDataAction } from "@/redux/actions/ListAction";
+import { readModelAction, SetModelAction } from "@/redux/actions/ListAction";
 
 import { uploadPlyData } from "@/js/scripts";
 import toast from "react-hot-toast";
@@ -43,8 +43,6 @@ export default function ListModel({ handleChosenDelete, handleDeleteBTN }) {
     formData.append("model", file);
     if (file) {
       await uploadPlyData(formData);
-      dispatch(readModelAction());
-      e.target.files = null;
     } else {
       toast.error("請選擇檔案");
     }
@@ -61,7 +59,7 @@ export default function ListModel({ handleChosenDelete, handleDeleteBTN }) {
         model_path: `${domain}/${currentData.model_path}`,
         image_path: `${domain}/${currentData.image_path}`,
       };
-      dispatch(SetDrawDataAction(newData));
+      dispatch(SetModelAction(newData));
       localStorage.setItem("model", JSON.stringify(newData));
     }
   };

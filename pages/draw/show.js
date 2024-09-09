@@ -1,9 +1,6 @@
 import React, { useState } from "react";
 import { useUnityContext } from "react-unity-webgl";
-import BlueButton from "@/component/button/blue-button";
-import OrangeButton from "@/component/button/orange-button";
 import DrawFix from "@/component/nosharable/unity/fix-unity";
-import LayoutMain from "@/component/layout/layout-main";
 export default function Show() {
   const {
     unityProvider,
@@ -64,7 +61,7 @@ export default function Show() {
   const [bar, setBar] = useState(false);
 
   return (
-    <LayoutMain>
+    <>
       <div className="bg-sky"></div>
       <div className="bg-space"></div>
       <div className="l_unity">
@@ -78,6 +75,6 @@ export default function Show() {
           />
         </div>
       </div>
-    </LayoutMain>
+    </>
   );
 }

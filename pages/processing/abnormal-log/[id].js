@@ -1,34 +1,33 @@
-import React, { useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { useRouter } from 'next/router'
-import ReturnBlueButton from '@/component/button/return-blue-button'
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useRouter } from "next/router";
+import ReturnBlueButton from "@/component/button/return-blue-button";
 import {
   readOneabnormallogAction,
   readOnecontrolAction,
-} from '@/redux/actions/ListAction'
-import AbnormalcontentTitle from '@/component/nosharable/info/ab-title'
-import Abnormalcontent from '@/component/nosharable/info/ab-content'
+} from "@/redux/actions/ListAction";
+import AbnormalcontentTitle from "@/component/nosharable/info/ab-title";
+import Abnormalcontent from "@/component/nosharable/info/ab-content";
 
-import ReturnWhiteButton from '@/component/button/return-white-button'
+import ReturnWhiteButton from "@/component/button/return-white-button";
 
-import RWDTitle from '@/component/layout/rwd-title'
-import LayoutMain from '@/component/layout/layout-main'
+import RWDTitle from "@/component/layout/rwd-title";
 export default function AbnormalLogID() {
-  const dispatch = useDispatch()
-  const router = useRouter()
-  const { datas } = useSelector((state) => state.public)
+  const dispatch = useDispatch();
+  const router = useRouter();
+  const { datas } = useSelector((state) => state.public);
 
   useEffect(() => {
     if (router.query.id) {
-      dispatch(readOnecontrolAction(router.query.id))
-      dispatch(readOneabnormallogAction(router.query.id))
+      dispatch(readOnecontrolAction(router.query.id));
+      dispatch(readOneabnormallogAction(router.query.id));
     }
-  }, [router.query.id, dispatch])
+  }, [router.query.id, dispatch]);
   const handleReturn = () => {
-    router.back()
-  }
+    router.back();
+  };
   return (
-    <LayoutMain>
+    <>
       <div className="bg-abnormal"></div>
       <div className="container">
         <RWDTitle icon="icon-abnormal-log" title={datas.abnormalsignalrecord}>
@@ -44,6 +43,6 @@ export default function AbnormalLogID() {
           </div>
         </div>
       </div>
-    </LayoutMain>
-  )
+    </>
+  );
 }

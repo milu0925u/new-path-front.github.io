@@ -9,7 +9,6 @@ import { unityLeaveAlert } from "@/component/alert/alert";
 import { unityCloseAction } from "@/redux/actions/publicAction";
 import RwdDrawToolbar from "@/component/nosharable/unity/rwd-draw-toolbar";
 
-import LayoutMain from "@/component/layout/layout-main";
 import toast from "react-hot-toast";
 
 export default function Draw() {
@@ -199,7 +198,7 @@ export default function Draw() {
     }, 1300);
   }, []);
   return (
-    <LayoutMain>
+    <>
       <div className="bg-sky"></div>
       <div className="bg-space"></div>
       {/* RWD */}
@@ -418,6 +417,6 @@ export default function Draw() {
           <img alt="mouse" src={`/images/unity/mouse${mouse}.svg`} />
         </button>
       </div>
-    </LayoutMain>
+    </>
   );
 }

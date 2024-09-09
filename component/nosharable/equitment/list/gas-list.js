@@ -5,10 +5,11 @@ import OrangeButton from "@/component/button/orange-button";
 import Search from "@/component/nosharable/list/model/search";
 import WhiteButton from "@/component/button/white-button";
 
-export default function GasList({ handleNext }) {
+export default function GasList({ handleNext, text, handleActive }) {
   const { datas } = useSelector((state) => state.public);
-  const { data } = useSelector((state) => state.eq);
-  const [active, setActive] = useState(1);
+  const { eqdata } = useSelector((state) => state.workList);
+  const [active, setActive] = useState(null);
+
   return (
     <div className={style.maintainance_list}>
       <div className={style.list}>
@@ -17,18 +18,16 @@ export default function GasList({ handleNext }) {
           <WhiteButton text={datas.delete} icon="icon-delete" />
         </div>
         <div className={style.item}>
-          {data.map((item, i) => (
-            <div
-              role="button"
-              key={i}
-              onClick={() => {
-                setActive(item.id);
-              }}
-              className={item.id === active ? style.active : ""}
-            >
-              {item.name}
-            </div>
-          ))}
+          {Array.isArray(eqdata.gas) &&
+            eqdata.gas.map((item) => (
+              <div
+                key={item.id}
+                onClick={() => handleActive(item)}
+                className={item.id === text?.id ? style.active : ""}
+              >
+                {item.name}
+              </div>
+            ))}
         </div>
       </div>
       <div className="nextbtn">

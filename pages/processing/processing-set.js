@@ -60,29 +60,27 @@ export default function ProcessingSet() {
   return (
     <>
       <div className="bg-execute"></div>
-      <LayoutMain>
-        <div className="container">
-          <RWDTitle
-            title={datas.processingsetting}
-            icon="icon-armparametersettings"
-          >
-            <ReturnWhiteButton handleReturnBTN={handleReturn} />
-            <button className="rwd-display-none-btn"></button>
-          </RWDTitle>
-          <div className="content">
-            <LeftcontentParam />
-            {renderCurrentScreen()}
-            <div className="rwd-btn">
-              <OrangeButton
-                text={datas.save}
-                icon="icon-save"
-                handleOrangeBTN={handleSave}
-              />
-              <ReturnBlueButton handleReturnBTN={handleReturn} />
-            </div>
+      <div className="container">
+        <RWDTitle
+          title={datas.processingsetting}
+          icon="icon-armparametersettings"
+        >
+          <ReturnWhiteButton handleReturnBTN={handleReturn} />
+          <button className="rwd-display-none-btn"></button>
+        </RWDTitle>
+        <div className="content">
+          <LeftcontentParam />
+          {renderCurrentScreen()}
+          <div className="rwd-btn">
+            <OrangeButton
+              text={datas.save}
+              icon="icon-save"
+              handleOrangeBTN={handleSave}
+            />
+            <ReturnBlueButton handleReturnBTN={handleReturn} />
           </div>
         </div>
-      </LayoutMain>
+      </div>
     </>
   );
 }

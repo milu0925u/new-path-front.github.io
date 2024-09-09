@@ -1,9 +1,9 @@
-import React from 'react'
-import style from '../equitment-set.module.scss'
-import { useSelector } from 'react-redux'
+import React from "react";
+import style from "../equitment-set.module.scss";
+import { useSelector } from "react-redux";
 
 export default function ConsumablesMaintainance() {
-  const { datas } = useSelector((state) => state.public)
+  const { datas } = useSelector((state) => state.public);
 
   return (
     <div className={style.maintainance}>
@@ -37,5 +37,5 @@ export default function ConsumablesMaintainance() {
         <span>2024/03/14</span>
       </div>
     </div>
-  )
+  );
 }

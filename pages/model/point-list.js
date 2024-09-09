@@ -4,8 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 
 import OrangeButton from "@/component/button/orange-button";
 import RWDTitle from "@/component/layout/rwd-title";
-import ReturnBlueButton from "@/component/button/return-blue-button";
-import ReturnWhiteButton from "@/component/button/return-white-button";
 import DeleteWhiteButton from "@/component/button/delete-white-button";
 
 import ListPoint from "@/component/nosharable/list/list-point";
@@ -15,13 +13,12 @@ import { unityOpenAction } from "@/redux/actions/publicAction";
 import {
   readPointAction,
   deletePointAction,
-  SetShowDataAction,
+  SetPointAction,
 } from "@/redux/actions/ListAction";
 import toast from "react-hot-toast";
 import { deleteAlert } from "@/component/alert/alert";
 import WhiteButton from "@/component/button/white-button";
 
-import LayoutMain from "@/component/layout/layout-main";
 export default function PointList() {
   const dispatch = useDispatch();
   const router = useRouter();
@@ -30,7 +27,6 @@ export default function PointList() {
   useEffect(() => {
     dispatch(readPointAction());
   }, []);
-
   const handleReturn = () => {
     router.back();
   };
@@ -57,7 +53,7 @@ export default function PointList() {
       if (result.isConfirmed) {
         dispatch(deletePointAction(deleteItem));
         setDeleteItem([]);
-        dispatch(SetShowDataAction({}));
+        dispatch(SetPointAction({}));
       }
     });
   };
@@ -79,7 +75,7 @@ export default function PointList() {
     }
   };
   return (
-    <LayoutMain>
+    <>
       <div className="bg-clouds"></div>
       <div className="bg-sky"></div>
       <div className="container">
@@ -120,6 +116,6 @@ export default function PointList() {
           </div>
         </div>
       </div>
-    </LayoutMain>
+    </>
   );
 }

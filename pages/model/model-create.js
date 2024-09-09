@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -13,7 +13,6 @@ import CameraViewName from "@/component/nosharable/model/camera-view-name";
 import ReturnWhiteButton from "@/component/button/return-white-button";
 import ReturnBlueButton from "@/component/button/return-blue-button";
 import { uploadYmlData } from "@/js/scripts";
-import LayoutMain from "@/component/layout/layout-main";
 import axios from "axios";
 import { CameraOpenAction } from "@/redux/actions/publicAction";
 import toast from "react-hot-toast";
@@ -36,48 +35,12 @@ export default function ModelCreate() {
     { id: 7, click: true },
     { id: 8, click: true },
   ]);
-
   // 設定目前分頁
   useEffect(() => {
     setPageSet("connect");
   }, []);
-
-  // 編輯名稱
-  const [modelName, setModelName] = useState(null);
-  const handleNameSet = (e) => {
-    const newName = e?.target.value;
-    setModelName(newName);
-  };
-
-  // return page
-  const handleReturn = () => {
-    setPageSet("connect");
-  };
-
-  // 開始掃描
-  const handleNext = async () => {
-    if (pageset == "connect") {
-      try {
-        const newdata = pointData
-          .filter((point) => point.click === true)
-          .map((point) => point.id);
-        const datas = {
-          points: newdata,
-          setting: "",
-        };
-        const { data } = await axios.post(`${aidomain}/scan`, datas, {
-          headers: { "Content-Type": "application/json" },
-        });
-        if (data.status === "success") {
-          setPageSet("connect-v");
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    } else if (pageset !== "connect") {
-      router.push("/model/model-list");
-    }
-  };
+  // 相機設定檔儲存
+  const [settingname, setsettingname] = useState("origin.yml");
   // 重新連接狀態
   const handleConnect = async () => {
     dispatch(CameraOpenAction(null));
@@ -87,36 +50,122 @@ export default function ModelCreate() {
         dispatch(CameraOpenAction(data.status));
       }, 1000);
     } catch (error) {
-      console.log(error);
       setTimeout(() => {
         dispatch(CameraOpenAction("fail"));
         toast.error("connect fail");
-      }, 1000);
+      }, 100);
     }
   };
-
   // 匯入客製檔案
   const handleImportData = async (e) => {
     const file = e.target.files[0];
     const formData = new FormData();
     formData.append("setting", file);
     if (file) {
-      await uploadYmlData(formData);
-      e.target.files = null;
+      setsettingname(file.name);
     } else {
       toast.error("請選擇檔案");
+      return;
     }
+    e.target.value = "";
   };
-
   // 首次進入連接
   useEffect(() => {
     handleConnect();
   }, []);
 
+  /* --------- 第二頁的使用 ------- */
+  // 編輯名稱
+  const [modelName, setModelName] = useState(null);
+  const handleNameSet = (e) => {
+    const newName = e.target.value;
+    setModelName(newName);
+  };
+  // 掃瞄範圍設定
+  const [barValue, setBarValue] = useState(0);
+  const handleBarValue = (e) => {
+    const value = parseInt(e.target.value);
+
+    if (value >= 0 && value <= 2000) {
+      setBarValue(value);
+    } else if (value < 0) {
+      setBarValue(0);
+    } else if (value > 2000) {
+      setBarValue(2000);
+    } else {
+      setBarValue(0);
+    }
+  };
+  // return page
+  const handleReturn = () => {
+    setPageSet("connect");
+  };
+  // 設定範圍的確認按鈕
+  const handleScope = async () => {
+    const newdata = pointData
+      .filter((point) => point.click === true)
+      .map((point) => point.id);
+    try {
+      const datas = {
+        points: newdata,
+        distance: barValue,
+      };
+      const { data } = await axios.post(`${aidomain}/crop`, datas, {
+        headers: { "Content-Type": "application/json" },
+      });
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // 開始掃描 / 下一頁
+  const handleNext = async () => {
+    const newdata = pointData
+      .filter((point) => point.click === true)
+      .map((point) => point.id);
+
+    if (pageset == "connect") {
+      try {
+        const datas = {
+          points: newdata,
+          setting: `/ai-use/setting/${settingname}`,
+        };
+        const { data } = await axios.post(`${aidomain}/scan`, datas, {
+          headers: { "Content-Type": "application/json" },
+        });
+        console.log(data);
+        if (data.status === "success") {
+          setPageSet("connect-v");
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    } else if (pageset !== "connect") {
+      console.log(newdata, "抓啥");
+
+      const datas = {
+        points: newdata,
+        name: modelName,
+      };
+      console.log(datas);
+      try {
+        const { data } = await axios.post(`${aidomain}/save`, datas, {
+          headers: { "Content-Type": "application/json" },
+        });
+        console.log(data);
+        //儲存進資料表
+        router.push("/model/model-list");
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
   return (
     <>
       {pageset === "connect" ? (
-        <LayoutMain>
+        <>
           <div className="bg-clouds"></div>
           <div className="bg-sky"></div>
           <div className="container">
@@ -131,6 +180,7 @@ export default function ModelCreate() {
                 handleBlueBTN={handleReturn}
               />
               <CameraCreateFunction
+                setsettingname={setsettingname}
                 handleImportData={handleImportData}
                 handleConnect={handleConnect}
               >
@@ -150,9 +200,9 @@ export default function ModelCreate() {
               </div>
             </div>
           </div>
-        </LayoutMain>
+        </>
       ) : (
-        <LayoutMain>
+        <>
           <div className="bg-clouds"></div>
           <div className="bg-sky"></div>
           <div className="container">
@@ -163,6 +213,9 @@ export default function ModelCreate() {
             <div className="content content-pd content-blue-full">
               <CameraViewScreen />
               <CameraViewName
+                handleScope={handleScope}
+                barValue={barValue}
+                handleBarValue={handleBarValue}
                 modelName={modelName}
                 handleNameSet={handleNameSet}
               >
@@ -183,7 +236,7 @@ export default function ModelCreate() {
               </div>
             </div>
           </div>
-        </LayoutMain>
+        </>
       )}
     </>
   );

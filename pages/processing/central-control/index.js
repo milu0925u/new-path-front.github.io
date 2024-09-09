@@ -6,7 +6,7 @@ import CCLeft from "@/component/nosharable/info/cc-left-info";
 import { readcontrolAction } from "@/redux/actions/ListAction";
 import RWDTitle from "@/component/layout/rwd-title";
 import ReturnWhiteButton from "@/component/button/return-white-button";
-import LayoutMain from "@/component/layout/layout-main";
+
 export default function centralControl() {
   const dispatch = useDispatch();
   const router = useRouter();
@@ -19,7 +19,7 @@ export default function centralControl() {
     router.back();
   };
   return (
-    <LayoutMain>
+    <>
       <div className="bg-control"></div>
       <div className="container">
         <RWDTitle icon="icon-central-control" title={datas.centralcontrol}>
@@ -37,6 +37,6 @@ export default function centralControl() {
           </div>
         </div>
       </div>
-    </LayoutMain>
+    </>
   );
 }

@@ -2,30 +2,25 @@ import React, { useEffect, useState, useRef } from "react";
 import style from "@/component/nosharable/setting/workway/work-card.module.scss";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
-import ReturnBlueButton from "@/component/button/return-blue-button";
-import ReturnWhiteButton from "@/component/button/return-white-button";
-
 import WorkCard from "./workway/work-card";
-
 import OrangeButton from "@/component/button/orange-button";
-
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
-import { pageNextAction } from "@/redux/actions/publicAction";
 import WayLine from "@/component/nosharable/setting/workway/way-line";
-import { createdWayWorkingAction } from "@/redux/actions/ListAction";
-
 import RWDTitle from "@/component/layout/rwd-title";
 import BlueButton from "@/component/button/blue-button";
+import toast from "react-hot-toast";
+import { StartContext } from "@/hook/startContext";
+import {
+  createWorkListAction,
+  readWorkListAction,
+} from "@/redux/actions/ListAction";
 export default function ChosenWorkWay() {
   const dispatch = useDispatch();
   const router = useRouter();
-
   const { datas } = useSelector((state) => state.public);
-  const { path } = useSelector((state) => state.start);
-
-  console.log(path);
+  const { start } = StartContext();
 
   // 傳入陣列
   const [work, setWork] = useState(null);
@@ -39,18 +34,30 @@ export default function ChosenWorkWay() {
       { id: 6, name: datas.gluing, image: "glue" },
       { id: 7, name: datas.cutting, image: "cut" },
     ]);
+    dispatch(readWorkListAction());
   }, [datas]);
-  // page
+  // 下一頁按鈕
   const handleNext = () => {
-    dispatch(
-      createdWayWorkingAction(Number(swiperRef.current.swiper.realIndex) + 1)
-    );
-    router.push("/processing/processing-equitment");
+    const typeid = swiperRef.current.swiper.activeIndex;
+    // 數字對照的英文
+    const list = ["weld", "polish", "debur", "spray", "drill", "glue", "cut"];
+    if (list[typeid] === "weld") {
+      dispatch(createWorkListAction({ method: method }));
+    } else {
+      dispatch(createWorkListAction({ method: list[typeid] }));
+    }
+
+    if (start.path.name) {
+      router.push("/processing/processing-equitment");
+      return;
+    }
+    toast.error("未選擇路徑");
   };
-  // choose work way
-  const [clickItem, setClickItem] = useState(1);
-  const handleClickItem = (e) => {
-    setClickItem(e.currentTarget.value);
+  // 選擇加工方式
+  const [method, setMethod] = useState("weld");
+  const handleClick = (e) => {
+    const work = e.currentTarget.dataset.work;
+    setMethod(work);
   };
   // swiper
   const [windowWidth, setWindowWidth] = useState(null);
@@ -61,10 +68,10 @@ export default function ChosenWorkWay() {
   }, [windowWidth]);
   const handleResize = () => {
     setWindowWidth(window.innerWidth);
+    setMethod("weld");
   };
-
   const swiperRef = useRef(null);
-
+  // 選擇路徑
   const handleBlueBTN = () => {
     router.push("/model/path-list");
   };
@@ -86,18 +93,18 @@ export default function ChosenWorkWay() {
               handleBlueBTN={handleBlueBTN}
             />
             <div className={style.l_work_card_pathname}>
-              {path ? path.name : "未選擇"}
+              {start.path && start.path.name}
             </div>
           </div>
           <div className={style.col_work_card}>
             <Swiper slidesPerView={windowWidth < 1200 ? 1 : 7} ref={swiperRef}>
-              {work?.map((item) => (
-                <SwiperSlide key={item.id}>
-                  <WorkCard
-                    item={item}
-                    clickItem={clickItem}
-                    handleClickItem={handleClickItem}
-                  />
+              {work?.map((item, i) => (
+                <SwiperSlide
+                  key={item.id}
+                  onClick={handleClick}
+                  data-work={item.image}
+                >
+                  <WorkCard item={item} method={method} />
                 </SwiperSlide>
               ))}
             </Swiper>

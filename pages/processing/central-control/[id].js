@@ -1,36 +1,35 @@
-import React, { useState, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { useRouter } from 'next/router'
-import ReturnBlueButton from '@/component/button/return-blue-button'
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useRouter } from "next/router";
+import ReturnBlueButton from "@/component/button/return-blue-button";
 import {
   readOneabnormallogAction,
   readOnecontrolAction,
-} from '@/redux/actions/ListAction'
-import CCRight from '@/component/nosharable/info/cc-right-info'
-import CCLeft from '@/component/nosharable/info/cc-left-info'
+} from "@/redux/actions/ListAction";
+import CCRight from "@/component/nosharable/info/cc-right-info";
+import CCLeft from "@/component/nosharable/info/cc-left-info";
 
-import ReturnWhiteButton from '@/component/button/return-white-button'
+import ReturnWhiteButton from "@/component/button/return-white-button";
 
-import RWDTitle from '@/component/layout/rwd-title'
-import LayoutMain from '@/component/layout/layout-main'
+import RWDTitle from "@/component/layout/rwd-title";
 export default function centralControlID() {
-  const dispatch = useDispatch()
-  const router = useRouter()
-  const { datas } = useSelector((state) => state.public)
+  const dispatch = useDispatch();
+  const router = useRouter();
+  const { datas } = useSelector((state) => state.public);
 
   useEffect(() => {
-    const { id } = router.query
+    const { id } = router.query;
     if (id) {
-      dispatch(readOnecontrolAction(id))
-      dispatch(readOneabnormallogAction(id))
+      dispatch(readOnecontrolAction(id));
+      dispatch(readOneabnormallogAction(id));
     }
-  }, [router.query.id, dispatch])
+  }, [router.query.id, dispatch]);
 
   const handleReturn = () => {
-    router.back()
-  }
+    router.back();
+  };
   return (
-    <LayoutMain>
+    <>
       <div className="bg-control"></div>
       <div className="container">
         <RWDTitle icon="icon-central-control" title={datas.centralcontrol}>
@@ -45,6 +44,6 @@ export default function centralControlID() {
           </div>
         </div>
       </div>
-    </LayoutMain>
-  )
+    </>
+  );
 }

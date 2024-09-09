@@ -15,7 +15,6 @@ import WhiteButton from "@/component/button/white-button";
 
 import { modifyAlert, deleteAlert } from "@/component/alert/alert";
 import toast from "react-hot-toast";
-import LayoutMain from "@/component/layout/layout-main";
 
 import {
   pageNextAction,
@@ -24,9 +23,9 @@ import {
 
 import {
   startAction,
-  readWorkingAction,
-  SetWorkingDataAction,
-  deleteWorkingDataAction,
+  readWorkListAction,
+  SetWorkListAction,
+  deleteWorkListAction,
   editNameWorkingAction,
   createdWayWorkingAction,
   wirteParamWorkingAction,
@@ -40,8 +39,8 @@ export default function ProcessingList() {
   const { data, current } = useSelector((state) => state.workList);
   const [select, setSelected] = useState("weld");
   useEffect(() => {
-    dispatch(readWorkingAction(select));
-    dispatch(SetWorkingDataAction());
+    dispatch(readWorkListAction(select));
+    dispatch(SetWorkListAction());
   }, [select]);
 
   const handleNext = () => {
@@ -72,7 +71,7 @@ export default function ProcessingList() {
   // 選擇的加工方式list
   const handleSelect = (e) => {
     dispatch(startAction(2, select));
-    dispatch(readWorkingAction(e.target.dataset.value));
+    dispatch(readWorkListAction(e.target.dataset.value));
     setSelected(e.target.dataset.value);
     setCurrentId();
   };
@@ -90,7 +89,7 @@ export default function ProcessingList() {
     if (deleteItem.length > 0) {
       deleteAlert().then((result) => {
         if (result.isConfirmed) {
-          dispatch(deleteWorkingDataAction(select, deleteItem));
+          dispatch(deleteWorkListAction(select, deleteItem));
           setDeleteItem([]);
         }
       });
@@ -128,12 +127,12 @@ export default function ProcessingList() {
     const id = Number(e.currentTarget.dataset.id);
     if (id) {
       const [newData] = data.data.filter((item) => item.id == id);
-      dispatch(SetWorkingDataAction(newData));
+      dispatch(SetWorkListAction(newData));
       dispatch(startAction(3, newData));
     }
   };
   return (
-    <LayoutMain>
+    <>
       <div className="bg-execute"></div>
       <div className="container">
         <RWDTitle
@@ -172,6 +171,6 @@ export default function ProcessingList() {
           </div>
         </div>
       </div>
-    </LayoutMain>
+    </>
   );
 }
