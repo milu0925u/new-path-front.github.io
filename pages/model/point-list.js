@@ -32,8 +32,7 @@ export default function PointList() {
   };
   const handleNext = () => {
     if (current.id) {
-      alert("目前畫面未建立");
-      router.push("/draw/show");
+      router.push("/draw/optimal-path");
     } else {
       toast.error("您未選擇模型");
     }

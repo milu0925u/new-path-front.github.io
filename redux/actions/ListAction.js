@@ -1,4 +1,5 @@
 import {
+  DATA_MODEL_SAVE,
   DATA_MODEL_READ,
   DATA_MODEL_CHOSEN,
   DATA_MODEL_DELETE,
@@ -25,6 +26,13 @@ import toast from "react-hot-toast";
 const domain = process.env.NEXT_PUBLIC_DOMAIN;
 
 /* ----------- model list ----------- */
+export const saveModelAction = (data) => async () => {
+  try {
+    await axios.post(`${domain}/model/save`, data);
+  } catch (error) {
+    console.log("讀模型失敗", error);
+  }
+};
 export const readModelAction = () => async (dispatch) => {
   try {
     dispatch({ type: PUBLIC_LOADING, payload: true });

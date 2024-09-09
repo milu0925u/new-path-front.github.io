@@ -21,7 +21,7 @@ const DrawUnity = ({
   removeEventListener,
   requestFullscreen,
 }) => {
-  console.log("看一下渲染次數");
+  console.log("看一下渲染次數 SSR");
 
   const dispatch = useDispatch();
   const router = useRouter();

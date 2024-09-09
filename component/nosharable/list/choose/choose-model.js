@@ -1,22 +1,20 @@
-import React from 'react'
-import style from '../list.module.scss'
-import { useSelector } from 'react-redux'
+import React from "react";
+import style from "../list.module.scss";
+import { useSelector } from "react-redux";
 export default function ChooseModel({ children }) {
-  const { datas } = useSelector((state) => state.public)
-  const { current } = useSelector((state) => state.modelList)
-  const domain = process.env.NEXT_PUBLIC_DOMAIN
+  const { datas } = useSelector((state) => state.public);
+  const { current } = useSelector((state) => state.modelList);
+  const domain = process.env.NEXT_PUBLIC_DOMAIN;
   return (
     <div className={style.chosen_list}>
       <div>
         <div>
           <div>{datas.modelname}：</div>
-          <div className={style.chosen_name}>{current ? current.name : ''}</div>
+          <div className={style.chosen_name}>{current ? current.name : ""}</div>
         </div>
         <div className={style.chosen_img}>
-          {current &&
-          current.image_path &&
-          current.image_path !== `${domain}/${null}` ? (
-            <img src={`${current.image_path}`} alt={current.name} />
+          {current && current.image_path ? (
+            <img src={`${domain}/${current.image_path}`} alt={current.name} />
           ) : (
             <img alt="image-nodata" src="/images/no-image-data.png" />
           )}
@@ -24,5 +22,5 @@ export default function ChooseModel({ children }) {
       </div>
       <div className="nextbtn">{children}</div>
     </div>
-  )
+  );
 }

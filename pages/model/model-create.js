@@ -16,8 +16,10 @@ import { uploadYmlData } from "@/js/scripts";
 import axios from "axios";
 import { CameraOpenAction } from "@/redux/actions/publicAction";
 import toast from "react-hot-toast";
+import { saveModelAction } from "@/redux/actions/ListAction";
 export default function ModelCreate() {
   const aidomain = process.env.NEXT_PUBLIC_AI;
+  const domain = process.env.NEXT_PUBLIC_DOMAIN;
   const dispatch = useDispatch();
   const router = useRouter();
 
@@ -142,20 +144,24 @@ export default function ModelCreate() {
         console.log(error);
       }
     } else if (pageset !== "connect") {
-      console.log(newdata, "抓啥");
-
       const datas = {
         points: newdata,
         name: modelName,
       };
-      console.log(datas);
       try {
         const { data } = await axios.post(`${aidomain}/save`, datas, {
           headers: { "Content-Type": "application/json" },
         });
-        console.log(data);
-        //儲存進資料表
-        router.push("/model/model-list");
+        if (data.status === "success") {
+          //儲存進資料表
+          const modelsavedata = {
+            name: modelName,
+            image_path: `${data.image_url}`,
+            model_path: `${data.pcd_url}`,
+          };
+          dispatch(saveModelAction(modelsavedata));
+          router.push("/model/model-list");
+        }
       } catch (error) {
         console.log(error);
       }
