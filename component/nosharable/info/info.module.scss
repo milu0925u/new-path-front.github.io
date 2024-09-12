@@ -4,7 +4,7 @@
   background: var(--white-op08);
   border-radius: 30px;
   padding-block: 2vh;
-  padding-inline: 2vw;
+  padding-inline: 1vw;
   h6 {
     font-size: 18px;
     font-weight: bolder;
@@ -14,9 +14,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    white-space: nowrap;
-    gap: 1.5vw;
-    font-size: 24px;
+    gap: 10px;
+    font-size: 20px;
     font-weight: bolder;
     height: 80px;
     img {
@@ -37,20 +36,15 @@
       justify-content: center;
       align-items: center;
       gap: 12px;
-      i {
-        color: var(--white);
+      span {
         width: 30px;
-        height: 30px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border-radius: 50%;
-        background-color: #189e56;
-        font-size: 20px;
       }
     }
-    > p {
-      padding-bottom: 20px;
+    p {
+      width: 8vw;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      padding: 8px 0 10px 0;
     }
     .block {
       display: flex;

@@ -68,11 +68,12 @@ export default function ListModel({ handleChosenDelete, handleDeleteBTN }) {
     <div className={`${style.col_list} ${style.col_list_bg}`}>
       <div className={style.list_f}>
         <Search alldatasList={alldatasList} setDatasList={setDatasList} />
-        <ImportInput
+        {/* <ImportInput
           text={datas.importmodel}
           icon="icon-import"
           handleOrangeBTN={handleImportData}
-        />
+        /> */}
+        <button className="rwd-display-none-btn"></button>
         <WhiteButton
           text={datas.delete}
           icon="icon-delete"

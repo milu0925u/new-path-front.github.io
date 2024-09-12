@@ -1,3 +1,4 @@
+import { current } from "@reduxjs/toolkit";
 import {
   DATA_MODEL_READ,
   DATA_MODEL_CHOSEN,
@@ -13,6 +14,7 @@ import {
   DATA_WORKING_DELETE,
   DATA_WORKING_UPDATE,
   DATA_WORKING_CREATE,
+  DATA_WORKING_CREATE_SAVE,
   DATA_EQUITMENT_READ,
   PUBLIC_LOADING,
   DATA_CENTER_CONTROL_READ,
@@ -86,16 +88,16 @@ export const workingReducer = (state = init_work, action) => {
       return { ...state, data: action.payload };
     }
     case DATA_WORKING_DELETE: {
-      return { ...state, data: action.payload };
+      return { ...state, data: action.payload, current: {} };
     }
     case DATA_WORKING_CHOSEN: {
       return { ...state, current: action.payload };
     }
-    case DATA_WORKING_UPDATE: {
-      return { ...state, data: action.payload };
-    }
     case DATA_WORKING_CREATE: {
       return { ...state, create: { ...state.create, ...action.payload } };
+    }
+    case DATA_WORKING_CREATE_SAVE: {
+      return { ...state, create: {} };
     }
     case DATA_EQUITMENT_READ: {
       return { ...state, eqdata: action.payload };

@@ -39,7 +39,7 @@ export default function ModelList() {
   };
   // delete item
   const [deleteItem, setDeleteItem] = useState([]);
-  const handleChosenDelete = (e) => {
+  const handleChosenDelete = async (e) => {
     const { value, checked } = e.target;
     if (checked) {
       setDeleteItem((prev) => [...prev, Number(value)]);
@@ -47,6 +47,7 @@ export default function ModelList() {
       setDeleteItem((prev) => prev.filter((item) => item !== Number(value)));
     }
   };
+
   const handleDeleteBTN = () => {
     deleteAlert().then((result) => {
       if (result.isConfirmed) {
@@ -68,8 +69,8 @@ export default function ModelList() {
         </RWDTitle>
         <div className="content content-pd content-blue-full">
           <ListModel
-            handleChosenDelete={handleChosenDelete}
             handleDeleteBTN={handleDeleteBTN}
+            handleChosenDelete={handleChosenDelete}
           />
           <ChooseModel>
             <OrangeButton

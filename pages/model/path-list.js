@@ -13,7 +13,6 @@ import Choosepath from "@/component/nosharable/list/choose/choose-path";
 import { unityOpenAction } from "@/redux/actions/publicAction";
 import { readPathAction } from "@/redux/actions/ListAction";
 import toast from "react-hot-toast";
-import LayoutMain from "@/component/layout/layout-main";
 import { StartContext } from "@/hook/startContext";
 export default function PathList() {
   const dispatch = useDispatch();
@@ -43,8 +42,7 @@ export default function PathList() {
     if (current.id) {
       unitySortAlert().then((result) => {
         if (result.isConfirmed) {
-          dispatch(unityOpenAction());
-          router.push("/draw/show");
+          router.push("/draw/optimal-path");
         }
       });
     }

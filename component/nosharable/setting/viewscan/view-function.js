@@ -1,14 +1,14 @@
-import React, { useState } from 'react'
-import CameraConnect from '@/component/nosharable/control/connect/camera-connect'
-import style from './view-function.module.scss'
-import { useDispatch, useSelector } from 'react-redux'
-import OrangeButton from '@/component/button/orange-button'
+import React, { useState } from "react";
+import CameraConnect from "@/component/nosharable/control/connect/camera-connect";
+import style from "./view-function.module.scss";
+import { useDispatch, useSelector } from "react-redux";
+import OrangeButton from "@/component/button/orange-button";
 
 export default function ViewFunction({ children }) {
-  const dispatch = useDispatch()
-  const { datas } = useSelector((state) => state.public)
+  const dispatch = useDispatch();
+  const { datas } = useSelector((state) => state.public);
 
-  const [active, setActive] = useState(false)
+  const [active, setActive] = useState(false);
 
   return (
     <div className={style.content_bg}>
@@ -25,17 +25,17 @@ export default function ViewFunction({ children }) {
         <h3>{datas.scancameraparameters}</h3>
         <div>
           <button
-            className={active == datas.basicsettings ? style.active : ''}
+            className={active == datas.basicsettings ? style.active : ""}
             onClick={(e) => {
-              setActive(datas.basicsettings)
+              setActive(datas.basicsettings);
             }}
           >
             {datas.basicsettings}
           </button>
           <button
-            className={active == datas.importcustomsettings ? style.active : ''}
+            className={active == datas.importcustomsettings ? style.active : ""}
             onClick={(e) => {
-              setActive(datas.importcustomsettings)
+              setActive(datas.importcustomsettings);
             }}
           >
             +{datas.importcustomsettings}
@@ -51,5 +51,5 @@ export default function ViewFunction({ children }) {
         />
       </div>
     </div>
-  )
+  );
 }

@@ -5,6 +5,9 @@ import { useSelector } from "react-redux";
 export default function Search({ alldatasList, setDatasList }) {
   const { datas } = useSelector((state) => state.public);
 
+  console.log(alldatasList);
+  console.log(setDatasList);
+
   // search text
   const [searchText, setSearchText] = useState("");
   const handleSearchText = (e) => {

@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import style from "./info.module.scss";
 import { useSelector } from "react-redux";
 export default function EqLeftAllParam() {
   const { create } = useSelector((state) => state.workList);
+  const { datas } = useSelector((state) => state.public);
+
   // 顯示目前的文字
   const renderTitle = () => {
     switch (create.method) {
@@ -24,25 +26,33 @@ export default function EqLeftAllParam() {
         return null;
     }
   };
+  // 路徑名稱
+  const [path, setPath] = useState("");
+  useEffect(() => {
+    const data = localStorage.getItem("start");
+    const start = JSON.parse(data);
+    setPath(start.path.name);
+  }, []);
   return (
-    <>
+    <div className={style.l_left_info}>
       <div className={style.left_info_title}>
         <img src={`/images/work/${create.method}.svg`} />
         <span>{renderTitle()}</span>
       </div>
       <div className={style.left_info_content}>
-        {/* <p>使用設備：{eq ? eq.name : "未選擇"}</p>
-        <p>機械手臂：{robot ? robot.name : "未選擇"}</p>
-
-        <p>視覺相機：{camera ? camera.name : "未選擇"}</p>
-
-        <p>安全防護設備：{security ? security.name : "未選擇"}</p>
-
-        <p>氣源設備：{gas ? gas.name : "未選擇"}</p>
-
-        <p>網路設備：{network ? network.name : "未選擇"}</p>
-        {csb ? csb.map((v) => <p>耗材：{v.name}</p>) : "未選擇"} */}
+        <div className={style.block}>
+          <h6>{datas.selectprocessingpath}</h6>
+          <p>{path ? path : "未選擇"}</p>
+        </div>
+        <div>
+          <h6>{datas.equipmentsetup}</h6>
+          <i className="icon-ok icon-ok-bg"></i>
+        </div>
+        <div>
+          <h6>{datas.processingparam}</h6>
+          <span></span>
+        </div>
       </div>
-    </>
+    </div>
   );
 }

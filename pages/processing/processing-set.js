@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import RWDTitle from "@/component/layout/rwd-title";
 
-import { SaveSetWorkingAction } from "@/redux/actions/ListAction";
+import {
+  SaveSetWorkingAction,
+  SaveWorkListAction,
+  updateWorkListAction,
+} from "@/redux/actions/ListAction";
 import LeftcontentParam from "@/component/nosharable//info/eq-left-info";
 import OrangeButton from "@/component/button/orange-button";
 import LayoutMain from "@/component/layout/layout-main";
@@ -12,7 +16,8 @@ import ReturnBlueButton from "@/component/button/return-blue-button";
 import ReturnWhiteButton from "@/component/button/return-white-button";
 
 import ParamSettingWeld from "@/component/nosharable/setting/workway/param-setting-weld";
-
+import EqLeftAllParam from "@/component/nosharable/info/eq-left-all-param";
+import ParamSettingDefault from "@/component/nosharable/setting/workway/param-setting-default";
 export default function ProcessingSet() {
   const dispatch = useDispatch();
   const router = useRouter();
@@ -21,8 +26,10 @@ export default function ProcessingSet() {
 
   // 確認此頁的加工方式
   const renderCurrentScreen = () => {
-    if (create.way === "weld") {
+    if (create.method === "weld") {
       return <ParamSettingWeld handleSave={handleSave} />;
+    } else {
+      return <ParamSettingDefault handleSave={handleSave} />;
     }
     // 需要加更多加工方式頁面
   };
@@ -34,12 +41,15 @@ export default function ProcessingSet() {
   const handleSave = async () => {
     const error = checkHasError();
     if (!error) {
-      dispatch(SaveSetWorkingAction(create)); //儲存設定
+      if (create.tag === "edit") {
+        dispatch(updateWorkListAction(create));
+      } else {
+        dispatch(SaveWorkListAction(create)); //儲存設定
+      }
       router.push("/processing/processing-list");
-      await new Promise((resolve) => setTimeout(resolve, 1000));
     }
   };
-  // check input
+  // 錯誤阻擋
   const checkHasError = () => {
     if (!create?.deep) {
       toast.error("請填入深度");
@@ -69,7 +79,7 @@ export default function ProcessingSet() {
           <button className="rwd-display-none-btn"></button>
         </RWDTitle>
         <div className="content">
-          <LeftcontentParam />
+          <EqLeftAllParam />
           {renderCurrentScreen()}
           <div className="rwd-btn">
             <OrangeButton

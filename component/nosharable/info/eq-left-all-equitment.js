@@ -26,8 +26,6 @@ export default function EqLeftAllEquitment() {
     }
   };
 
-  console.log(eqdatadefault);
-
   return (
     <>
       <div className={style.left_info_title}>
@@ -37,37 +35,51 @@ export default function EqLeftAllEquitment() {
       <div className={style.left_info_content}>
         <p>
           使用設備：
-          {create.weld == undefined
-            ? eqdatadefault?.weld.name
-            : create?.weld.name}
+          {eqdatadefault[create.method]
+            ? create.weld
+              ? create[create.method].name
+              : eqdatadefault[create.method].name
+            : "未選擇"}
         </p>
         <p>
           機械手臂：
-          {create.robot == undefined
-            ? eqdatadefault?.robot.name
-            : create?.robot.name}
+          {eqdatadefault.robot
+            ? create.robot
+              ? create.robot.name
+              : eqdatadefault.robot.name
+            : "未選擇"}
         </p>
         <p>
           視覺相機：
-          {create.camera == undefined
-            ? eqdatadefault?.camera.name
-            : create?.camera.name}
+          {eqdatadefault.camera
+            ? create.camera
+              ? create.camera.name
+              : eqdatadefault.camera.name
+            : "未選擇"}
         </p>
         <p>
           安全防護設備：
-          {create.security == undefined
-            ? eqdatadefault?.security.name
-            : create?.security.name}
+          {eqdatadefault.camera
+            ? create.security
+              ? create.security.name
+              : eqdatadefault.security.name
+            : "未選擇"}
         </p>
         <p>
           氣源設備：
-          {create.gas == undefined ? eqdatadefault?.gas.name : create?.gas.name}
+          {eqdatadefault.gas
+            ? create.gas
+              ? create.gas.name
+              : eqdatadefault.gas.name
+            : "未選擇"}
         </p>
         <p>
           網路設備：
-          {create.network == undefined
-            ? eqdatadefault?.network.name
-            : create?.network.name}
+          {eqdatadefault.network
+            ? create.network
+              ? create.network.name
+              : eqdatadefault.network.name
+            : "未選擇"}
         </p>
         <p>耗材：...</p>
       </div>

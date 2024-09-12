@@ -14,7 +14,7 @@ import toast from "react-hot-toast";
 import { StartContext } from "@/hook/startContext";
 import {
   createWorkListAction,
-  readWorkListAction,
+  SaveWorkListAction,
 } from "@/redux/actions/ListAction";
 export default function ChosenWorkWay() {
   const dispatch = useDispatch();
@@ -34,8 +34,8 @@ export default function ChosenWorkWay() {
       { id: 6, name: datas.gluing, image: "glue" },
       { id: 7, name: datas.cutting, image: "cut" },
     ]);
-    dispatch(readWorkListAction());
-  }, [datas]);
+    dispatch(SaveWorkListAction()); //清空create
+  }, []);
   // 下一頁按鈕
   const handleNext = () => {
     const typeid = swiperRef.current.swiper.activeIndex;

@@ -6,7 +6,7 @@ export const Start = createContext([]);
 
 export const StartRobot = ({ children }) => {
   const [start, setStart] = useState({
-    path: {},
+    path: "",
     method: "",
     param: {},
     eq: {},
@@ -16,6 +16,7 @@ export const StartRobot = ({ children }) => {
     security: {},
     gas: {},
     network: {},
+    arm: {},
   });
 
   const handleAdd = (name, data) => {
@@ -25,6 +26,13 @@ export const StartRobot = ({ children }) => {
       return updatedStart;
     });
   };
+  useEffect(() => {
+    const drawData = localStorage.getItem("start");
+    if (drawData !== null) {
+      let data = JSON.parse(drawData);
+      setStart(data);
+    }
+  }, []);
 
   return (
     <Start.Provider

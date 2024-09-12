@@ -1,23 +1,25 @@
-import React from 'react'
-import style from './runscreen.module.scss'
-import { useSelector } from 'react-redux'
-import OrangeButton from '@/component/button/orange-button'
-import CameraLine from '@/component/nosharable/model/ff/camera-line'
-import RedButton from '@/component/button/red-button'
-import GreenButton from '@/component/button/green-button'
-import BlueButton from '@/component/button/blue-button'
-import WhiteButton from '@/component/button/white-button'
+import React from "react";
+import style from "./runscreen.module.scss";
+import { useSelector } from "react-redux";
+import OrangeButton from "@/component/button/orange-button";
+import CameraLine from "@/component/nosharable/model/ff/camera-line";
+import RedButton from "@/component/button/red-button";
+import GreenButton from "@/component/button/green-button";
+import BlueButton from "@/component/button/blue-button";
+import WhiteButton from "@/component/button/white-button";
 export default function RunScreen({
   handleGreenBTN,
   handleRedBTN,
   handleBlueBTN,
   handleOrangeBTN,
 }) {
-  const { datas } = useSelector((state) => state.public)
+  const { datas } = useSelector((state) => state.public);
   return (
     <div className={style.l_run}>
       <div className={style.run_screen}>
-        {/* <img alt=" " src="/images/testimg.png" /> */}
+        <div className={style.run_screen_vedio}>
+          <img alt="test" src="/images/background-image.png" />
+        </div>
         <CameraLine />
       </div>
       <div className={style.run_btn}>
@@ -60,5 +62,5 @@ export default function RunScreen({
         />
       </div>
     </div>
-  )
+  );
 }

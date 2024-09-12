@@ -34,58 +34,67 @@
   width: 35%;
   display: flex;
   flex-direction: column;
-  font-weight: bolder;
-  > div:first-child {
+  .chosen_list_data {
     background: var(--white);
     width: 100%;
     height: 85%;
     border-radius: 20px;
-    padding: 30px 20px 30px 20px;
-    font-size: 20px;
+    padding: 30px 20px;
     display: flex;
     flex-direction: column;
-    gap: 20px;
-  }
-  .chosen_name {
-    background: var(--main-blue-light);
-    width: 100%;
-    padding-block: 12px;
-    padding-inline: 50px;
-    border-radius: 30px;
-    text-align: center;
-    margin-top: 10px;
-    display: flex;
-    justify-content: center;
-    overflow: hidden;
-  }
-  .chosen_img {
-    width: 100%;
-    height: auto;
-    overflow: hidden;
-    img {
-      border-radius: 10px;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+    gap: 10px;
+    overflow: scroll;
+    scrollbar-width: none;
+    .chosen_list_title {
+      display: flex;
+      margin-inline: auto;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      font-size: 28px;
+      font-weight: bolder;
+      white-space: nowrap;
+      img {
+        max-height: 40px;
+      }
     }
-  }
-  .chosen_weld_img {
-    height: 40px;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-
-    img {
-      width: 100%;
-      max-width: 45px;
-      height: 100%;
+    .chosen_list_content {
+      > div {
+        padding-bottom: 0.8rem;
+      }
     }
-  }
-  .empty_chosen {
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    .chosen_list_name {
+      padding: 5px 0 30px 0;
+      font-size: 18px;
+    }
+    .chosen_list_input {
+      background: var(--main-blue-light);
+      width: 100%;
+      padding-block: 12px;
+      padding-inline: 50px;
+      border-radius: 30px;
+      text-align: center;
+      margin-top: 10px;
+      display: flex;
+      justify-content: center;
+      overflow: hidden;
+      min-height: 40px;
+    }
+    .chosen_list_img {
+      width: 100%;
+      height: auto;
+      overflow: hidden;
+      img {
+        border-radius: 10px;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+    h6 {
+      font-size: 20px;
+      font-weight: bolder;
+    }
   }
 }
 

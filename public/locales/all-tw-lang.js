@@ -92,6 +92,7 @@ export const tw = {
   savemodel: "儲存模型",
   importmodel: "匯入模型",
   selectmodel: "選擇模型",
+  importpoint: "匯入標點",
   selectpoint: "選擇標點",
 
   // 清單
@@ -270,7 +271,7 @@ export const tw = {
     {
       name: "生成路徑",
       icon: "icon-path",
-      href: "#",
+      href: "/draw/optimal-path",
     },
     {
       name: "路徑清單",

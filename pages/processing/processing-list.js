@@ -9,44 +9,39 @@ import ChooseWorkGlue from "@/component/nosharable/list/choose/choose-work-glue"
 import ChooseWorkDebur from "@/component/nosharable/list/choose/choose-work-debur";
 import ChooseWorkDrill from "@/component/nosharable/list/choose/choose-work-drill";
 import ChooseWorkWeld from "@/component/nosharable/list/choose/choose-work-weld";
-
+import { StartContext } from "@/hook/startContext";
 import RWDTitle from "@/component/layout/rwd-title";
 import WhiteButton from "@/component/button/white-button";
 
 import { modifyAlert, deleteAlert } from "@/component/alert/alert";
-import toast from "react-hot-toast";
-
 import {
-  pageNextAction,
-  pagePreviousAction,
-} from "@/redux/actions/publicAction";
-
-import {
-  startAction,
   readWorkListAction,
   SetWorkListAction,
   deleteWorkListAction,
   editNameWorkingAction,
   createdWayWorkingAction,
   wirteParamWorkingAction,
+  createWorkListAction,
 } from "@/redux/actions/ListAction";
 import { useRouter } from "next/router";
 import OrangeButton from "@/component/button/orange-button";
+import toast from "react-hot-toast";
 export default function ProcessingList() {
   const dispatch = useDispatch();
   const router = useRouter();
   const { datas } = useSelector((state) => state.public);
-  const { data, current } = useSelector((state) => state.workList);
-  const [select, setSelected] = useState("weld");
+  const { current, data } = useSelector((state) => state.workList);
+
   useEffect(() => {
-    dispatch(readWorkListAction(select));
-    dispatch(SetWorkListAction());
-  }, [select]);
+    dispatch(readWorkListAction());
+  }, []);
 
-  const handleNext = () => {
-    router.push("/processing/processing-view");
+  // 選擇的list畫面
+  const [select, setSelected] = useState("weld");
+  const handleSelect = (e) => {
+    const value = e.target.dataset.value;
+    setSelected(value);
   };
-
   const renderChoose = () => {
     switch (select) {
       case "weld":
@@ -67,16 +62,17 @@ export default function ProcessingList() {
         return <ChooseWorkWeld handleOrangeBTN={handleNext} />;
     }
   };
-
-  // 選擇的加工方式list
-  const handleSelect = (e) => {
-    dispatch(startAction(2, select));
-    dispatch(readWorkListAction(e.target.dataset.value));
-    setSelected(e.target.dataset.value);
-    setCurrentId();
-  };
-  // delete item
+  // 刪除(多選)
   const [deleteItem, setDeleteItem] = useState([]);
+  const handleDeleteBTN = () => {
+    deleteAlert().then((result) => {
+      if (result.isConfirmed) {
+        const sendData = { type: select, paramid: deleteItem };
+        dispatch(deleteWorkListAction(sendData));
+        setDeleteItem([]);
+      }
+    });
+  };
   const handleChosenDelete = (e) => {
     const { value, checked } = e.target;
     if (checked) {
@@ -85,52 +81,60 @@ export default function ProcessingList() {
       setDeleteItem((prev) => prev.filter((item) => item !== Number(value)));
     }
   };
-  const handleDeleteBTN = () => {
-    if (deleteItem.length > 0) {
-      deleteAlert().then((result) => {
-        if (result.isConfirmed) {
-          dispatch(deleteWorkListAction(select, deleteItem));
-          setDeleteItem([]);
-        }
-      });
-    } else {
-      toast.error("未選擇刪除項目");
-    }
-  };
-  // modify item
+  // 更新
   const handleModifyBTN = () => {
-    if (!current) {
-      toast.error("你未選擇要編輯的清單");
-    } else {
-      modifyAlert().then((result) => {
-        if (result.isConfirmed) {
-          router.push("/processing/processing-set");
-          dispatch(createdWayWorkingAction(select));
-          dispatch(editNameWorkingAction(current.name, "modify"));
-          dispatch(pageNextAction("edit"));
-          dispatch(pagePreviousAction("edit"));
-          Object.entries(current).forEach(([key, value]) => {
-            dispatch(wirteParamWorkingAction(key, value));
-          });
-        }
-      });
+    if (Object.keys(current).length === 0) {
+      toast.error("請選擇修改項目");
+      return false;
     }
+
+    modifyAlert().then((result) => {
+      if (result.isConfirmed) {
+        // 把選擇到的資料丟進去create裡面
+        const tag = { ...current, method: select, tag: "edit" };
+        dispatch(createWorkListAction(tag));
+        router.push("/processing/processing-equitment");
+      }
+    });
   };
-  // choose current
-  const [currentId, setCurrentId] = useState();
-  useEffect(() => {
-    if (current) {
-      setCurrentId(current.id);
+
+  const { handleAdd } = StartContext();
+  // 選擇
+  const handleNext = () => {
+    if (Object.keys(current).length === 0) {
+      toast.error("請選擇加工參數");
+      return false;
     }
-  }, [current]);
+    handleAdd("method", select);
+    handleAdd("robot", current.robot_name);
+    handleAdd("camera", current.camera_name);
+    handleAdd("security", current.security_name);
+    handleAdd("network", current.network_name);
+    handleAdd("gas", current.gas_name);
+    handleAdd("eq", current.eq_name);
+    handleAdd("param", {
+      electric_current: current.electric_current,
+      voltage: current.voltage,
+      deep: current.deep,
+    });
+    router.push("/processing/processing-view");
+  };
+  // 選擇到的顏色切換+選擇到存入redux
+  const [currentid, setCurrentid] = useState();
   const handleChoose = (e) => {
-    const id = Number(e.currentTarget.dataset.id);
-    if (id) {
-      const [newData] = data.data.filter((item) => item.id == id);
-      dispatch(SetWorkListAction(newData));
-      dispatch(startAction(3, newData));
-    }
+    const chosenID = Number(e.currentTarget.dataset.id);
+    setCurrentid(chosenID);
+    const [currentData] = datasList.filter((item) => item.id == chosenID);
+    dispatch(SetWorkListAction(currentData));
   };
+  // 顯示資料
+  const [datasList, setDatasList] = useState([]);
+  useEffect(() => {
+    setDatasList(data[select]);
+    if (select) {
+      dispatch(SetWorkListAction({})); //切換加工方式時清除
+    }
+  }, [data, select]);
   return (
     <>
       <div className="bg-execute"></div>
@@ -154,11 +158,12 @@ export default function ProcessingList() {
           <ListWork
             select={select}
             handleSelect={handleSelect}
-            currentId={currentId}
-            handleChoose={handleChoose}
-            handleModifyBTN={handleModifyBTN}
             handleDeleteBTN={handleDeleteBTN}
             handleChosenDelete={handleChosenDelete}
+            handleModifyBTN={handleModifyBTN}
+            currentid={currentid}
+            handleChoose={handleChoose}
+            datasList={datasList}
           />
           {renderChoose()}
           <div className="rwd-btn">

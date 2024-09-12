@@ -7,7 +7,7 @@
     ". . name deep beil"
     "lefttool unity unity unity setting"
     "lefttool . bottomtool extend  mouse";
-  grid-template-columns: 150px 12vw calc(100vw - 30vw - 300px) 12vw 150px;
+  grid-template-columns: 150px 150px calc(100% - 620px) 150px 150px;
   grid-template-rows: 45px 35px auto 80px;
 
   i {

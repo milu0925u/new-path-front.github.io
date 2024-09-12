@@ -14,6 +14,7 @@ import {
   DATA_WORKING_DELETE,
   DATA_WORKING_UPDATE,
   DATA_WORKING_CREATE,
+  DATA_WORKING_CREATE_SAVE,
   DATA_EQUITMENT_READ,
   DATA_EQUITMENT_READ_DEFAULT,
   PUBLIC_LOADING,
@@ -178,11 +179,7 @@ export const readWorkListAction = () => async (dispatch) => {
   try {
     dispatch({ type: PUBLIC_LOADING, payload: true });
 
-    const { data } = await axios.get(`${domain}/work`, {
-      headers: {
-        "ngrok-skip-browser-warning": "1",
-      },
-    });
+    const { data } = await axios.get(`${domain}/work/geteq`);
     dispatch({
       type: DATA_WORKING_READ,
       payload: data.data,
@@ -193,14 +190,16 @@ export const readWorkListAction = () => async (dispatch) => {
     toast.error("read working fail");
   }
 };
-export const deleteWorkListAction = (type) => async (dispatch) => {
+export const deleteWorkListAction = (datas) => async (dispatch) => {
   try {
-    const { data } = await axios.delete(`${domain}/work/${type}`);
-
-    dispatch({
-      type: DATA_WORKING_DELETE,
-      payload: data,
-    });
+    await axios.post(`${domain}/work/delete`, datas);
+    const { data } = await axios.get(`${domain}/work/geteq`);
+    if (data.success) {
+      dispatch({
+        type: DATA_WORKING_DELETE,
+        payload: data.data,
+      });
+    }
   } catch (error) {
     toast.error("刪除失敗");
   }
@@ -218,22 +217,7 @@ export const SetWorkListAction = (data) => async (dispatch) => {
 
 export const updateWorkListAction = (datas) => async (dispatch) => {
   try {
-    const { data } = await axios.patch(
-      `${domain}/work`,
-      {
-        headers: {
-          "ngrok-skip-browser-warning": "1",
-        },
-      },
-      data
-    );
-
-    dispatch({
-      type: DATA_WORKING_READ,
-      payload: data,
-    });
-
-    dispatch({ type: PUBLIC_LOADING, payload: false });
+    await axios.post(`${domain}/work/update`, datas);
   } catch (error) {
     toast.error("read working fail");
   }
@@ -243,6 +227,16 @@ export const createWorkListAction = (data) => async (dispatch) => {
     dispatch({ type: DATA_WORKING_CREATE, payload: data });
   } catch (error) {
     toast.error("read working fail");
+  }
+};
+export const SaveWorkListAction = (datas) => async (dispatch) => {
+  try {
+    if (datas) {
+      await axios.post(`${domain}/work/add`, datas);
+    }
+    dispatch({ type: DATA_WORKING_CREATE_SAVE, payload: {} });
+  } catch (error) {
+    toast.error(error.response.data.message);
   }
 };
 
@@ -267,7 +261,6 @@ export const readEqAction = () => async (dispatch) => {
 };
 export const readdefaultEqAction = () => async (dispatch) => {
   try {
-    dispatch({ type: PUBLIC_LOADING, payload: true });
     const { data } = await axios.get(`${domain}/equitment/defaultt`, {
       headers: {
         "ngrok-skip-browser-warning": "1",
@@ -278,8 +271,6 @@ export const readdefaultEqAction = () => async (dispatch) => {
       type: DATA_EQUITMENT_READ_DEFAULT,
       payload: data.data,
     });
-
-    dispatch({ type: PUBLIC_LOADING, payload: false });
   } catch (error) {
     toast.error("read working fail");
   }

@@ -1,15 +1,23 @@
 .l_run {
+  width: 100%;
+  height: 100%;
   flex: 1;
   border-radius: 30px;
   background: var(--white-op08);
   padding-inline: 20px;
   padding-top: 30px;
   .run_screen {
-    height: 50vh;
     position: relative;
     background: var(--white);
     border-radius: 20px;
+    width: 100%;
+    height: 500px;
     img {
+      width: 100%;
+      height: 100%;
+      border-radius: 20px;
+    }
+    .run_screen_vedio {
       width: 100%;
       height: 100%;
       border-radius: 20px;
@@ -26,7 +34,6 @@
     justify-content: space-around;
   }
 }
-
 .run {
   width: 100%;
   height: 100%;
@@ -45,6 +52,81 @@
   }
 }
 
+.l_run_list {
+  width: 70%;
+  border-radius: 30px;
+  padding: 20px 15px 50px 15px;
+  display: flex;
+  background: white;
+  .l_run_list_worklist {
+    width: 100%;
+    margin-top: 50px;
+    border-radius: 30px;
+    display: flex;
+    > div {
+      width: 80%;
+    }
+    > button {
+      margin: auto 50px 30px auto;
+    }
+  }
+  .l_run_list_arm {
+    margin-block: auto;
+    width: 100%;
+    max-height: 350px;
+    min-height: 200px;
+    height: 100%;
+    padding: 0 50px 0 60px;
+    font-size: 18px;
+    font-weight: bolder;
+    h3 {
+      font-size: 28px;
+      font-weight: bolder;
+      padding-bottom: 30px;
+    }
+    .speed {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      i {
+        font-size: 20px;
+      }
+    }
+    .l_run_arm_setting {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 30px;
+      > div > * {
+        margin-bottom: 18px;
+      }
+      .l_run_arm_setting_btn {
+        margin-top: auto;
+      }
+    }
+    .arm_btn button {
+      margin-left: auto;
+    }
+  }
+}
+
+@media screen and (max-width: 1600px) {
+  .l_run_list {
+    .l_run_list_arm {
+      .l_run_arm_setting {
+        gap: 0;
+      }
+      .l_run_arm_setting_btn {
+        width: 100%;
+        min-height: 200px;
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+      }
+    }
+  }
+}
+
 @media screen and (max-width: 1200px) {
   .l_run {
     .run_screen {
@@ -54,6 +136,48 @@
     }
     .rwd_run_btn {
       display: flex;
+    }
+  }
+  .l_run_list {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    .l_run_list_worklist {
+      margin: 0;
+      > div {
+        width: 100%;
+      }
+      button {
+        display: none;
+      }
+    }
+    .l_run_list_arm {
+      h3 {
+        text-align: center;
+        line-height: 60px;
+        border-bottom: 3px;
+        border-style: solid;
+        border-color: rgba(0, 0, 0, 0.1);
+        padding: 0;
+      }
+      .l_run_arm_setting {
+        padding-top: 30px;
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        .speed {
+          justify-content: center;
+        }
+      }
+      .arm_btn {
+        margin-inline: auto;
+      }
+      .l_run_arm_setting_btn {
+        display: none;
+      }
+    }
+    > div:nth-child(2) {
+      display: none;
     }
   }
 }

@@ -29,9 +29,7 @@ export default function ListModelData({
             className={`${style.grid_list} ${
               currentid == item.id ? style.bg_blue : style.bg_grey
             }`}
-            onClick={(e) => {
-              handleChoose(e);
-            }}
+            onClick={handleChoose}
           >
             <input
               type="checkbox"

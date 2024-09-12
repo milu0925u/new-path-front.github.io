@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import style from "../equitment-set.module.scss";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import OrangeButton from "@/component/button/orange-button";
 import Search from "@/component/nosharable/list/model/search";
 import WhiteButton from "@/component/button/white-button";
@@ -9,13 +9,6 @@ import { useRouter } from "next/router";
 export default function EqList({ handleNext, text, handleActive }) {
   const { datas } = useSelector((state) => state.public);
   const { eqdata, create } = useSelector((state) => state.workList);
-
-  const router = useRouter();
-  useEffect(() => {
-    if (create.method === undefined) {
-      router.push("/processing/processing-chose");
-    }
-  }, [router]);
 
   return (
     <div className={style.maintainance_list}>
@@ -26,7 +19,7 @@ export default function EqList({ handleNext, text, handleActive }) {
         </div>
         <div className={style.item}>
           {Array.isArray(eqdata[create.method]) &&
-            eqdata.weld.map((item) => (
+            eqdata[create.method].map((item) => (
               <div
                 key={item.id}
                 data-value={item}

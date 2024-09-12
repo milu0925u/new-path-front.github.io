@@ -22,6 +22,7 @@ export default function EquitmentSet() {
   const dispatch = useDispatch();
   const { datas } = useSelector((state) => state.public);
   const { eqdata, create } = useSelector((state) => state.workList);
+
   // 選單得動態生成
   const [equitment, setEquitment] = useState([]);
   useEffect(() => {
@@ -55,7 +56,7 @@ export default function EquitmentSet() {
         name: datas.networkequipment,
       },
     ]);
-  }, [datas]);
+  }, []);
   // 設備設定選項的顏色
   const [active, setActive] = useState(1);
   const handleActiveColor = (e) => {
@@ -154,7 +155,7 @@ export default function EquitmentSet() {
   };
   // 清單裡面確認按鈕
   const handleOK = () => {
-    let method = text.type;
+    let method = text?.type;
     dispatch(createWorkListAction({ [method]: text }));
   };
 

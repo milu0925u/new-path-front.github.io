@@ -1,0 +1,73 @@
+.l_optimal {
+  width: calc(100vw - var(--sidebar-width));
+  height: calc(100vh - var(--header) - 20px);
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  .col_content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    .nav {
+      display: flex;
+      > button {
+        margin-inline: 30px;
+      }
+      > input {
+        margin-inline: auto;
+      }
+    }
+    .content {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    > button {
+      margin-inline: auto;
+    }
+  }
+  .col_ai_btn {
+    min-width: 150px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-inline: auto;
+    font-weight: bolder;
+    text-align: center;
+    white-space: nowrap;
+    .button {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 16px;
+      border-radius: 30px;
+      padding-inline: 18px;
+      padding-block: 8px;
+      font-weight: bolder;
+      transition: all 0.3s ease-in-out;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .btnactive {
+      background: var(--main-blue);
+      color: white;
+      border: 3px solid var(--main-blue);
+    }
+    .btnnone {
+      color: black;
+      border: 3px solid var(--white);
+      background: var(--main-blue-light);
+    }
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .l_optimal {
+    width: 100vw;
+    height: calc(100vh - var(--header) - var(--footer) - 20px);
+  }
+}

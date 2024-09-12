@@ -1,27 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import style from "../list.module.scss";
 import { useSelector } from "react-redux";
 import OrangeButton from "@/component/button/orange-button";
 export default function ChooseWorkWeld({ handleOrangeBTN }) {
   const { datas } = useSelector((state) => state.public);
   const { current } = useSelector((state) => state.workList);
-
   console.log(current);
-
+  useEffect(() => {}, [current]);
   return (
     <div className={style.chosen_list}>
-      <div>
+      <div className={style.chosen_list_data}>
         {current ? (
           <>
-            <div className={style.chosen_weld_img}>
+            <div className={style.chosen_list_title}>
               <img alt="weld" src="/images/work/weld.svg" />
               <span>{datas.weldingprocess}</span>
             </div>
-            <div>
-              <h6>{datas.processingconfigurationname}</h6>
-              <span>{current?.name}</span>
-            </div>
-            <div>
+            <h6>{datas.processingconfigurationname}</h6>
+            <div className={style.chosen_list_name}>{current?.name}</div>
+            <div className={style.chosen_list_content}>
               <div>
                 {`${datas.weldingprocessverticaldepthadjustment}`}：
                 {current?.deep}
@@ -33,9 +30,25 @@ export default function ChooseWorkWeld({ handleOrangeBTN }) {
                 {datas.current}：{current?.voltage}A
               </div>
             </div>
-            <div>
+            <h6>{datas.processingequipment}</h6>
+            <div className={style.chosen_list_content}>
               <div>
-                {`${datas.roboticarmspeedsetting}`}：{current?.speed}
+                {datas.weldingequipment}：{current?.eq_name}
+              </div>
+              <div>
+                {datas.roboticarm}：{current?.robot_name}
+              </div>
+              <div>
+                {datas.visioncamera}：{current?.camera_name}
+              </div>
+              <div>
+                {datas.safetyequipment}：{current?.security_name}
+              </div>
+              <div>
+                {datas.airsupplyequipment}：{current?.gas_name}
+              </div>
+              <div>
+                {datas.networkequipment}：{current?.network_name}
               </div>
             </div>
           </>

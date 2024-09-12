@@ -201,7 +201,6 @@ export default function Draw() {
     <>
       <div className="bg-sky"></div>
       <div className="bg-space"></div>
-      {/* RWD */}
       <div
         className="l_unity"
         onMouseDown={handleMouseDown}

@@ -1,11 +1,11 @@
-import React from 'react'
+import React from "react";
 // import style from "./runscreen.module.scss";
-import style from './info.module.scss'
-import { useSelector } from 'react-redux'
-import OrangeButton from '@/component/button/orange-button'
-import CameraLine from '@/component/nosharable/model/ff/camera-line'
+import style from "./info.module.scss";
+import { useSelector } from "react-redux";
+import OrangeButton from "@/component/button/orange-button";
+import CameraLine from "@/component/nosharable/model/ff/camera-line";
 export default function EmptyRunScreen({ handleOrangeBTN }) {
-  const { datas } = useSelector((state) => state.public)
+  const { datas } = useSelector((state) => state.public);
   return (
     <div className={style.l_row_right_info}>
       <div className={style.col_row_right_info}>
@@ -21,5 +21,5 @@ export default function EmptyRunScreen({ handleOrangeBTN }) {
         </div>
       </div>
     </div>
-  )
+  );
 }

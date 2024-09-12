@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import style from "./list.module.scss";
 
 import WhiteButton from "@/component/button/white-button";
@@ -9,31 +9,24 @@ import ListNav from "./process/list-nav";
 import ListModelData from "./model/list-model-data";
 export default function ListWork({
   select,
-  handleSelect,
-  currentId,
-  handleChoose,
-  handleModifyBTN,
   handleDeleteBTN,
+  handleModifyBTN,
+  handleSelect,
+  currentid,
+  handleChoose,
+  datasList,
+  setDatasList,
   handleChosenDelete,
 }) {
   const { datas } = useSelector((state) => state.public);
   const { data } = useSelector((state) => state.workList);
-
-  useEffect(() => {
-    setAllDatasList(data.data);
-    setDatasList(data.data);
-  }, [data.data]);
-
-  // 所有資料 / 顯示資料
-  const [alldatasList, setAllDatasList] = useState([]);
-  const [datasList, setDatasList] = useState([]);
 
   return (
     <div
       className={`${style.col_list} ${style.col_list_bg} ${style.list_radius}`}
     >
       <div className={style.list_f}>
-        <Search alldatasList={alldatasList} setDatasList={setDatasList} />
+        <Search alldatasList={data[select]} setDatasList={setDatasList} />
         <WhiteButton
           text={datas.modify}
           icon="icon-editset"
@@ -52,7 +45,7 @@ export default function ListWork({
           <div>{datas.creationtime}</div>
         </div>
         <ListModelData
-          currentid={currentId}
+          currentid={currentid}
           datasList={datasList}
           handleChosenDelete={handleChosenDelete}
           handleChoose={handleChoose}

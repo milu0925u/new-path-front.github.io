@@ -8,11 +8,17 @@ import ReturnBlueButton from "@/component/button/return-blue-button";
 import ReturnWhiteButton from "@/component/button/return-white-button";
 import EquitmentSet from "@/component/nosharable/equitment/equitment-set";
 import OrangeButton from "@/component/button/orange-button";
-import { readdefaultEqAction, readEqAction } from "@/redux/actions/ListAction";
+import {
+  createWorkListAction,
+  readdefaultEqAction,
+  readEqAction,
+} from "@/redux/actions/ListAction";
 
 export default function ProcessingEquitment() {
   const router = useRouter();
   const { datas } = useSelector((state) => state.public);
+  const { create, eqdata } = useSelector((state) => state.workList);
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(readEqAction());
@@ -23,8 +29,23 @@ export default function ProcessingEquitment() {
     router.push("/processing/processing-chose");
   };
 
-  const handleNext = () => {};
-
+  const handleNext = () => {
+    // 抓到所有預設值
+    const filteredData = {};
+    for (const key in eqdata) {
+      [filteredData[key]] = eqdata[key].filter((item) => item.defaultt === 1);
+      if (!create[key]) {
+        dispatch(createWorkListAction({ [key]: filteredData[key] }));
+      }
+    }
+    router.push("/processing/processing-set");
+  };
+  //
+  useEffect(() => {
+    if (create.method === undefined) {
+      router.push("/processing/processing-chose");
+    }
+  }, [router]);
   return (
     <>
       <div className="bg-execute"></div>
@@ -36,13 +57,13 @@ export default function ProcessingEquitment() {
         <div className="content">
           <EqLeftAll />
           <EquitmentSet />
-          <div className="rwd-btn">
+          <div className="rwd-btn-2">
+            <ReturnBlueButton handleReturnBTN={handleReturn} />
             <OrangeButton
-              text={datas.confirm}
-              icon="icon-ok"
+              text={datas.save}
+              icon="icon-save"
               handleOrangeBTN={handleNext}
             />
-            <ReturnBlueButton handleReturnBTN={handleReturn} />
           </div>
         </div>
       </div>
