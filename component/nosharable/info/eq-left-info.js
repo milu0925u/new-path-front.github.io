@@ -42,15 +42,19 @@ export default function LeftcontentParam({ setScreen }) {
       </div>
       <div className={style.left_info_content}>
         <div
-          className={style.block}
           style={{ cursor: "pointer" }}
           onClick={() => {
             setScreen("chosen-path");
           }}
         >
           <h6>{datas.selectprocessingpath}</h6>
-          <p>{start.path.name ? start.path.name : "未選擇"}</p>
+          {Object.keys(start.path).length === 0 ? (
+            <i className="icon-cancle icon-cancle-bg"></i>
+          ) : (
+            <i className="icon-ok icon-ok-bg"></i>
+          )}
         </div>
+        <p>{start.path.name ? start.path.name : ""}</p>
         <div
           style={{ cursor: "pointer" }}
           onClick={() => {

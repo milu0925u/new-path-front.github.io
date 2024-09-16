@@ -5,11 +5,18 @@ import OrangeButton from "@/component/button/orange-button";
 import InputNumber from "@/component/input/input-number";
 import BlueButton from "@/component/button/blue-button";
 import { StartContext } from "@/hook/startContext";
+import toast from "react-hot-toast";
 export default function ChosenArmScreen() {
   const { datas } = useSelector((state) => state.public);
   const { start, handleAdd } = StartContext();
+
   const handleNext = () => {
-    handleAdd("arm", { speed: textvalue });
+    if (textvalue == null && textvalue == undefined) {
+      toast.error("未輸入手臂速度");
+      return false;
+    }
+
+    handleAdd("arm", { speed: Number(textvalue) });
   };
   const handleReturnSafe = () => {};
   const handleReturnStart = () => {};

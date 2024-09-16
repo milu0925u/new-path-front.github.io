@@ -10,14 +10,14 @@ export default function EqMaintainance({ text }) {
       <div className="content-title">{datas.processingequipment}</div>
       <div>
         <span>{datas.weldingequipment}：</span>
-        <input type="text" value={text && text.name} disabled />
+        <input type="text" value={text ? text.name : ""} disabled />
       </div>
       <div>{datas.maintenanceremindersetting}：</div>
       <div>
         <span>{datas.maintenancefrequency}　</span>
         <input
           type="number"
-          value={text && text.maintenance_frequency}
+          value={text ? text.maintenance_frequency : ""}
           disabled
         />
         {datas.day}

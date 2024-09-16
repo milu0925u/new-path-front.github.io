@@ -56,8 +56,8 @@ export default function ListModel({ handleChosenDelete, handleDeleteBTN }) {
       let newData = {
         ...currentData,
         // baran資料夾位置 http://172.16.11.68:5000/
-        model_path: `${domain}/${currentData.model_path}`,
-        image_path: `${domain}/${currentData.image_path}`,
+        model_path: `${domain}${currentData.model_path}`,
+        image_path: `${domain}${currentData.image_path}`,
       };
       dispatch(SetModelAction(newData));
       localStorage.setItem("model", JSON.stringify(newData));

@@ -1,13 +1,16 @@
 import React from "react";
 import style from "./camera-screen.module.scss";
 import { useSelector } from "react-redux";
-export default function CameraScreen() {
+export default function CameraScreen({ imgurl }) {
   const { camera } = useSelector((state) => state.public);
+  const aidomain = process.env.NEXT_PUBLIC_AI;
   return (
     <>
       {camera == "success" ? (
         <div className={style.success}>
-          <div></div>
+          <div>
+            <img src={`${aidomain}${imgurl ? imgurl : ""}`} />
+          </div>
         </div>
       ) : (
         <div className={style.fail}>

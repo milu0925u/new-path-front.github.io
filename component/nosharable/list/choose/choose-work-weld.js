@@ -5,7 +5,7 @@ import OrangeButton from "@/component/button/orange-button";
 export default function ChooseWorkWeld({ handleOrangeBTN }) {
   const { datas } = useSelector((state) => state.public);
   const { current } = useSelector((state) => state.workList);
-  console.log(current);
+
   useEffect(() => {}, [current]);
   return (
     <div className={style.chosen_list}>

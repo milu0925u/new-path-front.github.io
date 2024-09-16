@@ -178,10 +178,6 @@ export default function DrawShow() {
     };
   }, [addEventListener, removeEventListener, handleTurnToRobot]);
 
-  // full screen
-  const FullScreenClick = () => {
-    requestFullscreen(true);
-  };
   // unity language change
   const [isEnglish, setIsEnglish] = useState(1);
   const languageSwitch = async () => {
@@ -191,17 +187,8 @@ export default function DrawShow() {
 
   return (
     <>
-      <div className={style.unity}>
-        <Unity
-          id="show"
-          unityProvider={unityProvider}
-          tabIndex={1}
-          className={style.unity_screen}
-        />
-        <div className={style.loading}>{isLoaded ? "" : <Loading />}</div>
-      </div>
-      <FullScreen FullScreen={FullScreenClick} />
-      <LangSwitch langSwitch={languageSwitch} />
+      <Unity id="show" unityProvider={unityProvider} tabIndex={1} />
+      {isLoaded ? "" : <Loading />}
     </>
   );
 }

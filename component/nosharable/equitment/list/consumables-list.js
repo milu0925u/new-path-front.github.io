@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import style from "../equitment-set.module.scss";
 import { useSelector } from "react-redux";
 import OrangeButton from "@/component/button/orange-button";
@@ -12,19 +12,25 @@ export default function ConsumablesList({
 }) {
   const { datas } = useSelector((state) => state.public);
   const { eqdata } = useSelector((state) => state.workList);
-
-  console.log(csbtext);
-
+  // 所有資料 / 顯示資料
+  const [alldatasList, setAllDatasList] = useState([]);
+  const [datasList, setDatasList] = useState([]);
+  useEffect(() => {
+    if (eqdata) {
+      setDatasList(eqdata.csb);
+      setAllDatasList(eqdata.csb);
+    }
+  }, [eqdata]);
   return (
     <div className={style.maintainance_list}>
       <div className={style.list}>
         <div className={style.function}>
-          <Search />
+          <Search alldatasList={alldatasList} setDatasList={setDatasList} />
           <WhiteButton text={datas.delete} icon="icon-delete" />
         </div>
         <div className={style.item}>
           {Array.isArray(eqdata.csb) &&
-            eqdata.csb.map((item) => (
+            datasList.map((item) => (
               <div
                 key={item.id}
                 onClick={() => {

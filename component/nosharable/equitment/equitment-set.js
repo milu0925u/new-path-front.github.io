@@ -21,10 +21,10 @@ import { createWorkListAction } from "@/redux/actions/ListAction";
 export default function EquitmentSet() {
   const dispatch = useDispatch();
   const { datas } = useSelector((state) => state.public);
-  const { eqdata, create } = useSelector((state) => state.workList);
 
   // 選單得動態生成
   const [equitment, setEquitment] = useState([]);
+
   useEffect(() => {
     setEquitment([
       {
@@ -65,7 +65,7 @@ export default function EquitmentSet() {
     setText(null);
   };
   // 保養日期
-  const [text, setText] = useState(null);
+  const [text, setText] = useState("");
   const [csbtext, setcsbText] = useState([]);
   const handleActive = (data) => {
     setText(data);
@@ -88,7 +88,7 @@ export default function EquitmentSet() {
     } else if (active === 3) {
       return <CameraMaintainance text={text} />;
     } else if (active === 4) {
-      return <ConsumablesMaintainance text={text} />;
+      return <ConsumablesMaintainance text={csbtext} />;
     } else if (active === 5) {
       return <SecurityMaintainance text={text} />;
     } else if (active === 6) {
@@ -156,7 +156,11 @@ export default function EquitmentSet() {
   // 清單裡面確認按鈕
   const handleOK = () => {
     let method = text?.type;
-    dispatch(createWorkListAction({ [method]: text }));
+    if (method === undefined) {
+      dispatch(createWorkListAction({ csb: csbtext }));
+    } else {
+      dispatch(createWorkListAction({ [method]: text }));
+    }
   };
 
   //swiper

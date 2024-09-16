@@ -30,6 +30,16 @@ export const unityLeaveAlert = () => {
   });
 };
 
+export const unityEditAlert = () => {
+  return Swal.fire({
+    title: "是否前往修改標點",
+    icon: "warning",
+    showCloseButton: true,
+    confirmButtonText: "確定",
+    cancelButtonText: "取消",
+  });
+};
+
 export const unitySortAlert = () => {
   return Swal.fire({
     title: "是否前往設定加工順序",

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import style from "./camera-function.module.scss";
 import styles from "@/component/input/input.module.scss";
+import OrangeButton from "@/component/button/orange-button";
 export default function CameraViewName({
   children,
   modelName,
@@ -42,9 +43,11 @@ export default function CameraViewName({
             />
             mm
           </div>
-          <button className={style.function_ok_btn} onClick={handleScope}>
-            ok
-          </button>
+          <OrangeButton
+            text={datas.ok}
+            icon="icon-ok"
+            handleOrangeBTN={handleScope}
+          />
         </div>
       </div>
       <div className="nextbtn">{children}</div>

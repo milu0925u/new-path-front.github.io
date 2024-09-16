@@ -32,7 +32,6 @@ export default function ParamSettingWeld({ handleSave }) {
             <input
               type="number"
               value={create.deep ? create?.deep : 0}
-              defaultValue={0}
               pattern="[0-9]*"
               disabled
             />

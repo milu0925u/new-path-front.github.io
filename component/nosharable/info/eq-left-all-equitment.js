@@ -26,6 +26,8 @@ export default function EqLeftAllEquitment() {
     }
   };
 
+  console.log(eqdatadefault.csb);
+
   return (
     <>
       <div className={style.left_info_title}>
@@ -81,7 +83,11 @@ export default function EqLeftAllEquitment() {
               : eqdatadefault.network.name
             : "未選擇"}
         </p>
-        <p>耗材：...</p>
+        {eqdatadefault.csb
+          ? create.csb
+            ? create.csb.map((d) => <p>耗材：{d.name}</p>)
+            : eqdatadefault.csb.map((d) => <p>耗材：{d.name}</p>)
+          : "未選擇"}
       </div>
     </>
   );

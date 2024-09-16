@@ -18,19 +18,6 @@ export const datasAction = (data) => async (dispatch) => {
   }
 };
 
-// export const languageAction = (language) => async (dispatch) => {
-//   try {
-//     const word = language
-//     dispatch({
-//       type: PUBLIC_LANGUAGE,
-//       payload: word,
-//     })
-//     localStorage.setItem('language', word)
-//   } catch (error) {
-//     console.log('未偵測到語言')
-//   }
-// }
-
 export const unityOpenAction = () => async (dispatch) => {
   try {
     dispatch({

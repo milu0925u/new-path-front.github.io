@@ -30,7 +30,6 @@ const RwdDrawToolbar = ({ sendMessage }) => {
   // 功能行為
   const handleBtnActive = (e) => {
     const current = e.currentTarget.dataset.tag;
-    console.log(current);
     if (current === "list") {
     } else if (current === "record") {
       sendMessage("CallBackManager", "OpenRecord");

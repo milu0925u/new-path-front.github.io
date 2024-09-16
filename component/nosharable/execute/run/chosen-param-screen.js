@@ -7,14 +7,17 @@ import ListWork from "@/component/nosharable/list/list-work";
 
 import { modifyAlert, deleteAlert } from "@/component/alert/alert";
 import {
+  createWorkListAction,
   deleteWorkListAction,
   readWorkListAction,
   SetWorkListAction,
 } from "@/redux/actions/ListAction";
 import OrangeButton from "@/component/button/orange-button";
+import { useRouter } from "next/router";
 export default function ChosenParamScreen() {
   const { datas } = useSelector((state) => state.public);
   const { current, data } = useSelector((state) => state.workList);
+  const router = useRouter();
   const dispatch = useDispatch();
   const { handleAdd } = StartContext();
   useEffect(() => {
@@ -107,6 +110,7 @@ export default function ChosenParamScreen() {
           currentid={currentid}
           handleChoose={handleChoose}
           datasList={datasList}
+          setDatasList={setDatasList}
         />
         <OrangeButton
           text={datas.ok}

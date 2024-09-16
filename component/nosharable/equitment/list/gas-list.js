@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import style from "../equitment-set.module.scss";
 import { useSelector } from "react-redux";
 import OrangeButton from "@/component/button/orange-button";
@@ -8,18 +8,26 @@ import WhiteButton from "@/component/button/white-button";
 export default function GasList({ handleNext, text, handleActive }) {
   const { datas } = useSelector((state) => state.public);
   const { eqdata } = useSelector((state) => state.workList);
-  const [active, setActive] = useState(null);
+  // 所有資料 / 顯示資料
+  const [alldatasList, setAllDatasList] = useState([]);
+  const [datasList, setDatasList] = useState([]);
+  useEffect(() => {
+    if (eqdata) {
+      setDatasList(eqdata.gas);
+      setAllDatasList(eqdata.gas);
+    }
+  }, [eqdata]);
 
   return (
     <div className={style.maintainance_list}>
       <div className={style.list}>
         <div className={style.function}>
-          <Search />
+          <Search alldatasList={alldatasList} setDatasList={setDatasList} />
           <WhiteButton text={datas.delete} icon="icon-delete" />
         </div>
         <div className={style.item}>
           {Array.isArray(eqdata.gas) &&
-            eqdata.gas.map((item) => (
+            datasList.map((item) => (
               <div
                 key={item.id}
                 onClick={() => handleActive(item)}

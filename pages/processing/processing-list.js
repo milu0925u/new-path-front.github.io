@@ -164,6 +164,7 @@ export default function ProcessingList() {
             currentid={currentid}
             handleChoose={handleChoose}
             datasList={datasList}
+            setDatasList={setDatasList}
           />
           {renderChoose()}
           <div className="rwd-btn">

@@ -8,7 +8,7 @@ import DeleteWhiteButton from "@/component/button/delete-white-button";
 
 import ListPoint from "@/component/nosharable/list/list-point";
 import ChoosePoint from "@/component/nosharable/list/choose/choose-point";
-import { unitySortAlert } from "@/component/alert/alert";
+import { unitySortAlert, unityEditAlert } from "@/component/alert/alert";
 import { unityOpenAction } from "@/redux/actions/publicAction";
 import {
   readPointAction,
@@ -27,9 +27,6 @@ export default function PointList() {
   useEffect(() => {
     dispatch(readPointAction());
   }, []);
-  const handleReturn = () => {
-    router.back();
-  };
   const handleNext = () => {
     if (current.id) {
       router.push("/draw/optimal-path");
@@ -66,6 +63,19 @@ export default function PointList() {
       unitySortAlert().then((result) => {
         if (result.isConfirmed) {
           dispatch(unityOpenAction());
+          router.push("/draw/show");
+        }
+      });
+    } else {
+      toast.error("您未選擇模型");
+    }
+  };
+  // 進入fix unity
+  const handleEdit = () => {
+    if (current.id) {
+      unityEditAlert().then((result) => {
+        if (result.isConfirmed) {
+          dispatch(unityOpenAction());
           router.push("/draw/edit");
         }
       });
@@ -94,6 +104,7 @@ export default function PointList() {
         </RWDTitle>
         <div className="content content-pd content-blue-full">
           <ListPoint
+            handleEdit={handleEdit}
             handleSort={handleSort}
             handleChosenDelete={handleChosenDelete}
             handleDeleteBTN={handleDeleteBTN}

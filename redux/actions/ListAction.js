@@ -84,11 +84,8 @@ export const readPointAction = () => async (dispatch) => {
   try {
     dispatch({ type: PUBLIC_LOADING, payload: true });
 
-    const { data } = await axios.get(`${domain}/point`, {
-      headers: {
-        "ngrok-skip-browser-warning": "1",
-      },
-    });
+    const { data } = await axios.get(`${domain}/point`);
+
     if (data.success) {
       dispatch({
         type: DATA_POINT_READ,

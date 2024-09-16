@@ -18,7 +18,9 @@ export default function CameraFunction({
         <h6>{datas.cameraconnectionstatus}</h6>
         <div>
           <Connect icon="icon-camera" />
-          <button onClick={handleConnect}>{datas.reconnect}</button>
+          <button className={style.button} onClick={handleConnect}>
+            {datas.reconnect}
+          </button>
         </div>
       </div>
 
@@ -26,7 +28,9 @@ export default function CameraFunction({
         <h6>{datas.scancameraparameters}</h6>
         <div className={style.function_param_btn}>
           <button
-            className={active == datas.basicsettings ? style.active : ""}
+            className={`${style.button} ${
+              active == datas.basicsettings ? style.active : ""
+            }`}
             onClick={() => {
               setActive(datas.basicsettings);
               setsettingname("origin.yml");

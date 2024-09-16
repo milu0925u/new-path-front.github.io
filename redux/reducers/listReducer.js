@@ -29,7 +29,7 @@ let init_work = {
   current: {},
   data: [],
   eqdata: [],
-  create: {},
+  create: { deep: 0 },
   eqdatadefault: [],
 };
 let init_center = { data: [] };

@@ -49,24 +49,30 @@ export default function ProcessingSet() {
       router.push("/processing/processing-list");
     }
   };
+  console.log(create.deep);
+
   // 錯誤阻擋
   const checkHasError = () => {
-    if (!create?.deep) {
+    if (create?.deep === null || create?.deep === undefined) {
       toast.error("請填入深度");
       return true;
-    } else if (!create?.electric_current) {
+    } else if (
+      create?.electric_current === null ||
+      create?.electric_current === undefined
+    ) {
       toast.error("請填入電流");
       return true;
-    } else if (!create?.voltage) {
+    } else if (create?.voltage === null || create?.voltage === undefined) {
       toast.error("請填入電壓");
       return true;
-    } else if (!create?.name) {
+    } else if (create?.name === null || create?.name === undefined) {
       toast.error("請填入加工設定名稱");
       return true;
     } else {
       return false;
     }
   };
+
   return (
     <>
       <div className="bg-execute"></div>

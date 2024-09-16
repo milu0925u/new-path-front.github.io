@@ -120,7 +120,7 @@ export default function DrawFix({
 
   // 讀取unity檔案整串
   useEffect(() => {
-    const customURL = `${domain}/point/`;
+    const customURL = `${domain}/point`;
     const urlSwitch = async () => {
       sendMessage("Model", "ChangeURL", customURL);
     };

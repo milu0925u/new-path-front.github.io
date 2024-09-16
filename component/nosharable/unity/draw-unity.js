@@ -61,13 +61,11 @@ const DrawUnity = ({
   // unity載入時 已經跑完相關的useEffect後最後進入 unity夾帶檔案傳至前端顯示
   const handleByteConvert = useCallback((byteArray) => {
     const blob = new Blob([byteArray], { type: "model/ply" });
-    console.log(blob);
 
     const url = URL.createObjectURL(blob);
     URL.revokeObjectURL(url);
     const formData = new FormData();
     formData.append("blob", blob);
-    console.log(formData);
   }, []);
 
   // 有在內部上傳檔案時觸發
@@ -214,7 +212,6 @@ const DrawUnity = ({
       }
       sendMessage("Canvas_Import", "LoadID", Number(data.id));
       sendMessage("Canvas_Import", "LoadPly", data.model_path);
-      console.log(data);
 
       await objDownload(data.model_path);
     };
@@ -226,8 +223,6 @@ const DrawUnity = ({
         const blob = new Blob([response.data], {
           type: "application/octet-stream",
         }); //把buffer轉換成瀏覽器可讀的物件 Blob { size: 34992207, type: 'application/octet-stream' }
-
-        console.log(blob);
 
         const url = URL.createObjectURL(blob); //'blob:http://localhost:5678/a11830bb-a9d5-4cfb-b2dc-f9d72b080dc9'
         URL.revokeObjectURL(url); //釋放內存

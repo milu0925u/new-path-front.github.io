@@ -8,6 +8,7 @@ import WhiteButton from "@/component/button/white-button";
 import { useRouter } from "next/router";
 export default function ListPoint({
   handleSort,
+  handleEdit,
   handleChosenDelete,
   handleDeleteBTN,
 }) {
@@ -15,6 +16,7 @@ export default function ListPoint({
   const domain = process.env.NEXT_PUBLIC_DOMAIN;
   const { datas } = useSelector((state) => state.public);
   const { current, data } = useSelector((state) => state.pointList);
+
   // 所有資料 / 顯示資料
   const [alldatasList, setAllDatasList] = useState([]);
   const [datasList, setDatasList] = useState([]);
@@ -38,9 +40,10 @@ export default function ListPoint({
       const [currentData] = datasList.filter((item) => item.id == id);
       let newData = {
         ...currentData,
-        model_path: `${domain}/${currentData.model_path}`,
-        image_path: `${domain}/${currentData.image_path}`,
+        model_path: `${domain}${currentData.model_path}`,
+        image_path: `${domain}${currentData.image_path}`,
       };
+      console.log(newData);
 
       dispatch(SetPointAction(newData));
       localStorage.setItem("point", JSON.stringify(newData));
@@ -55,7 +58,7 @@ export default function ListPoint({
           <WhiteButton
             text={datas.modify}
             icon="icon-edit"
-            handleBlueBTN={handleSort}
+            handleBlueBTN={handleEdit}
           />
           <WhiteButton
             text={datas.path}

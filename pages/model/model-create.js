@@ -19,7 +19,6 @@ import toast from "react-hot-toast";
 import { saveModelAction } from "@/redux/actions/ListAction";
 export default function ModelCreate() {
   const aidomain = process.env.NEXT_PUBLIC_AI;
-  const domain = process.env.NEXT_PUBLIC_DOMAIN;
   const dispatch = useDispatch();
   const router = useRouter();
 
@@ -78,7 +77,7 @@ export default function ModelCreate() {
 
   /* --------- 第二頁的使用 ------- */
   // 編輯名稱
-  const [modelName, setModelName] = useState(null);
+  const [modelName, setModelName] = useState("");
   const handleNameSet = (e) => {
     const newName = e.target.value;
     setModelName(newName);
@@ -115,12 +114,16 @@ export default function ModelCreate() {
       const { data } = await axios.post(`${aidomain}/crop`, datas, {
         headers: { "Content-Type": "application/json" },
       });
-      console.log(data);
+      if (data.status === "success") {
+        setimgurl(data.image_url);
+        toast.success("去背景成功!");
+      }
     } catch (error) {
       console.log(error);
     }
   };
-
+  // 儲存暫時顯示的圖片樣子
+  const [imgurl, setimgurl] = useState("");
   // 開始掃描 / 下一頁
   const handleNext = async () => {
     const newdata = pointData
@@ -136,14 +139,19 @@ export default function ModelCreate() {
         const { data } = await axios.post(`${aidomain}/scan`, datas, {
           headers: { "Content-Type": "application/json" },
         });
-        console.log(data);
         if (data.status === "success") {
+          setimgurl(data.image_url);
           setPageSet("connect-v");
         }
       } catch (error) {
         console.log(error);
       }
     } else if (pageset !== "connect") {
+      if (!modelName) {
+        toast.error("請輸入名稱");
+        return;
+      }
+
       const datas = {
         points: newdata,
         name: modelName,
@@ -217,7 +225,7 @@ export default function ModelCreate() {
               <button className="rwd-display-none-btn"></button>
             </RWDTitle>
             <div className="content content-pd content-blue-full">
-              <CameraViewScreen />
+              <CameraViewScreen imgurl={imgurl} />
               <CameraViewName
                 handleScope={handleScope}
                 barValue={barValue}

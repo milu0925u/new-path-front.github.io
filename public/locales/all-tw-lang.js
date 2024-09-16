@@ -229,7 +229,7 @@ export const tw = {
   emptychosen: "目前無選擇的項目",
   searchPlaceholder: "搜尋名稱或日期",
   enterprocessingconfigurationname: "填寫加工設定名稱",
-  selectprocessingpath: "選擇加工路徑",
+  selectprocessingpath: "加工路徑",
   verticaldepthadjustment: "調整上下深度",
   rotationspeedadjustment: "調整旋轉速度設定",
   inwardandoutwarddepthadjustment: "調整向內外深度",
@@ -295,16 +295,16 @@ export const tw = {
       icon: "icon-processing-view",
       href: "/processing/processing-view",
     },
-    {
-      name: "中央控制",
-      icon: "icon-central-control",
-      href: "/processing/central-control",
-    },
-    {
-      name: "異常紀錄",
-      icon: "icon-abnormal-log",
-      href: "/processing/abnormal-log",
-    },
+    // {
+    //   name: "中央控制",
+    //   icon: "icon-central-control",
+    //   href: "/processing/central-control",
+    // },
+    // {
+    //   name: "異常紀錄",
+    //   icon: "icon-abnormal-log",
+    //   href: "/processing/abnormal-log",
+    // },
   ],
   mobile: [
     {

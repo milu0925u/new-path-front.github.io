@@ -14,7 +14,7 @@
       display: flex;
       align-items: center;
       gap: 1vw;
-      button,
+      .button,
       label {
         width: 40%;
         min-width: 150px;
@@ -40,21 +40,6 @@
       }
       input[type="file"] {
         display: none;
-      }
-      .function_ok_btn {
-        border: none;
-        border-radius: 0;
-        background: transparent;
-        width: 50px;
-        height: 28px;
-        min-width: auto;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.442);
-        &:active {
-          transform: translate(0, 5px);
-        }
       }
     }
     .function_param_btn {
