@@ -175,14 +175,10 @@ main {
   position: relative;
   width: 100%;
   height: auto;
-
   .content {
     position: relative;
     width: 80%;
-    height: calc(100vh - var(--header) - var(--footer) - 50px - 100px);
-    min-height: 500px;
-    // max-height: 650px;
-    // height: 100%;
+    height: calc(100vh - var(--header) - var(--footer) - 50px - 40px);
     margin-inline: auto;
     border-radius: 30px;
     display: flex;
@@ -222,9 +218,6 @@ main {
 
   .content-blue-full {
     background: var(--main-blue-light-op08);
-  }
-  .content-white-full {
-    background: var(--white-op08);
   }
 }
 

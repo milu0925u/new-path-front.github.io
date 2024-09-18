@@ -22,13 +22,14 @@
   .l_content {
     display: flex;
     justify-content: space-between;
-    padding-top: 30px;
+    height: 100%;
+    padding-block: 10px;
+    overflow: hidden;
     .col_equitment_nav {
       width: auto;
       display: flex;
       gap: 15px;
       flex-direction: column;
-      justify-content: space-around;
       .nav_btn_active {
         button {
           background: var(--main-blue);
@@ -54,7 +55,8 @@
 }
 
 .maintainance {
-  height: 400px;
+  height: 350px;
+  min-height: 300px;
   line-height: 40px;
   overflow-y: auto;
   overflow-x: hidden;

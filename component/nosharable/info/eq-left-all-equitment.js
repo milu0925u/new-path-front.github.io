@@ -26,7 +26,7 @@ export default function EqLeftAllEquitment() {
     }
   };
 
-  console.log(eqdatadefault.csb);
+  console.log(create.csb);
 
   return (
     <>
@@ -85,7 +85,7 @@ export default function EqLeftAllEquitment() {
         </p>
         {eqdatadefault.csb
           ? create.csb
-            ? create.csb.map((d) => <p>耗材：{d.name}</p>)
+            ? create.csb?.map((d) => <p>耗材：{d.name}</p>)
             : eqdatadefault.csb.map((d) => <p>耗材：{d.name}</p>)
           : "未選擇"}
       </div>

@@ -45,8 +45,7 @@ export default function ParamSettingWeld({ handleSave }) {
               type="number"
               name="electric_current"
               pattern="[0-9]*"
-              defaultValue={0}
-              value={create.electric_current ? create.electric_current : ""}
+              value={create.electric_current ? create.electric_current : 0}
               onChange={handleParamSetting}
             />
           </div>
@@ -56,8 +55,7 @@ export default function ParamSettingWeld({ handleSave }) {
               type="number"
               name="voltage"
               pattern="[0-9]*"
-              defaultValue={0}
-              value={create.voltage ? create.voltage : ""}
+              value={create.voltage ? create.voltage : 0}
               onChange={handleParamSetting}
             />
           </div>

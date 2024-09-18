@@ -12,12 +12,13 @@ export default function EqList({ handleNext, text, handleActive }) {
   // 所有資料 / 顯示資料
   const [alldatasList, setAllDatasList] = useState([]);
   const [datasList, setDatasList] = useState([]);
+
   useEffect(() => {
-    if (eqdata) {
+    if (eqdata && create && eqdata[create.method]) {
       setDatasList(eqdata[create.method]);
       setAllDatasList(eqdata[create.method]);
     }
-  }, [eqdata]);
+  }, [eqdata, create]);
   return (
     <div className={style.maintainance_list}>
       <div className={style.list}>
@@ -26,17 +27,19 @@ export default function EqList({ handleNext, text, handleActive }) {
           <WhiteButton text={datas.delete} icon="icon-delete" />
         </div>
         <div className={style.item}>
-          {Array.isArray(eqdata[create.method]) &&
-            datasList.map((item) => (
-              <div
-                key={item.id}
-                data-value={item}
-                onClick={() => handleActive(item)}
-                className={item.id === text?.id ? style.active : ""}
-              >
-                {item.name}
-              </div>
-            ))}
+          {eqdata
+            ? Array.isArray(eqdata[create.method]) &&
+              datasList.map((item) => (
+                <div
+                  key={item.id}
+                  data-value={item}
+                  onClick={() => handleActive(item)}
+                  className={item.id === text?.id ? style.active : ""}
+                >
+                  {item.name}
+                </div>
+              ))
+            : ""}
         </div>
       </div>
       <div className="nextbtn">

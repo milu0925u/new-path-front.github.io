@@ -27,12 +27,10 @@
   .left_info_content {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    min-height: 50vh;
-    height: calc(100% - 80px);
+    height: calc(100% - 100px);
     overflow-y: auto;
     > div {
-      padding-block: 16px;
+      padding-block: 5px;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -42,9 +40,7 @@
       }
     }
     p {
-      width: 10vw;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      // margin: 0;
       padding: 8px 0 10px 0;
     }
     .block {
@@ -391,9 +387,9 @@
 
       > div {
         width: 150px;
-        height: 60px;
+        // height: 60px;
         margin: auto;
-        padding-block: 0;
+        // padding-block: 0;
         margin-block: 5px;
       }
       .eq_execute {

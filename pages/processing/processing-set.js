@@ -24,6 +24,8 @@ export default function ProcessingSet() {
   const { create } = useSelector((state) => state.workList);
   const { datas } = useSelector((state) => state.public);
 
+  console.log(create);
+
   // 確認此頁的加工方式
   const renderCurrentScreen = () => {
     if (create.method === "weld") {
@@ -49,7 +51,6 @@ export default function ProcessingSet() {
       router.push("/processing/processing-list");
     }
   };
-  console.log(create.deep);
 
   // 錯誤阻擋
   const checkHasError = () => {
