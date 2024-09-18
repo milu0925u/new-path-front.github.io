@@ -29,6 +29,7 @@ export default function CameraCreate({ pointData, setPointData }) {
               key={item.id}
               data-id={item.id}
               onClick={handleChosenPoint}
+              className={style.success_point}
             >
               <span>{item.id}.</span>
               <span>
@@ -43,8 +44,11 @@ export default function CameraCreate({ pointData, setPointData }) {
               </span>
             </div>
           ))}
-          <span></span>
-          <img alt="" src="/images/connect/object.svg" />
+          <img
+            alt="object"
+            src="/images/connect/object.png"
+            className={style.objectimg}
+          />
         </div>
       ) : (
         <div className={style.fail}>

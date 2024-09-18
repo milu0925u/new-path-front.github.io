@@ -179,6 +179,7 @@ main {
     position: relative;
     width: 80%;
     height: calc(100vh - var(--header) - var(--footer) - 50px - 40px);
+    min-height: 520px;
     margin-inline: auto;
     border-radius: 30px;
     display: flex;

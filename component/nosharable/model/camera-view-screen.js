@@ -5,7 +5,6 @@ import style from "./camera-create.module.scss";
 export default function CameraViewScreen({ imgurl }) {
   return (
     <div className={`${style.l_screen} ${style.bg_screen}`}>
-      {/* <div className={style.screen_title}></div> */}
       <CameraScreen imgurl={imgurl} />
       <CameraLine />
     </div>

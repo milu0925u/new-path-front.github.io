@@ -1,5 +1,5 @@
 import React from "react";
-import style from "./camera-screen.module.scss";
+import style from "../camera-create.module.scss";
 import { useSelector } from "react-redux";
 export default function CameraScreen({ imgurl }) {
   const { camera } = useSelector((state) => state.public);
@@ -7,9 +7,10 @@ export default function CameraScreen({ imgurl }) {
   return (
     <>
       {camera == "success" ? (
-        <div className={style.success}>
-          <div>
-            <img src={`${domain}${imgurl}`} />
+        <div className={`${style.success} `}>
+          <div className={style.success_img}>
+            {/* <img src={`${domain}${imgurl}`} /> */}
+            <img src="/images/background-image.png" />
           </div>
         </div>
       ) : (
