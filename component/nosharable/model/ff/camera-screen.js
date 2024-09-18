@@ -3,13 +3,15 @@ import style from "./camera-screen.module.scss";
 import { useSelector } from "react-redux";
 export default function CameraScreen({ imgurl }) {
   const { camera } = useSelector((state) => state.public);
-  const aidomain = process.env.NEXT_PUBLIC_AI;
+  const domain = process.env.NEXT_PUBLIC_DOMAIN;
+  console.log(imgurl);
+  
   return (
     <>
       {camera == "success" ? (
         <div className={style.success}>
           <div>
-            <img src={`${aidomain}${imgurl ? imgurl : ""}`} />
+            <img src={`${domain}${imgurl}`} />
           </div>
         </div>
       ) : (
