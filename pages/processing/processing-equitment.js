@@ -33,9 +33,13 @@ export default function ProcessingEquitment() {
     // 抓到所有預設值
     const filteredData = {};
     for (const key in eqdata) {
-      [filteredData[key]] = eqdata[key].filter((item) => item.defaultt === 1);
-      if (!create[key]) {
+      filteredData[key] = eqdata[key].filter((item) => item.defaultt === 1);
+      if (key === "csb") {
         dispatch(createWorkListAction({ [key]: filteredData[key] }));
+      } else {
+        // 去除框變成物件
+        let [newone] = filteredData[key];
+        dispatch(createWorkListAction({ [key]: newone }));
       }
     }
     router.push("/processing/processing-set");

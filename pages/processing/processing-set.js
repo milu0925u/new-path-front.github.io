@@ -24,8 +24,6 @@ export default function ProcessingSet() {
   const { create } = useSelector((state) => state.workList);
   const { datas } = useSelector((state) => state.public);
 
-  console.log(create);
-
   // 確認此頁的加工方式
   const renderCurrentScreen = () => {
     if (create.method === "weld") {
@@ -54,19 +52,20 @@ export default function ProcessingSet() {
 
   // 錯誤阻擋
   const checkHasError = () => {
-    if (create?.deep === null || create?.deep === undefined) {
-      toast.error("請填入深度");
-      return true;
-    } else if (
-      create?.electric_current === null ||
-      create?.electric_current === undefined
-    ) {
-      toast.error("請填入電流");
-      return true;
-    } else if (create?.voltage === null || create?.voltage === undefined) {
-      toast.error("請填入電壓");
-      return true;
-    } else if (create?.name === null || create?.name === undefined) {
+    // if (create?.deep === null || create?.deep === undefined) {
+    //   toast.error("請填入深度");
+    //   return true;
+    // } else if (
+    //   create?.electric_current === null ||
+    //   create?.electric_current === undefined
+    // ) {
+    //   toast.error("請填入電流");
+    //   return true;
+    // } else if (create?.voltage === null || create?.voltage === undefined) {
+    //   toast.error("請填入電壓");
+    //   return true;
+    // } else
+    if (create?.name === null || create?.name === undefined) {
       toast.error("請填入加工設定名稱");
       return true;
     } else {

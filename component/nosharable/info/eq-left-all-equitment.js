@@ -26,7 +26,7 @@ export default function EqLeftAllEquitment() {
     }
   };
 
-  console.log(create.csb);
+  console.log(create);
 
   return (
     <>
