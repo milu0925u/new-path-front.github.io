@@ -160,27 +160,25 @@ export default function Show() {
           }`}
         >
           <h1>執行順序</h1>
-          <div>
-            <div className="show-array-title">
-              <button>
-                <i className="icon-pen"></i>
-                <span className="count">{point ? point.length : 0}</span>
-              </button>
-              <button>
-                <i className="icon-pen-square"></i>
-                <span className="count">{point ? point.length : 0}</span>
-              </button>
-            </div>
-            <div className={`show-array-content`}>
-              {point.map((v) => (
-                <div>
-                  <p>{v.id}.</p>
-                  <button>
-                    <i className="icon-pen"></i>
-                  </button>
-                  <span className="display-point">{`(${coordinates.lat}, ${coordinates.lon},${coordinates.jid})`}</span>
-                </div>
-              ))}
+          <div className="show-array">
+            <div>
+              <div className="show-array-title">
+                <button>
+                  <i className="icon-pen"></i>
+                  <span className="count">{point ? point.length : 0}</span>
+                </button>
+              </div>
+              <div className="show-array-content">
+                {point.map((v) => (
+                  <div>
+                    <p>{v.id}.</p>
+                    <button>
+                      <i className="icon-pen"></i>
+                    </button>
+                    <span className="display-point">{`(${coordinates.lat}, ${coordinates.lon},${coordinates.jid})`}</span>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
           <button

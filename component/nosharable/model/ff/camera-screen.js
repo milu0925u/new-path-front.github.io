@@ -9,8 +9,7 @@ export default function CameraScreen({ imgurl }) {
       {camera == "success" ? (
         <div className={`${style.success} `}>
           <div className={style.success_img}>
-            {/* <img src={`${domain}${imgurl}`} /> */}
-            <img src="/images/background-image.png" />
+            <img src={`${domain}${imgurl}`} />
           </div>
         </div>
       ) : (
