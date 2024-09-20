@@ -32,7 +32,6 @@ export default function ListPoint({
       setCurrentId(current.id);
     }
   }, [current]);
-
   // choose
   const handleChoose = (e) => {
     const id = Number(e.currentTarget.dataset.id);
@@ -43,13 +42,10 @@ export default function ListPoint({
         model_path: `${domain}${currentData.model_path}`,
         image_path: `${domain}${currentData.image_path}`,
       };
-      console.log(newData);
-
       dispatch(SetPointAction(newData));
-      localStorage.setItem("point", JSON.stringify(newData));
+      sessionStorage.setItem("point", JSON.stringify(newData));
     }
   };
-
   return (
     <>
       <div className={`${style.col_list} ${style.col_list_bg}`}>
@@ -61,7 +57,7 @@ export default function ListPoint({
             handleBlueBTN={handleEdit}
           />
           <WhiteButton
-            text={datas.path}
+            text={datas.viewpoint}
             icon="icon-path"
             handleBlueBTN={handleSort}
           />

@@ -23,6 +23,7 @@ export default function ChosenParamScreen() {
   useEffect(() => {
     dispatch(readWorkListAction());
   }, []);
+  console.log(current);
 
   const handleNext = () => {
     if (Object.keys(current).length === 0) {
@@ -37,6 +38,7 @@ export default function ChosenParamScreen() {
     handleAdd("gas", current.gas_name);
     handleAdd("eq", current.eq_name);
     handleAdd("param", {
+      name: current.name,
       electric_current: current.electric_current,
       voltage: current.voltage,
       deep: current.deep,

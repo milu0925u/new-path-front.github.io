@@ -4,6 +4,14 @@ import { useSelector } from "react-redux";
 import OrangeButton from "@/component/button/orange-button";
 import DrawShow from "@/component/nosharable/unity/show-unity";
 import ShowUnityPointArray from "@/component/nosharable/unity/show-unity-point-array";
+import {
+  CurrentCleanAction,
+  SavePointArrayAction,
+} from "@/redux/actions/ListAction";
+import { useDispatch } from "react-redux";
+import { unityLeaveAlert } from "@/component/alert/alert";
+import { useRouter } from "next/router";
+import { unityCloseAction } from "@/redux/actions/publicAction";
 export default function Show() {
   const { datas } = useSelector((state) => state.public);
   const {
@@ -20,158 +28,96 @@ export default function Show() {
     codeUrl: "/unity/ShowScene/Build/ShowScene_0801.wasm",
   });
   const { current } = useSelector((state) => state.pointList);
-  // 開啟/關閉tool列表
+  // 開啟/關閉tool列表 (unity彈跳時關閉功能列)
   const [openTool, setOpenTool] = useState(true);
   // 選擇到的顏色
   const [chosen, setChosen] = useState("");
-  // 設定路徑名稱
+  // 設定標點名稱
   const [pointName, setPointName] = useState("");
-
-  // 選擇的point list 存入狀態
-  const [point, setPoint] = useState([]);
-  const [contiPoint, setcontiPoint] = useState([]);
-  const [linePoint, setlinePoint] = useState([]);
-  const [squarePoint, setsquarePoint] = useState([]);
-  const [polygonPoint, setpolygonPoint] = useState([]);
-  const [recPoint, setrecPoint] = useState([]);
-  const [circlePoint, setcirclePoint] = useState([]);
-  const [ovalPoint, setovalPoint] = useState([]);
-  const [arcPoint, setarcPoint] = useState([]);
-
-  // 讀取選擇的標點清單
+  // 可移動的物件
+  const [array, setArray] = useState({});
+  // 排序(要儲存時，正確的排序)
+  const [orderI, setorderI] = useState();
+  // 在標點清單的唯一編號
+  const [pointid, setpointid] = useState(0);
+  // 讀取 需要執行的順序
   const idSelect = async () => {
     let data;
+
     if (Object.keys(current).length === 0) {
-      const drawData = localStorage.getItem("point");
+      const drawData = sessionStorage.getItem("point");
       data = JSON.parse(drawData);
     } else {
       data = current;
     }
+    // 設定名稱
+    setpointid(data.id);
+    setPointName(data.name);
     // 抓到標點清單選擇到的物件
     // 轉譯成javascript物件
 
-    // point 單點轉換
-    let value1 = JSON.parse(data.point.replace(/\((.*?)\)/g, "[$1]"));
-    value1 = value1.map((item) => {
-      if (item) {
-        return {
-          ...item,
-          points: JSON.parse(item.points),
-        };
-      }
+    // 各種標點轉換成javascript物件
+    const key = [
+      { id: 0, name: "point" },
+      { id: 1, name: "contiPoint" },
+      { id: 2, name: "linePoint" },
+      { id: 3, name: "squarePoint" },
+      { id: 4, name: "polygonPoint" },
+      { id: 5, name: "recPoint" },
+      { id: 6, name: "circlePoint" },
+      { id: 7, name: "ovalPoint" },
+      { id: 8, name: "arcPoint" },
+    ];
+
+    // 原排序
+    const orderX = JSON.parse(data.order);
+    const order = orderX.map((v) => v.index);
+    setorderI(order);
+
+    // 依照排序置放
+    orderX.map((v) => {
+      key.map((a) => {
+        if (v.index === a.id) {
+          let newData = convertPoints(data[a.name]);
+          setArray((prev) => ({ ...prev, [a.name]: newData }));
+        }
+      });
     });
-    setPoint(value1);
-    // contiPoint 連續標點轉換
-    let value2 = JSON.parse(data.contiPoint.replace(/\((.*?)\)/g, "[$1]"));
-    value2 = value2.map((item) => {
-      if (item) {
-        return {
-          ...item,
-          points: JSON.parse(item.points),
-        };
-      }
-    });
-    setcontiPoint(value2);
-    // linePoint 直線標點轉換
-    let value3 = JSON.parse(data.linePoint.replace(/\((.*?)\)/g, "[$1]"));
-    value3 = value3.map((item) => {
-      if (item) {
-        return {
-          ...item,
-          points: JSON.parse(item.points),
-        };
-      }
-    });
-    setlinePoint(value3);
-    // squarePoint 正方形標點轉換
-    let value4 = JSON.parse(data.squarePoint.replace(/\((.*?)\)/g, "[$1]"));
-    value4 = value4.map((item) => {
-      if (item) {
-        return {
-          ...item,
-          points: JSON.parse(item.points),
-        };
-      }
-    });
-    setsquarePoint(value4);
-    // polygonPoint 多邊形標點轉換
-    let value5 = JSON.parse(data.polygonPoint.replace(/\((.*?)\)/g, "[$1]"));
-    value5 = value5.map((item) => {
-      if (item) {
-        return {
-          ...item,
-          points: JSON.parse(item.points),
-        };
-      }
-    });
-    setpolygonPoint(value5);
-    // recPoint 長方形標點轉換
-    let value6 = JSON.parse(data.recPoint.replace(/\((.*?)\)/g, "[$1]"));
-    value6 = value6.map((item) => {
-      if (item) {
-        return {
-          ...item,
-          points: JSON.parse(item.points),
-        };
-      }
-    });
-    setrecPoint(value6);
-    // circlePoint 圓形標點轉換
-    let value7 = JSON.parse(data.circlePoint.replace(/\((.*?)\)/g, "[$1]"));
-    value7 = value7.map((item) => {
-      if (item) {
-        return {
-          ...item,
-          points: JSON.parse(item.points),
-        };
-      }
-    });
-    setcirclePoint(value7);
-    // ovalPoint 橢圓形標點轉換
-    let value8 = JSON.parse(data.ovalPoint.replace(/\((.*?)\)/g, "[$1]"));
-    value8 = value8.map((item) => {
-      if (item) {
-        return {
-          ...item,
-          points: JSON.parse(item.points),
-        };
-      }
-    });
-    setovalPoint(value8);
-    // arcPoint 弧形標點轉換
-    let value9 = JSON.parse(data.arcPoint.replace(/\((.*?)\)/g, "[$1]"));
-    value9 = value9.map((item) => {
-      if (item) {
-        return {
-          ...item,
-          points: JSON.parse(item.points),
-        };
-      }
-    });
-    setarcPoint(value9);
   };
   useEffect(() => {
     idSelect();
   }, []);
-  // 移動
-  const [array, setArray] = useState({});
+  // 通用組件 - 轉換
+  const convertPoints = (pointData) => {
+    return JSON.parse(pointData.replace(/\((.*?)\)/g, "[$1]")).map((item) => ({
+      ...item,
+      points: JSON.parse(item.points),
+    }));
+  };
 
-  /* ------------- 左邊 ------------- */
-  const [openDraw, setOpenDraw] = useState(false);
-  const [drawList, setDrawList] = useState([
-    { id: 1, name: "路徑清單", img: "icon-path-list", ename: "list" },
+  // 左邊導覽列
+  const drawList = [
+    { id: 1, name: "標點清單", img: "icon-path-list", ename: "list" },
     { id: 2, name: "刪除", img: "icon-delete", ename: "delete" },
     { id: 3, name: "展示", img: "icon-show", ename: "show" },
     { id: 4, name: "播放路徑", img: "icon-start", ename: "play" },
     { id: 5, name: "資訊", img: "icon-info", ename: "info" },
     { id: 6, name: "返回", img: "icon-return-back", ename: "back" },
-  ]);
+  ];
+  const router = useRouter();
   const handleClickDraw = (e) => {
     const text = e.currentTarget.dataset.pen;
     setChosen(text);
 
     if (text === "list") {
       // 跳轉至路徑清單
+      unityLeaveAlert().then((result) => {
+        if (result.isConfirmed) {
+          dispatch(unityCloseAction());
+          dispatch(CurrentCleanAction());
+          router.push("/model/point-list");
+        }
+      });
     } else if (text === "delete") {
       // 刪除功能
     } else if (text === "show") {
@@ -182,9 +128,15 @@ export default function Show() {
       // 觸發資訊內容
     } else if (text === "back") {
       // 觸發返回上一頁
+      unityLeaveAlert().then((result) => {
+        if (result.isConfirmed) {
+          dispatch(unityCloseAction());
+          dispatch(CurrentCleanAction());
+          router.back();
+        }
+      });
     }
   };
-
   // 滑鼠偵測
   const [mouse, setMouse] = useState("");
   const handleMouseDown = (e) => {
@@ -199,16 +151,18 @@ export default function Show() {
   const handleMouseUp = () => {
     setMouse("");
   };
-
   // 執行排列的展開
   const [open, setOpen] = useState(false);
 
   // 下一頁
+  const dispatch = useDispatch();
   const handleNext = () => {
     const data = {
+      id: pointid,
       name: pointName,
-      data: point,
+      index: orderI,
     };
+    dispatch(SavePointArrayAction(data));
   };
 
   return (
@@ -240,7 +194,8 @@ export default function Show() {
           <i className="icon-workname"></i>
           <input
             type="text"
-            placeholder="路徑名稱"
+            placeholder="標點名稱"
+            defaultValue={pointName}
             onChange={(e) => setPointName(e.target.value)}
           />
         </div>
@@ -274,15 +229,11 @@ export default function Show() {
         >
           <h1>執行順序</h1>
           <div className="show-array">
-            <ShowUnityPointArray img="icon-pen" point={point} />
-            <ShowUnityPointArray img="icon-pen-continuous" point={contiPoint} />
-            <ShowUnityPointArray img="icon-pen-line" point={linePoint} />
-            <ShowUnityPointArray img="icon-pen-square" point={squarePoint} />
-            <ShowUnityPointArray img="icon-pen-polygon" point={polygonPoint} />
-            <ShowUnityPointArray img="icon-pen-rec" point={recPoint} />
-            <ShowUnityPointArray img="icon-pen-circle" point={circlePoint} />
-            <ShowUnityPointArray img="icon-pen-oval" point={ovalPoint} />
-            <ShowUnityPointArray img="icon-pen-arc" point={arcPoint} />
+            <ShowUnityPointArray
+              array={array}
+              orderI={orderI}
+              setorderI={setorderI}
+            />
           </div>
           <button
             className="execute-bar"

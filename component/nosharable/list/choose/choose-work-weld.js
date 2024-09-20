@@ -6,7 +6,6 @@ export default function ChooseWorkWeld({ handleOrangeBTN }) {
   const { datas } = useSelector((state) => state.public);
   const { current } = useSelector((state) => state.workList);
 
-  useEffect(() => {}, [current]);
   return (
     <div className={style.chosen_list}>
       <div className={style.chosen_list_data}>

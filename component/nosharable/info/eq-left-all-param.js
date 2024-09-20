@@ -29,7 +29,7 @@ export default function EqLeftAllParam() {
   // 路徑名稱
   const [path, setPath] = useState("");
   useEffect(() => {
-    const data = localStorage.getItem("start");
+    const data = sessionStorage.getItem("start");
     const start = JSON.parse(data);
     setPath(start.path.name);
   }, []);

@@ -102,7 +102,7 @@ export default function DrawShow() {
     const idSelect = async () => {
       let data;
       if (Object.keys(current).length === 0) {
-        const drawData = localStorage.getItem("point");
+        const drawData = sessionStorage.getItem("point");
         data = JSON.parse(drawData);
       } else {
         data = current;

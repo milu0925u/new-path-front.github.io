@@ -9,14 +9,17 @@ export const PUBLIC_LOADING = "PUBLIC_LOADING";
 export const DATA_MODEL_READ = "DATA_MODEL_READ";
 export const DATA_MODEL_DELETE = "DATA_MODEL_DELETE";
 export const DATA_MODEL_CHOSEN = "DATA_MODEL_CHOSEN";
+export const DATA_MODEL_CURRENT_EMPTY = "DATA_MODEL_CURRENT_EMPTY";
 /* ---------- 標點清單 ---------- */
 export const DATA_POINT_READ = "DATA_POINT_READ";
 export const DATA_POINT_DELETE = "DATA_POINT_DELETE";
 export const DATA_POINT_CHOSEN = "DATA_POINT_CHOSEN";
+export const DATA_POINT_CURRENT_EMPTY = "DATA_POINT_CURRENT_EMPTY";
 /* ---------- 路徑清單 ---------- */
 export const DATA_PATH_READ = "DATA_PATH_READ";
 export const DATA_PATH_DELETE = "DATA_PATH_DELETE";
 export const DATA_PATH_CHOSEN = "DATA_PATH_CHOSEN";
+export const DATA_PATH_CURRENT_EMPTY = "DATA_PATH_CURRENT_EMPTY";
 /* ---------- 加工清單 ---------- */
 export const DATA_WORKING_READ = "DATA_WORKING_READ";
 export const DATA_WORKING_DELETE = "DATA_WORKING_DELETE";

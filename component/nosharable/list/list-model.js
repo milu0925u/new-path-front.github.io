@@ -60,7 +60,7 @@ export default function ListModel({ handleChosenDelete, handleDeleteBTN }) {
         image_path: `${domain}${currentData.image_path}`,
       };
       dispatch(SetModelAction(newData));
-      localStorage.setItem("model", JSON.stringify(newData));
+      sessionStorage.setItem("model", JSON.stringify(newData));
     }
   };
 

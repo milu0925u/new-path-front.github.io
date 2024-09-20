@@ -10,7 +10,7 @@ export default function OptimalPathPage() {
   const { datas } = useSelector((state) => state.public);
   // 讀取標點紀錄
   useEffect(() => {
-    const drawData = localStorage.getItem("point");
+    const drawData = sessionStorage.getItem("point");
     if (drawData !== null) {
       let data = JSON.parse(drawData);
       // 標點紀錄，傳給ai

@@ -20,6 +20,7 @@ export const tw = {
   stop: "停止",
   import: "匯入",
   add: "新增",
+  viewpoint: "檢視標點",
 
   welding: "焊接",
   polishing: "拋光",

@@ -22,12 +22,12 @@ export const StartRobot = ({ children }) => {
   const handleAdd = (name, data) => {
     setStart((prev) => {
       const updatedStart = { ...prev, [name]: data };
-      localStorage.setItem("start", JSON.stringify(updatedStart));
+      sessionStorage.setItem("start", JSON.stringify(updatedStart));
       return updatedStart;
     });
   };
   useEffect(() => {
-    const drawData = localStorage.getItem("start");
+    const drawData = sessionStorage.getItem("start");
     if (drawData !== null) {
       let data = JSON.parse(drawData);
       setStart(data);

@@ -5,7 +5,6 @@ import { StartContext } from "@/hook/startContext";
 export default function LeftcontentParam({ setScreen }) {
   const { datas } = useSelector((state) => state.public);
   const { start } = StartContext();
-
   // 顯示目前的文字
   const renderTitle = () => {
     switch (start.method) {
@@ -41,8 +40,8 @@ export default function LeftcontentParam({ setScreen }) {
         )}
       </div>
       <div className={style.left_info_content}>
+        {/* 加工路徑 */}
         <div
-          style={{ cursor: "pointer" }}
           onClick={() => {
             setScreen("chosen-path");
           }}
@@ -54,9 +53,11 @@ export default function LeftcontentParam({ setScreen }) {
             <i className="icon-ok icon-ok-bg"></i>
           )}
         </div>
-        <p>{start.path.name ? start.path.name : ""}</p>
+        <p style={{ marginInline: "auto" }}>
+          {start.path.name ? start.path.name : ""}
+        </p>
+        {/* 加工參數 */}
         <div
-          style={{ cursor: "pointer" }}
           onClick={() => {
             setScreen("chosen-param");
           }}
@@ -69,6 +70,9 @@ export default function LeftcontentParam({ setScreen }) {
             <i className="icon-ok icon-ok-bg"></i>
           )}
         </div>
+        <p style={{ marginInline: "auto" }}>
+          {start.param.name ? start.param.name : ""}
+        </p>
         <div
           style={{ cursor: "pointer" }}
           onClick={() => {

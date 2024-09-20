@@ -10,7 +10,7 @@ export default function CameraFunction({
 }) {
   const { datas } = useSelector((state) => state.public);
 
-  const [active, setActive] = useState(false);
+  const [active, setActive] = useState(datas.basicsettings);
   return (
     <div className={`${style.l_function} ${style.bg_function}`}>
       <h3 className="content-title">{datas.adjustscanningsettings}</h3>

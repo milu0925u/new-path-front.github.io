@@ -10,6 +10,7 @@ import {
 import axios from "axios";
 import Loading from "@/component/loading/loading";
 import { unityLeaveAlert, unityUploadFinish } from "@/component/alert/alert";
+import { CurrentCleanAction } from "@/redux/actions/ListAction";
 const DrawUnity = ({
   handleAnimated,
   setOpenTool,
@@ -96,6 +97,7 @@ const DrawUnity = ({
     setpointlistcount(true);
     setOpenTool(true);
     unityUploadFinish();
+    dispatch(CurrentCleanAction());
   };
 
   // 讀取unity檔案整串
@@ -131,69 +133,6 @@ const DrawUnity = ({
     handleAnimated,
   ]);
 
-  // useEffect(() => {
-  //   addEventListener("AbleGetData", handleID);
-  //   return () => {
-  //     removeEventListener("AbleGetData", handleID);
-  //   };
-  // }, [handleID]);
-
-  // useEffect(() => {
-  //   addEventListener("AbleGetURL", handleURL);
-  //   return () => {
-  //     removeEventListener("AbleGetURL", handleURL);
-  //   };
-  // }, [handleURL]);
-
-  // useEffect(() => {
-  //   addEventListener("DownLoadPLY", handleByteConvert);
-  //   return () => {
-  //     removeEventListener("DownLoadPLY", handleByteConvert);
-  //   };
-  // }, [handleByteConvert]);
-
-  // useEffect(() => {
-  //   addEventListener("IsUploadData", handleNews);
-  //   return () => {
-  //     removeEventListener("IsUploadData", handleNews);
-  //   };
-  // }, [handleNews]);
-
-  // useEffect(() => {
-  //   addEventListener("TurnToHistory", handleTurnToHistory);
-  //   return () => {
-  //     removeEventListener("TurnToHistory", handleTurnToHistory);
-  //   };
-  // }, [handleTurnToHistory]);
-
-  // useEffect(() => {
-  //   addEventListener("Uploaded", handleCloseUI);
-  //   return () => {
-  //     removeEventListener("Uploaded", handleCloseUI);
-  //   };
-  // }, [handleCloseUI]);
-
-  // useEffect(() => {
-  //   addEventListener("SettingClosed", handleCloseUI);
-  //   return () => {
-  //     removeEventListener("SettingClosed", handleCloseUI);
-  //   };
-  // }, [handleCloseUI]);
-
-  // useEffect(() => {
-  //   addEventListener("UIListActive", handleCloseUI);
-  //   return () => {
-  //     removeEventListener("UIListActive", handleCloseUI);
-  //   };
-  // }, [handleCloseUI]);
-
-  // useEffect(() => {
-  //   addEventListener("AlarmAcitve", handleAnimated);
-  //   return () => {
-  //     removeEventListener("AlarmAcitve", handleAnimated);
-  //   };
-  // }, [handleAnimated]);
-
   useEffect(() => {
     // 連線後端
     const customURL = `${domain}/point/save`;
@@ -205,7 +144,7 @@ const DrawUnity = ({
     const idSelect = async () => {
       let data;
       if (Object.keys(current).length === 0) {
-        const drawData = localStorage.getItem("model");
+        const drawData = sessionStorage.getItem("model");
         data = JSON.parse(drawData);
       } else {
         data = current;

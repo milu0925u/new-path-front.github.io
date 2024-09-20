@@ -1,38 +1,51 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import Sortable from "sortablejs";
+import ShowUnityPointArrayOne from "./show-unity-point-array-one";
 
-export default function ShowUnityPointArray({ img, point }) {
-  const [open, setOpen] = useState(false);
+export default function ShowUnityPointArray({ array, orderI }) {
+  const listRef = useRef(null);
+  const orderRef = useRef(orderI);
+  // 更新 ref 的值
+  useEffect(() => {
+    orderRef.current = orderI;
+  }, [orderI]);
 
-  if (point.length !== 0) {
-    return (
-      <div>
-        <div
-          className="show-array-title"
-          onClick={() => {
-            setOpen(!open);
-          }}
-        >
-          <button>
-            <i className={img}></i>
-            <span className="count">{point.length}</span>
-          </button>
-        </div>
-        {open && (
-          <div className="show-array-content">
-            {point.map((v, i) => (
-              <div>
-                <p>{i + 1}.</p>
-                <button>
-                  <i className="icon-pen"></i>
-                </button>
-                <span className="display-point">
-                  {`(${v.points[0]}, ${v.points[1]}, ${v.points[2]})`}
-                </span>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
-    );
-  }
+  const [toggle, setToggle] = useState(false); //觸發重新渲染
+
+  useEffect(() => {
+    if (listRef.current) {
+      Sortable.create(listRef.current, {
+        animation: 150,
+        onStart: (event) => {
+          setToggle(true);
+        },
+        onEnd: (event) => {
+          const { oldIndex, newIndex } = event; // 點選到的物件 - 目前的位置
+          let oldarray = orderRef.current;
+          let number = oldarray[oldIndex];
+          oldarray.splice(oldIndex, 1); // 刪除位置,1項
+          oldarray.splice(newIndex, 0, number); //加入位置,不刪,增加
+          // setorderI(oldarray); //為啥不需要設定??不知道
+          setToggle(false);
+        },
+      });
+    }
+  }, []);
+
+  const [allOpen, setAllOpen] = useState(false); //移動位置
+
+  return (
+    <div ref={listRef}>
+      {/* 執行順序 */}
+      {Object.keys(array).map((v, i) => (
+        <ShowUnityPointArrayOne
+          key={i}
+          array={array}
+          v={v}
+          allOpen={allOpen}
+          setAllOpen={setAllOpen}
+        />
+      ))}
+    </div>
+  );
 }

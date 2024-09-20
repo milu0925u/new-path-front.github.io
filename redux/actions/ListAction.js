@@ -1,3 +1,4 @@
+import { SaveAlert } from "@/component/alert/alert";
 import {
   DATA_MODEL_SAVE,
   DATA_MODEL_READ,
@@ -20,6 +21,8 @@ import {
   PUBLIC_LOADING,
   DATA_CENTER_CONTROL_READ,
   DATA_ABNORMAL_LOG_READ,
+  DATA_POINT_CURRENT_EMPTY,
+  DATA_PATH_CURRENT_EMPTY,
 } from "../constants";
 import axios from "axios";
 import toast from "react-hot-toast";
@@ -54,7 +57,7 @@ export const readModelAction = () => async (dispatch) => {
 export const deleteModelAction = (groupid) => async (dispatch) => {
   try {
     if (groupid.length > 0) {
-      const { data } = await axios.delete(`${domain}/model/${groupid}`);
+      const { data } = await axios.delete(`${domain}/model/delete/${groupid}`);
       if (data.success) {
         toast.success("刪除成功!");
         dispatch({
@@ -101,7 +104,7 @@ export const readPointAction = () => async (dispatch) => {
 export const deletePointAction = (groupid) => async (dispatch) => {
   try {
     if (groupid.length > 0) {
-      const { data } = await axios.delete(`${domain}/point/${groupid}`);
+      const { data } = await axios.delete(`${domain}/point/delete/${groupid}`);
       if (data.success) {
         toast.success("刪除成功!");
         dispatch({
@@ -126,14 +129,27 @@ export const SetPointAction = (data) => (dispatch) => {
     console.log("標點current選擇錯誤", error);
   }
 };
+// 儲存新路徑
+export const SavePointArrayAction = (datas) => async (dispatch) => {
+  try {
+    const { data } = await axios.post(`${domain}/point/arr/save`, datas);
+    if (data.success) {
+      toast.success("儲存成功!");
+      dispatch({ type: DATA_POINT_CURRENT_EMPTY });
+    }
+  } catch (error) {
+    console.log("標點current選擇錯誤", error);
+  }
+};
+// 清除current
+export const CurrentCleanAction = () => async (dispatch) => {
+  dispatch({ type: DATA_POINT_CURRENT_EMPTY });
+};
+
 /* ----------- path list ----------- */
 export const readPathAction = () => async (dispatch) => {
   try {
-    const { data } = await axios.get(`${domain}/path`, {
-      headers: {
-        "ngrok-skip-browser-warning": "1",
-      },
-    });
+    const { data } = await axios.get(`${domain}/path`);
 
     dispatch({
       type: DATA_PATH_READ,
@@ -171,6 +187,10 @@ export const SetPathAction = (data) => (dispatch) => {
     console.log("標點current選擇錯誤", error);
   }
 };
+export const CurrentCleanPathAction = () => async (dispatch) => {
+  dispatch({ type: DATA_PATH_CURRENT_EMPTY });
+};
+
 /* ----------- working list ----------- */
 export const readWorkListAction = () => async (dispatch) => {
   try {

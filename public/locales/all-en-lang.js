@@ -20,6 +20,7 @@ export const en = {
   stop: "stop",
   import: "import",
   add: "add",
+  viewpoint: "view point",
 
   welding: "welding",
   polishing: "polishing",

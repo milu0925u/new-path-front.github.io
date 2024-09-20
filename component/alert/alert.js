@@ -60,3 +60,14 @@ export const unityUploadFinish = () => {
     });
   }, 1500);
 };
+
+export const SaveAlert = () => {
+  setTimeout(() => {
+    Swal.fire({
+      title: "上傳成功！",
+      icon: "success",
+      timer: 1000,
+      showConfirmButton: false,
+    });
+  }, 1500);
+};

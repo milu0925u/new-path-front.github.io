@@ -17,6 +17,9 @@ import {
   DATA_WORKING_CREATE_SAVE,
   DATA_EQUITMENT_READ,
   PUBLIC_LOADING,
+  DATA_MODEL_CURRENT_EMPTY,
+  DATA_POINT_CURRENT_EMPTY,
+  DATA_PATH_CURRENT_EMPTY,
   DATA_CENTER_CONTROL_READ,
   DATA_ABNORMAL_LOG_READ,
   DATA_EQUITMENT_READ_DEFAULT,
@@ -47,6 +50,9 @@ export const modelReducer = (state = init_model, action) => {
     case DATA_MODEL_CHOSEN: {
       return { ...state, current: action.payload };
     }
+    case DATA_MODEL_CURRENT_EMPTY: {
+      return { ...state, current: {} };
+    }
     default:
       return state;
   }
@@ -62,6 +68,9 @@ export const pointReducer = (state = init_point, action) => {
     case DATA_POINT_CHOSEN: {
       return { ...state, current: action.payload };
     }
+    case DATA_POINT_CURRENT_EMPTY: {
+      return { ...state, current: {} };
+    }
     default:
       return state;
   }
@@ -76,6 +85,9 @@ export const pathReducer = (state = init_path, action) => {
     }
     case DATA_PATH_CHOSEN: {
       return { ...state, current: action.payload };
+    }
+    case DATA_PATH_CURRENT_EMPTY: {
+      return { ...state, current: {} };
     }
     default:
       return state;

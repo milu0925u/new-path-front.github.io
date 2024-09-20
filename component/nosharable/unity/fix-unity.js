@@ -128,7 +128,7 @@ export default function DrawFix({
     const idSelect = async () => {
       let data;
       if (Object.keys(current).length === 0) {
-        const showData = localStorage.getItem("point");
+        const showData = sessionStorage.getItem("point");
         data = JSON.parse(showData);
       } else {
         data = current;

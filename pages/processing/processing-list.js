@@ -113,6 +113,7 @@ export default function ProcessingList() {
     handleAdd("gas", current.gas_name);
     handleAdd("eq", current.eq_name);
     handleAdd("param", {
+      name: current.name,
       electric_current: current.electric_current,
       voltage: current.voltage,
       deep: current.deep,

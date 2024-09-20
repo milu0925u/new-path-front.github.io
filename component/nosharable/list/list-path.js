@@ -51,10 +51,9 @@ export default function ListPath({ handleBlueBTN }) {
     if (id) {
       const [currentData] = datasList.filter((item) => item.id == id);
       dispatch(SetPathAction(currentData));
-      localStorage.setItem("path", JSON.stringify(currentData));
+      sessionStorage.setItem("path", JSON.stringify(currentData));
     }
   };
-
   return (
     <div className={`${style.col_list} ${style.col_list_bg}`}>
       <div className={style.list_f}>
