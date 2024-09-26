@@ -17,6 +17,8 @@ export default function Navbar() {
   const handleNavigation = (e) => {
     e.preventDefault();
     let link = e.currentTarget.dataset.href;
+    console.log(link);
+    console.log(unity);
 
     if (link.includes("draw")) {
       dispatch(unityOpenAction());

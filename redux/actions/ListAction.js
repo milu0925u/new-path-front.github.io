@@ -88,7 +88,6 @@ export const readPointAction = () => async (dispatch) => {
     dispatch({ type: PUBLIC_LOADING, payload: true });
 
     const { data } = await axios.get(`${domain}/point`);
-
     if (data.success) {
       dispatch({
         type: DATA_POINT_READ,

@@ -5,17 +5,51 @@ import style from "./ai-use.module.scss";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import InputText from "@/component/input/input-text";
+import axios from "axios";
 export default function OptimalPathPage() {
+  const aidomain = process.env.NEXT_PUBLIC_AI;
+  const domain = process.env.NEXT_PUBLIC_DOMAIN;
+
   const router = useRouter();
   const { datas } = useSelector((state) => state.public);
+  const [imageUrl, setImageUrl] = useState();
+  const [formData, setFormData] = useState();
   // 讀取標點紀錄
   useEffect(() => {
     const drawData = sessionStorage.getItem("point");
     if (drawData !== null) {
       let data = JSON.parse(drawData);
+      setFormData(data);
       // 標點紀錄，傳給ai
+      sendPrecise(data);
     }
   }, []);
+  const sendSmooth = async (data) => {
+    try {
+      const { datas } = await axios.post(`${aidomain}/smooth_path`, data, {
+        headers: { "Content-Type": "application/json" },
+      });
+      console.log(datas);
+      if (datas.status === "success") {
+        setImageUrl(datas.image_url);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const sendPrecise = async (data) => {
+    try {
+      const { datas } = await axios.post(`${aidomain}/precise_path`, data, {
+        headers: { "Content-Type": "application/json" },
+      });
+      console.log(datas);
+      if (datas.status === "success") {
+        setImageUrl(datas.image_url);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
   // 匯入
   const handleImportData = () => {
     router.push("/model/point-list");
@@ -28,10 +62,12 @@ export default function OptimalPathPage() {
   // 精確
   const handlePrecise = () => {
     setActiveColor(true);
+    sendPrecise(formData);
   };
   // 平滑
   const handleSmooth = () => {
     setActiveColor(false);
+    sendSmooth(formData);
   };
   // 儲存
   const handleNext = () => {};
@@ -54,7 +90,9 @@ export default function OptimalPathPage() {
             />
           </div>
         </div>
-        <div className={style.content}>content test screen</div>
+        <div className={style.content}>
+          <img src={`${domain}${imageUrl}`} />
+        </div>
         <OrangeButton
           text={datas.save}
           icon="icon-save"
