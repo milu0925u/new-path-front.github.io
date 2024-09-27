@@ -14,6 +14,7 @@ export default function OptimalPathPage() {
   const { datas } = useSelector((state) => state.public);
   const [imageUrl, setImageUrl] = useState();
   const [formData, setFormData] = useState();
+
   // 讀取標點紀錄
   useEffect(() => {
     const drawData = sessionStorage.getItem("point");
