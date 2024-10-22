@@ -30,8 +30,10 @@ export default function EqLeftAllParam() {
   const [path, setPath] = useState("");
   useEffect(() => {
     const data = sessionStorage.getItem("start");
-    const start = JSON.parse(data);
-    setPath(start.path.name);
+    if (data) {
+      const start = JSON.parse(data);
+      setPath(start.path.name);
+    }
   }, []);
   return (
     <div className={style.l_left_info}>

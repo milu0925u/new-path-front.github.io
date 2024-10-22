@@ -22,7 +22,7 @@ export default function Header() {
     e.preventDefault();
     let link = e.currentTarget.value;
     if (unity) {
-      unityLeaveAlert().then((result) => {
+      unityLeaveAlert(datas).then((result) => {
         if (result.isConfirmed) {
           dispatch(unityCloseAction());
           router.push(link);

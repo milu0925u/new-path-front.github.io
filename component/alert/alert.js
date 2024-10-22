@@ -1,59 +1,58 @@
 import Swal from "sweetalert2";
-
-export const deleteAlert = () => {
+export const deleteAlert = (datas) => {
   return Swal.fire({
-    title: "是否刪除",
+    title: datas.deleteAlert,
     icon: "warning",
     showCancelButton: true,
-    confirmButtonText: "確定",
-    cancelButtonText: "取消",
+    confirmButtonText: datas.confirm,
+    cancelButtonText: datas.cancle,
   });
 };
 
-export const modifyAlert = () => {
+export const modifyAlert = (datas) => {
   return Swal.fire({
-    title: "是否前往修改",
+    title: datas.doyouwanttomodify,
     icon: "warning",
     showCancelButton: true,
-    confirmButtonText: "確定",
-    cancelButtonText: "取消",
+    confirmButtonText: datas.confirm,
+    cancelButtonText: datas.cancle,
   });
 };
 
-export const unityLeaveAlert = () => {
+export const unityLeaveAlert = (datas) => {
   return Swal.fire({
-    title: "是否離開此頁面?",
+    title: datas.leaveunityAlert,
     icon: "warning",
     showCancelButton: true,
-    confirmButtonText: "確定",
-    cancelButtonText: "取消",
+    confirmButtonText: datas.confirm,
+    cancelButtonText: datas.cancle,
   });
 };
 
-export const unityEditAlert = () => {
+export const unityEditAlert = (datas) => {
   return Swal.fire({
-    title: "是否前往修改標點",
+    title: datas.doyouwanttomodifypunctuation,
     icon: "warning",
     showCloseButton: true,
-    confirmButtonText: "確定",
-    cancelButtonText: "取消",
+    confirmButtonText: datas.confirm,
+    cancelButtonText: datas.cancle,
   });
 };
 
-export const unitySortAlert = () => {
+export const unitySortAlert = (datas) => {
   return Swal.fire({
-    title: "是否前往設定加工順序",
+    title: datas.doyouwanttosetprocessing,
     icon: "warning",
     showCloseButton: true,
-    confirmButtonText: "確定",
-    cancelButtonText: "取消",
+    confirmButtonText: datas.confirm,
+    cancelButtonText: datas.cancle,
   });
 };
 
-export const unityUploadFinish = () => {
+export const unityUploadFinish = (datas) => {
   setTimeout(() => {
     Swal.fire({
-      title: "上傳成功！",
+      title: datas.uploadsuccess,
       icon: "success",
       timer: 1000,
       showConfirmButton: false,
@@ -61,10 +60,10 @@ export const unityUploadFinish = () => {
   }, 1500);
 };
 
-export const SaveAlert = () => {
+export const SaveAlert = (datas) => {
   setTimeout(() => {
     Swal.fire({
-      title: "上傳成功！",
+      title: datas.uploadsuccess,
       icon: "success",
       timer: 1000,
       showConfirmButton: false,

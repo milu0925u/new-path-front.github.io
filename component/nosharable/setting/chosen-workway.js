@@ -35,7 +35,7 @@ export default function ChosenWorkWay() {
       { id: 7, name: datas.cutting, image: "cut" },
     ]);
     dispatch(SaveWorkListAction()); //清空create
-  }, []);
+  }, [datas]);
   // 下一頁按鈕
   const handleNext = () => {
     const typeid = swiperRef.current.swiper.activeIndex;
@@ -51,7 +51,7 @@ export default function ChosenWorkWay() {
       router.push("/processing/processing-equitment");
       return;
     }
-    toast.error("未選擇路徑");
+    toast.error(datas.nopathselected);
   };
   // 選擇加工方式
   const [method, setMethod] = useState("weld");

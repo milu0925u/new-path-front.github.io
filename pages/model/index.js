@@ -19,7 +19,7 @@ export default function Model() {
       dispatch(unityOpenAction());
     }
     if (unity) {
-      unityLeaveAlert().then((result) => {
+      unityLeaveAlert(datas).then((result) => {
         if (result.isConfirmed) {
           dispatch(unityCloseAction());
           router.push(link);

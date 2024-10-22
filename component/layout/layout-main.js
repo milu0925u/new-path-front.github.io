@@ -1,8 +1,8 @@
-import React from 'react'
-import Navbar from '@/component/navbar'
-import Header from '@/component/navbar/header'
-import Language from '@/component/language'
-import Footer from '@/component/navbar/footer'
+import React from "react";
+import Navbar from "@/component/navbar";
+import Header from "@/component/navbar/header";
+import Language from "@/component/language";
+import Footer from "@/component/navbar/footer";
 
 export default function LayoutMain({ children }) {
   return (
@@ -15,5 +15,5 @@ export default function LayoutMain({ children }) {
       <Footer />
       <Language />
     </div>
-  )
+  );
 }

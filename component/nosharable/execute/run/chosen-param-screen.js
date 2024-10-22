@@ -77,7 +77,7 @@ export default function ChosenParamScreen() {
       return false;
     }
 
-    modifyAlert().then((result) => {
+    modifyAlert(datas).then((result) => {
       if (result.isConfirmed) {
         // 把選擇到的資料丟進去create裡面
         const tag = { ...current, method: select, tag: "edit" };

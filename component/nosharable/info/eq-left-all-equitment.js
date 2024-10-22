@@ -26,8 +26,6 @@ export default function EqLeftAllEquitment() {
     }
   };
 
-  console.log(create);
-
   return (
     <>
       <div className={style.left_info_title}>
@@ -36,58 +34,74 @@ export default function EqLeftAllEquitment() {
       </div>
       <div className={style.left_info_content}>
         <p>
-          使用設備：
+          {datas.useEquitment}：
+          <br />
           {eqdatadefault[create.method]
             ? create.weld
               ? create[create.method].name
               : eqdatadefault[create.method].name
-            : "未選擇"}
+            : datas.notselected}
         </p>
         <p>
-          機械手臂：
+          {datas.roboticarm}：
+          <br />
           {eqdatadefault.robot
             ? create.robot
               ? create.robot.name
               : eqdatadefault.robot.name
-            : "未選擇"}
+            : datas.notselected}
         </p>
         <p>
-          視覺相機：
+          {datas.visioncamera}：
+          <br />
           {eqdatadefault.camera
             ? create.camera
               ? create.camera.name
               : eqdatadefault.camera.name
-            : "未選擇"}
+            : datas.notselected}
         </p>
         <p>
-          安全防護設備：
+          {datas.safetyequipment}：
+          <br />
           {eqdatadefault.camera
             ? create.security
               ? create.security.name
               : eqdatadefault.security.name
-            : "未選擇"}
+            : datas.notselected}
         </p>
         <p>
-          氣源設備：
+          {datas.airsupplyequipment}：
+          <br />
           {eqdatadefault.gas
             ? create.gas
               ? create.gas.name
               : eqdatadefault.gas.name
-            : "未選擇"}
+            : datas.notselected}
         </p>
         <p>
-          網路設備：
+          {datas.networkequipment}：
+          <br />
           {eqdatadefault.network
             ? create.network
               ? create.network.name
               : eqdatadefault.network.name
-            : "未選擇"}
+            : datas.notselected}
         </p>
         {eqdatadefault.csb
           ? create.csb
-            ? create.csb?.map((d) => <p>耗材：{d.name}</p>)
-            : eqdatadefault.csb.map((d) => <p>耗材：{d.name}</p>)
-          : "未選擇"}
+            ? create.csb?.map((d) => (
+                <p>
+                  {datas.consumables}：<br />
+                  {d.name}
+                </p>
+              ))
+            : eqdatadefault.csb.map((d) => (
+                <p>
+                  {datas.consumables}：<br />
+                  {d.name}
+                </p>
+              ))
+          : datas.notselected}
       </div>
     </>
   );

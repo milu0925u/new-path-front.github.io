@@ -1,8 +1,7 @@
 import { useRouter } from "next/router";
-import style from "@/styles/unity.module.scss";
 import React, { useCallback, useEffect, useState } from "react";
 import axios from "axios";
-import { Unity, useUnityContext } from "react-unity-webgl";
+import { Unity } from "react-unity-webgl";
 import { useDispatch, useSelector } from "react-redux";
 import {
   unityOpenAction,
@@ -11,6 +10,7 @@ import {
 import Loading from "@/component/loading/loading";
 import { unityLeaveAlert } from "@/component/alert/alert";
 export default function DrawFix({
+  setPointName,
   handleAnimated,
   openTool,
   setOpenTool,
@@ -56,16 +56,8 @@ export default function DrawFix({
     const byteCharacters = atob(saveImage);
     const byteArrays = [...byteCharacters].map((char) => char.charCodeAt(0));
     const blob = new Blob([new Uint8Array(byteArrays)], { type: "image/png" });
-
-    const downloadLink = document.createElement("a");
     const url = URL.createObjectURL(blob);
-    // downloadLink.href = URL.createObjectURL(blob);
     URL.revokeObjectURL(url);
-    downloadLink.download = name;
-
-    // document.body.appendChild(downloadLink);
-    // downloadLink.click();
-    // document.body.removeChild(downloadLink);
   }, []);
   //下載
   const [isDownload, setIsDownload] = useState(false);
@@ -76,7 +68,7 @@ export default function DrawFix({
   // unity畫面上的list跳轉
   const handleTurnToHistory = useCallback(async () => {
     requestFullscreen(false);
-    unityLeaveAlert().then((result) => {
+    unityLeaveAlert(datas).then((result) => {
       if (result.isConfirmed) {
         dispatch(unityCloseAction());
         sendMessage("Model", "CloseUnityApp");
@@ -120,22 +112,9 @@ export default function DrawFix({
 
   // 讀取unity檔案整串
   useEffect(() => {
-    const customURL = `${domain}/point`;
+    const customURL = `${domain}/point/`;
     const urlSwitch = async () => {
       sendMessage("Model", "ChangeURL", customURL);
-    };
-    // 選中的目標讀取
-    const idSelect = async () => {
-      let data;
-      if (Object.keys(current).length === 0) {
-        const showData = sessionStorage.getItem("point");
-        data = JSON.parse(showData);
-      } else {
-        data = current;
-      }
-      sendMessage("Model", "WhichID", data.id);
-      sendMessage("Canvas_Import", "LoadID", data.id);
-      await objDownload(data.model_path);
     };
     //前端讀取顯示
     const objDownload = async (objPath) => {
@@ -150,11 +129,26 @@ export default function DrawFix({
         const url = URL.createObjectURL(blob);
         // console.log(url); // 'blob:http://localhost:7777/d09525fb-3720-489a-990b-e9f1e05b9bcd'
         sendMessage("Canvas_Import", "LoadPly", url);
-        URL.revokeObjectURL(url); //釋放內存
       } catch (error) {
         console.error("Error downloading PLY file:", error);
       }
     };
+    // 選中的目標讀取
+    const idSelect = async () => {
+      let data;
+      if (Object.keys(current).length === 0) {
+        const showData = sessionStorage.getItem("point");
+        data = JSON.parse(showData);
+      } else {
+        data = current;
+      }
+      setPointName(data.name);
+      sendMessage("Model", "WhichID", data.id); // 這是讀取我後台的標點id
+      sendMessage("Canvas_Import", "LoadID", data.id);
+      // sendMessage("Canvas_Import", "LoadID", data.model_id);
+      await objDownload(data.model_path);
+    };
+
     if (isDownload) {
       downloadImage();
       setIsDownload(false);
@@ -170,7 +164,7 @@ export default function DrawFix({
   }, [isDownload, isAbleID, isAbleURL]);
   return (
     <>
-      <Unity id="show" unityProvider={unityProvider} tabIndex={1} />
+      <Unity id="edit" unityProvider={unityProvider} tabIndex={1} />
       {isLoaded ? "" : <Loading />}
     </>
   );

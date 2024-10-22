@@ -29,7 +29,7 @@ const DrawUnity = ({
   const domain = process.env.NEXT_PUBLIC_DOMAIN;
 
   // unity state
-  const { unity } = useSelector((state) => state.public);
+  const { unity, datas } = useSelector((state) => state.public);
   const { current } = useSelector((state) => state.modelList);
 
   // 首次進入時開啟unity
@@ -78,7 +78,7 @@ const DrawUnity = ({
   // unity畫面上的list跳轉
   const handleTurnToHistory = useCallback(() => {
     requestFullscreen(false);
-    unityLeaveAlert().then((result) => {
+    unityLeaveAlert(datas).then((result) => {
       if (result.isConfirmed) {
         dispatch(unityCloseAction());
         sendMessage("Model", "CloseUnityApp");
@@ -96,7 +96,7 @@ const DrawUnity = ({
   const handleCloseAndAlert = () => {
     setpointlistcount(true);
     setOpenTool(true);
-    unityUploadFinish();
+    unityUploadFinish(datas);
     dispatch(CurrentCleanAction());
   };
 

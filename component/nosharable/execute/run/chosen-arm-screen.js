@@ -12,7 +12,7 @@ export default function ChosenArmScreen() {
 
   const handleNext = () => {
     if (textvalue == null && textvalue == undefined) {
-      toast.error("未輸入手臂速度");
+      toast.error(datas.noarmspeedentered);
       return false;
     }
 
@@ -43,12 +43,12 @@ export default function ChosenArmScreen() {
   return (
     <div className={style.l_run_list}>
       <div className={style.l_run_list_arm}>
-        <h3>手臂參數調整</h3>
+        <h3>{datas.armparamadjust}</h3>
         <div className={style.l_run_arm_setting}>
           <div>
             <div className={style.speed}>
               <i className="icon-armspeed"></i>
-              機械手臂速度設定
+              {datas.roboticarmspeedsetting}
             </div>
             <div className={style.speed}>
               <i className="icon-speed-left"></i>
@@ -60,13 +60,13 @@ export default function ChosenArmScreen() {
             </div>
           </div>
           <div className={style.arm_btn}>
-            <h6>回歸機械手臂安全點</h6>
+            <h6>{datas.returntoroboticarmsafepoint}</h6>
             <BlueButton
               handleBlueBTN={handleReturnSafe}
               text={datas.safepoint}
               icon="icon-backtosafe"
             />
-            <h6>回歸機械手臂起始點</h6>
+            <h6>{datas.returntoroboticarmstartingpoint}</h6>
             <BlueButton
               handleBlueBTN={handleReturnStart}
               text={datas.startingpoint}

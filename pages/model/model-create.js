@@ -156,6 +156,7 @@ export default function ModelCreate() {
         points: newdata,
         name: modelName,
       };
+
       try {
         const { data } = await axios.post(`${aidomain}/save`, datas, {
           headers: { "Content-Type": "application/json" },

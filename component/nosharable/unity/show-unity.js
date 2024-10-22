@@ -1,34 +1,26 @@
 import { useRouter } from "next/router";
-import style from "@/styles/unity.module.scss";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState, memo } from "react";
 import axios from "axios";
-import { Unity, useUnityContext } from "react-unity-webgl";
+import { Unity } from "react-unity-webgl";
 import { useDispatch, useSelector } from "react-redux";
 import {
   unityOpenAction,
   unityCloseAction,
 } from "@/redux/actions/publicAction";
-import FullScreen from "@/component/nosharable/unity/full-screen";
-import LangSwitch from "@/component/nosharable/unity/language-switch";
 import Loading from "@/component/loading/loading";
 import { unityLeaveAlert } from "@/component/alert/alert";
-export default function DrawShow() {
+const DrawShow = ({
+  unityProvider,
+  addEventListener,
+  removeEventListener,
+  sendMessage,
+  requestFullscreen,
+  isLoaded,
+}) => {
   const dispatch = useDispatch();
   const router = useRouter();
   const domain = process.env.NEXT_PUBLIC_DOMAIN;
-  const {
-    unityProvider,
-    addEventListener,
-    removeEventListener,
-    sendMessage,
-    isLoaded,
-    requestFullscreen,
-  } = useUnityContext({
-    loaderUrl: "/unity/ShowScene/Build/ShowScene_0801.loader.js",
-    dataUrl: "/unity/ShowScene/Build/ShowScene_0801.data",
-    frameworkUrl: "/unity/ShowScene/Build/ShowScene_0801.framework.js",
-    codeUrl: "/unity/ShowScene/Build/ShowScene_0801.wasm",
-  });
+
   const { current } = useSelector((state) => state.pointList);
   // unity state
   const { unity } = useSelector((state) => state.public);
@@ -77,7 +69,7 @@ export default function DrawShow() {
   }, [addEventListener, removeEventListener, handleURL]);
 
   useEffect(() => {
-    const customURL = `${domain}/point`;
+    const customURL = `${domain}/point/`;
     const urlSwitch = async () => {
       sendMessage("Model", "ChangeURL", customURL);
     };
@@ -98,21 +90,6 @@ export default function DrawShow() {
       downloadLink.click();
       document.body.removeChild(downloadLink);
     };
-
-    const idSelect = async () => {
-      let data;
-      if (Object.keys(current).length === 0) {
-        const drawData = sessionStorage.getItem("point");
-        data = JSON.parse(drawData);
-      } else {
-        data = current;
-      }
-      sendMessage("Model", "WhichID", Number(data.id));
-      sendMessage("Canvas", "LoadID", Number(data.id));
-
-      await objDownload(data.model_path);
-    };
-
     const objDownload = async (objPath) => {
       try {
         const response = await axios.get(objPath, {
@@ -123,11 +100,28 @@ export default function DrawShow() {
         });
         const url = URL.createObjectURL(blob);
         sendMessage("Canvas", "LoadPly", url);
-        URL.revokeObjectURL(url);
+
+        return url;
       } catch (error) {
         console.error("Error downloading PLY file:", error);
       }
     };
+
+    const idSelect = async () => {
+      let data;
+      if (Object.keys(current).length === 0) {
+        const drawData = sessionStorage.getItem("point");
+        data = JSON.parse(drawData);
+      } else {
+        data = current;
+      }
+
+      sendMessage("Model", "WhichID", data.id);
+      sendMessage("Canvas", "LoadID", data.id);
+
+      await objDownload(data.model_path);
+    };
+
     if (isDownload) {
       downloadImage();
       setIsDownload(false);
@@ -145,7 +139,7 @@ export default function DrawShow() {
   // 前往編輯
   const handleTurnToFix = useCallback(async () => {
     requestFullscreen(false);
-    unityLeaveAlert().then((result) => {
+    unityLeaveAlert(datas).then((result) => {
       if (result.isConfirmed) {
         dispatch(unityCloseAction());
         sendMessage("Model", "CloseUnityApp");
@@ -163,7 +157,7 @@ export default function DrawShow() {
   //  前往加工
   const handleTurnToRobot = useCallback(async () => {
     requestFullscreen(false);
-    unityLeaveAlert().then((result) => {
+    unityLeaveAlert(datas).then((result) => {
       if (result.isConfirmed) {
         dispatch(unityCloseAction());
         sendMessage("Model", "CloseUnityApp");
@@ -191,4 +185,6 @@ export default function DrawShow() {
       {isLoaded ? "" : <Loading />}
     </>
   );
-}
+};
+
+export default memo(DrawShow);

@@ -12,7 +12,7 @@ export default function ChooseWorkPolish({ handleOrangeBTN }) {
           <>
             <div className={style.chosen_list_title}>
               <img alt="polish" src="/images/work/polish.svg" />
-              <span>拋光加工</span>
+              <span>{datas.polishingprocessing}</span>
             </div>
             <h6>{datas.processingconfigurationname}</h6>
             <div className={style.chosen_list_name}>{current?.name}</div>

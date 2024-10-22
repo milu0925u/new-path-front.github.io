@@ -60,7 +60,7 @@ export default function PointList() {
   // 進入show unity
   const handleSort = () => {
     if (current.id) {
-      unitySortAlert().then((result) => {
+      unitySortAlert(datas).then((result) => {
         if (result.isConfirmed) {
           dispatch(unityOpenAction());
           router.push("/draw/show");
@@ -73,7 +73,7 @@ export default function PointList() {
   // 進入fix unity
   const handleEdit = () => {
     if (current.id) {
-      unityEditAlert().then((result) => {
+      unityEditAlert(datas).then((result) => {
         if (result.isConfirmed) {
           dispatch(unityOpenAction());
           router.push("/draw/edit");
@@ -97,8 +97,8 @@ export default function PointList() {
         >
           <DeleteWhiteButton handleDeleteBTN={handleDeleteBTN} />
           <WhiteButton
-            text={datas.modify}
-            icon="icon-edit"
+            text={datas.modifypoint}
+            icon="icon-modifypoint"
             handleBlueBTN={handleSort}
           />
         </RWDTitle>

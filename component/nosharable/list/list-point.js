@@ -52,13 +52,13 @@ export default function ListPoint({
         <div className={style.list_f}>
           <Search alldatasList={alldatasList} setDatasList={setDatasList} />
           <WhiteButton
-            text={datas.modify}
-            icon="icon-edit"
+            text={datas.modifypoint}
+            icon="icon-modifypoint"
             handleBlueBTN={handleEdit}
           />
           <WhiteButton
             text={datas.viewpoint}
-            icon="icon-path"
+            icon="icon-viewpoint"
             handleBlueBTN={handleSort}
           />
           <WhiteButton

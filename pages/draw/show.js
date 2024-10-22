@@ -22,12 +22,17 @@ export default function Show() {
     isLoaded,
     requestFullscreen,
   } = useUnityContext({
-    loaderUrl: "/unity/ShowScene/Build/ShowScene_0801.loader.js",
-    dataUrl: "/unity/ShowScene/Build/ShowScene_0801.data",
-    frameworkUrl: "/unity/ShowScene/Build/ShowScene_0801.framework.js",
-    codeUrl: "/unity/ShowScene/Build/ShowScene_0801.wasm",
+    loaderUrl: "/unity/ShowScene/ShowScene_0801.loader.js",
+    dataUrl: "/unity/ShowScene/ShowScene_0801.data",
+    frameworkUrl: "/unity/ShowScene/ShowScene_0801.framework.js",
+    codeUrl: "/unity/ShowScene/ShowScene_0801.wasm",
+    // loaderUrl: "/unity/ShowScene/Build/ShowScene_0801.loader.js",
+    // dataUrl: "/unity/ShowScene//Build/ShowScene_0801.data",
+    // frameworkUrl: "/unity/ShowScene//Build/ShowScene_0801.framework.js",
+    // codeUrl: "/unity/ShowScene//Build/ShowScene_0801.wasm",
   });
   const { current } = useSelector((state) => state.pointList);
+
   // 開啟/關閉tool列表 (unity彈跳時關閉功能列)
   const [openTool, setOpenTool] = useState(true);
   // 選擇到的顏色
@@ -98,9 +103,9 @@ export default function Show() {
   // 左邊導覽列
   const drawList = [
     { id: 1, name: "標點清單", img: "icon-path-list", ename: "list" },
-    { id: 2, name: "刪除", img: "icon-delete", ename: "delete" },
+    // { id: 2, name: "刪除", img: "icon-delete", ename: "delete" },
     { id: 3, name: "展示", img: "icon-show", ename: "show" },
-    { id: 4, name: "播放路徑", img: "icon-start", ename: "play" },
+    // { id: 4, name: "播放路徑", img: "icon-start", ename: "play" },
     { id: 5, name: "資訊", img: "icon-info", ename: "info" },
     { id: 6, name: "返回", img: "icon-return-back", ename: "back" },
   ];
@@ -111,7 +116,7 @@ export default function Show() {
 
     if (text === "list") {
       // 跳轉至路徑清單
-      unityLeaveAlert().then((result) => {
+      unityLeaveAlert(datas).then((result) => {
         if (result.isConfirmed) {
           dispatch(unityCloseAction());
           dispatch(CurrentCleanAction());
@@ -122,13 +127,15 @@ export default function Show() {
       // 刪除功能
     } else if (text === "show") {
       // 展示功能
+      sendMessage("CallBackManager", "SExhibit", "Rotating Model");
     } else if (text === "play") {
       //播放路徑
     } else if (text === "info") {
       // 觸發資訊內容
+      sendMessage("CallBackManager", "ShowInfo", "Show info");
     } else if (text === "back") {
       // 觸發返回上一頁
-      unityLeaveAlert().then((result) => {
+      unityLeaveAlert(datas).then((result) => {
         if (result.isConfirmed) {
           dispatch(unityCloseAction());
           dispatch(CurrentCleanAction());
@@ -163,6 +170,11 @@ export default function Show() {
       index: orderI,
     };
     dispatch(SavePointArrayAction(data));
+    // sendMessage(
+    //   "CallBackManager",
+    //   "UploadOrder",
+    //   "Update the new order to database"
+    // );
   };
 
   return (
@@ -202,6 +214,7 @@ export default function Show() {
         {/* 顯示unity畫面 */}
         <div className="unity_screen">
           <DrawShow
+            isLoaded={isLoaded}
             unityProvider={unityProvider}
             addEventListener={addEventListener}
             removeEventListener={removeEventListener}

@@ -47,8 +47,6 @@ export default function ShowUnityPointArrayOne({
     }
   }, []);
 
-  console.log(array);
-
   return (
     <div
       className={`flex-array ${

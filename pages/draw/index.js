@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useUnityContext } from "react-unity-webgl";
 import { useDispatch, useSelector } from "react-redux";
 import BlueButton from "@/component/button/blue-button";
@@ -8,13 +8,12 @@ import { useRouter } from "next/router";
 import { unityLeaveAlert } from "@/component/alert/alert";
 import { unityCloseAction } from "@/redux/actions/publicAction";
 import RwdDrawToolbar from "@/component/nosharable/unity/rwd-draw-toolbar";
-
 import toast from "react-hot-toast";
 
 export default function Draw() {
   const router = useRouter();
   const dispatch = useDispatch();
-
+  const { datas } = useSelector((state) => state.public);
   // 開啟/關閉tool列表
   const [openTool, setOpenTool] = useState(true);
   // 選擇到的顏色
@@ -57,13 +56,44 @@ export default function Draw() {
   const [openDraw, setOpenDraw] = useState(false);
   const [openGeometry, setOpenGeometry] = useState(false);
   const [drawList, setDrawList] = useState([
-    { id: 1, name: "標點清單", img: "draw-list", ename: "list" },
-    { id: 2, name: "標點紀錄", img: "draw-record", ename: "record" },
-    { id: 3, name: "繪製標點", img: "pen", ename: "draw" },
-    { id: 4, name: "幾何標點", img: "draw-geometry", ename: "geometry" },
-    { id: 5, name: "橡皮擦", img: "eraser", ename: "eraser" },
-    { id: 6, name: "展示", img: "show", ename: "show" },
+    { id: 1, name: datas.punctuationlist, img: "draw-list", ename: "list" },
+    {
+      id: 2,
+      name: datas.punctuationrecord,
+      img: "draw-record",
+      ename: "record",
+    },
+    { id: 3, name: datas.drawingpoints, img: "pen", ename: "draw" },
+    {
+      id: 4,
+      name: datas.geometricpoints,
+      img: "draw-geometry",
+      ename: "geometry",
+    },
+    { id: 5, name: datas.eraser, img: "eraser", ename: "eraser" },
+    { id: 6, name: datas.display, img: "show", ename: "show" },
   ]);
+  useEffect(() => {
+    const list = [
+      { id: 1, name: datas.punctuationlist, img: "draw-list", ename: "list" },
+      {
+        id: 2,
+        name: datas.punctuationrecord,
+        img: "draw-record",
+        ename: "record",
+      },
+      { id: 3, name: datas.drawingpoints, img: "pen", ename: "draw" },
+      {
+        id: 4,
+        name: datas.geometricpoints,
+        img: "draw-geometry",
+        ename: "geometry",
+      },
+      { id: 5, name: datas.eraser, img: "eraser", ename: "eraser" },
+      { id: 6, name: datas.display, img: "show", ename: "show" },
+    ];
+    setDrawList(list);
+  }, [datas]);
   // 開啟列表
   const handleClickDraw = (e) => {
     const text = e.currentTarget.dataset.pen;
@@ -78,14 +108,14 @@ export default function Draw() {
     }
 
     if (showING) {
-      toast.error("請先取消展示(再次點擊展示)");
+      toast.error(datas.showAlert);
       return;
     }
     setChosen(text);
     setOpenDraw(false);
     setOpenGeometry(false);
     if (text === "list") {
-      unityLeaveAlert().then((result) => {
+      unityLeaveAlert(datas).then((result) => {
         if (result.isConfirmed) {
           dispatch(unityCloseAction());
           router.push("/model/point-list");
@@ -154,7 +184,7 @@ export default function Draw() {
     e.preventDefault();
     await rename();
     if (!pointname) {
-      toast.error("未輸入名稱");
+      toast.error(datas.nonenameAlert);
       return;
     }
     sendMessage("CallBackManager", "Save");
@@ -197,6 +227,7 @@ export default function Draw() {
       setIsAnimated(false);
     }, 1300);
   }, []);
+
   return (
     <>
       <div className="bg-sky"></div>
@@ -214,7 +245,7 @@ export default function Draw() {
         <div className={`importbtn　${!openTool ? "unity_unvisible" : ""}`}>
           <BlueButton
             icon="icon-import"
-            text="匯入模型"
+            text={datas.importmodel}
             handleBlueBTN={handle_import_data}
           />
         </div>
@@ -239,30 +270,30 @@ export default function Draw() {
             >
               <div data-mode="DrawFunc" data-param={0}>
                 <img alt="pen" src="/images/unity/pen.svg" />
-                <span>一般標點</span>
+                <span>{datas.generalpoints}</span>
               </div>
               <div data-mode="DrawFunc" data-param={1}>
                 <img
                   alt="pen-continuous"
                   src="/images/unity/pen-continuous.svg"
                 />
-                <span>連續標點</span>
+                <span>{datas.continuouspoints}</span>
               </div>
               <div data-mode="DrawShape" data-param={0}>
                 <img alt="pen-line" src="/images/unity/pen-line.svg" />
-                <span>直線標點</span>
+                <span>{datas.straightlinepoints}</span>
               </div>
               <div data-mode="DrawShape" data-param={6}>
                 <img alt="pen-arc" src="/images/unity/pen-arc.svg" />
-                <span>弧線標點</span>
+                <span>{datas.arcpoints}</span>
               </div>
               <div data-mode="DrawFunc" data-param={2}>
                 <img alt="pen-area" src="/images/unity/pen-area.svg" />
-                <span>區域標點</span>
+                <span>{datas.regionpoint}</span>
               </div>
               <div data-mode="DrawFunc" data-param={3}>
                 <img alt="pen-flat" src="/images/unity/pen-flat.svg" />
-                <span>創建平面</span>
+                <span>{datas.createplane}</span>
               </div>
             </div>
           )}
@@ -273,23 +304,23 @@ export default function Draw() {
             >
               <div data-mode="DrawShape" data-param={1}>
                 <img alt="pen-square" src="/images/unity/pen-square.svg" />
-                <span>正方形</span>
+                <span>{datas.square}</span>
               </div>
               <div data-mode="DrawShape" data-param={2}>
                 <img alt="pen-rec" src="/images/unity/pen-rec.svg" />
-                <span>長方形</span>
+                <span>{datas.rectangle}</span>
               </div>
               <div data-mode="DrawShape" data-param={4}>
                 <img alt="pen-circle" src="/images/unity/pen-circle.svg" />
-                <span>圓形</span>
+                <span>{datas.circle}</span>
               </div>
               <div data-mode="DrawShape" data-param={5}>
                 <img alt="pen-oval" src="/images/unity/pen-oval.svg" />
-                <span>橢圓形</span>
+                <span>{datas.ellipse}</span>
               </div>
               <div data-mode="DrawShape" data-param={3}>
                 <img alt="pen-polygon" src="/images/unity/pen-polygon.svg" />
-                <span>多邊形</span>
+                <span>{datas.polygon}</span>
               </div>
             </div>
           )}
@@ -298,7 +329,7 @@ export default function Draw() {
           <i className="icon-workname"></i>
           <input
             type="text"
-            placeholder="標點紀錄名稱"
+            placeholder={datas.punctuationrecordname}
             onChange={(e) => setPointName(e.target.value)}
           />
         </div>
@@ -324,7 +355,7 @@ export default function Draw() {
             }}
           >
             <i className="icon-backall"></i>
-            <span>繪點返回</span>
+            <span>{datas.drawback}</span>
           </div>
           <div
             onClick={() => {
@@ -332,11 +363,11 @@ export default function Draw() {
             }}
           >
             <i className="icon-back"></i>
-            <span>步驟返回</span>
+            <span>{datas.stepback}</span>
           </div>
           <div onClick={handleSave}>
             <i className="icon-save"></i>
-            <span>存檔</span>
+            <span>{datas.save}</span>
           </div>
           <div
             onClick={() => {
@@ -344,7 +375,7 @@ export default function Draw() {
             }}
           >
             <i className="icon-repeat"></i>
-            <span>重回</span>
+            <span>{datas.repeat}</span>
           </div>
           <div
             onClick={() => {
@@ -352,7 +383,7 @@ export default function Draw() {
             }}
           >
             <i className="icon-reset"></i>
-            <span>重置</span>
+            <span>{datas.reset}</span>
           </div>
         </div>
         <div

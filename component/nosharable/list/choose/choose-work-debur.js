@@ -12,7 +12,7 @@ export default function ChooseWorkDebur({ handleOrangeBTN }) {
           <>
             <div className={style.chosen_list_title}>
               <img alt="debur" src="/images/work/debur.svg" />
-              <span>去毛邊加工</span>
+              <span>{datas.deburringprocessing}</span>
             </div>
             <h6>{datas.processingconfigurationname}</h6>
             <div className={style.chosen_list_name}>{current?.name}</div>

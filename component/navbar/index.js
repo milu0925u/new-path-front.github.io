@@ -17,14 +17,12 @@ export default function Navbar() {
   const handleNavigation = (e) => {
     e.preventDefault();
     let link = e.currentTarget.dataset.href;
-    console.log(link);
-    console.log(unity);
 
     if (link.includes("draw")) {
       dispatch(unityOpenAction());
     }
     if (unity) {
-      unityLeaveAlert().then((result) => {
+      unityLeaveAlert(datas).then((result) => {
         if (result.isConfirmed) {
           dispatch(unityCloseAction());
           router.push(link);

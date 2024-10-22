@@ -12,7 +12,7 @@ export default function ChooseWorkDrill({ handleOrangeBTN }) {
           <>
             <div className={style.chosen_list_title}>
               <img alt="drill" src="/images/work/drill.svg" />
-              <span>鑽孔加工</span>
+              <span>{datas.drillingprocessing}</span>
             </div>
             <h6>{datas.processingconfigurationname}</h6>
             <div className={style.chosen_list_name}>{current?.name}</div>

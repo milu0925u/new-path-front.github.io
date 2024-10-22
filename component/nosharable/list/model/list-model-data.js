@@ -9,7 +9,7 @@ export default function ListModelData({
   handleChosenDelete,
   handleChoose,
 }) {
-  const { loading } = useSelector((state) => state.public);
+  const { loading, datas } = useSelector((state) => state.public);
 
   if (loading) {
     return (
@@ -44,7 +44,7 @@ export default function ListModelData({
           </div>
         ))
       ) : (
-        <div className={style.list_empty}>沒有檔案</div>
+        <div className={style.list_empty}>{datas.nodata}</div>
       )}
     </div>
   );

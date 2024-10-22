@@ -12,7 +12,7 @@ export default function ChooseWorkGlue({ handleOrangeBTN }) {
           <>
             <div className={style.chosen_list_title}>
               <img alt="glue" src="/images/work/glue.svg" />
-              <span>塗膠加工</span>
+              <span>{datas.gluingprocessing}</span>
             </div>
             <h6>{datas.processingconfigurationname}</h6>
             <div className={style.chosen_list_name}>{current?.name}</div>

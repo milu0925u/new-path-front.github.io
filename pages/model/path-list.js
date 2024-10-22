@@ -40,7 +40,7 @@ export default function PathList() {
   };
   const handleEdit = () => {
     if (current.id) {
-      unitySortAlert().then((result) => {
+      unitySortAlert(datas).then((result) => {
         if (result.isConfirmed) {
           router.push("/draw/optimal-path");
         }

@@ -13,7 +13,7 @@ export default function ChooseWorkCut({ handleOrangeBTN }) {
           <>
             <div className={style.chosen_list_title}>
               <img alt="cut" src="/images/work/cut.svg" />
-              <span>切割加工</span>
+              <span>{datas.cuttingprocessing}</span>
             </div>
             <h6>{datas.processingconfigurationname}</h6>
             <div className={style.chosen_list_name}>{current?.name}</div>
