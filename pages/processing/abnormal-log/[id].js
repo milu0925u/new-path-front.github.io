@@ -38,7 +38,7 @@ export default function AbnormalLogID() {
         <div className="content content-abnormal-log">
           <AbnormalcontentTitle />
           <Abnormalcontent />
-          <div className="rwd-btn">
+          <div className="rwd-next-btn">
             <ReturnBlueButton handleReturnBTN={handleReturn} />
           </div>
         </div>

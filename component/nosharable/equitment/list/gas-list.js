@@ -38,7 +38,7 @@ export default function GasList({ handleNext, text, handleActive }) {
             ))}
         </div>
       </div>
-      <div className="nextbtn">
+      <div className="next-btn">
         <OrangeButton
           text={datas.confirm}
           icon="icon-ok"

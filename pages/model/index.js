@@ -43,27 +43,23 @@ export default function Model() {
   }, [router]);
   return (
     <>
-      <div className="bg-sky"></div>
-      <div className="bg-clouds"></div>
+      <div className="bg-sky bg-size"></div>
+      <div className="bg-clouds bg-size"></div>
       <div className="container">
         <div className={style.mobile_menu}>
-          <div className={`${style.title} ${style.title_blue}`}>
+          <div className={`${style.mobile_menu_title} ${style.blue}`}>
             <i className="icon-navbar-title-path"></i>
-            <span className={style.title_blue}>
-              {datas.pathconfigurationsetup}
-            </span>
+            <span>{datas.pathconfigurationsetup}</span>
           </div>
 
-          <div className="content content-pd">
+          <div className="content content-width">
             <ul>
               {datas?.model?.map((item, i) => (
                 <li
-                  className={style.li_blue}
-                  key={item.name}
+                  className={style.blue}
+                  key={i}
                   data-href={item.href}
-                  onClick={(e) => {
-                    handleNavigation(e);
-                  }}
+                  onClick={handleNavigation}
                 >
                   <i className={item.icon}></i>
                   <span>{item.name}</span>

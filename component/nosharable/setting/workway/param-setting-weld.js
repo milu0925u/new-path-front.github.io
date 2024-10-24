@@ -29,13 +29,13 @@ export default function ParamSettingWeld({ handleSave }) {
           <div className={style.flex_text}>
             <i className="icon-welddeep"></i>
             <h6>{`${datas.weldingprocess}-${datas.verticaldepthadjustment}`}</h6>
-            <input
-              type="number"
-              value={create.deep ? create?.deep : 0}
-              pattern="[0-9]*"
-              disabled
-            />
           </div>
+          <input
+            type="number"
+            value={create.deep ? create?.deep : 0}
+            pattern="[0-9]*"
+            disabled
+          />
           <Range handleParamSetting={handleParamSetting} />
         </div>
         <div>
@@ -61,7 +61,7 @@ export default function ParamSettingWeld({ handleSave }) {
           </div>
         </div>
       </div>
-      <div className={`${style.setting_btn} nextbtn`}>
+      <div className="next-btn">
         <OrangeButton
           text={datas.save}
           icon="icon-save"

@@ -23,8 +23,36 @@ export default function EquitmentSet() {
   const { datas } = useSelector((state) => state.public);
 
   // 選單得動態生成
-  const [equitment, setEquitment] = useState([]);
-
+  const [equitment, setEquitment] = useState([
+    {
+      id: 1,
+      name: datas.processingequipment,
+    },
+    {
+      id: 2,
+      name: datas.roboticarm,
+    },
+    {
+      id: 3,
+      name: datas.visioncamera,
+    },
+    {
+      id: 4,
+      name: datas.consumables,
+    },
+    {
+      id: 5,
+      name: datas.safetyequipment,
+    },
+    {
+      id: 6,
+      name: datas.airsupplyequipment,
+    },
+    {
+      id: 7,
+      name: datas.networkequipment,
+    },
+  ]);
   useEffect(() => {
     setEquitment([
       {
@@ -56,7 +84,8 @@ export default function EquitmentSet() {
         name: datas.networkequipment,
       },
     ]);
-  }, []);
+  }, [datas]);
+
   // 設備設定選項的顏色
   const [active, setActive] = useState(1);
   const handleActiveColor = (e) => {

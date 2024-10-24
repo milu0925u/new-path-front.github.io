@@ -4,6 +4,7 @@
   display: flex;
   flex-direction: column;
   gap: 3vh;
+  padding: 1.5rem;
 
   .col_function {
     h6 {
@@ -45,6 +46,9 @@
     .function_param_btn {
       justify-content: space-between;
     }
+    .input_span {
+      padding-inline: 8px;
+    }
   }
 
   .function_modelname {
@@ -60,30 +64,6 @@
 }
 
 @media screen and (max-width: 1200px) {
-  .l_function {
-    padding: 3%;
-    display: flex;
-    gap: 5%;
-    .col_function {
-      padding-block: 16px;
-    }
-  }
-  .bg_function {
-    background: var(--white-op08);
-    border-radius: 20px;
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .l_function {
-    padding: 3%;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 5%;
-    .col_function {
-      padding-block: 16px;
-    }
-  }
   .bg_function {
     background: var(--white-op08);
     border-radius: 20px;

@@ -143,15 +143,23 @@ const DrawUnity = ({
     };
     const idSelect = async () => {
       let data;
-      if (Object.keys(current).length === 0) {
+      if (
+        Object.keys(current).length === 0 &&
+        !sessionStorage.getItem("model")
+      ) {
+        data = { id: 0, model_path: null };
+      } else if (
+        Object.keys(current).length === 0 &&
+        sessionStorage.getItem("model")
+      ) {
         const drawData = sessionStorage.getItem("model");
         data = JSON.parse(drawData);
-      } else {
+      } else if (Object.keys(current).length > 0) {
         data = current;
       }
+
       sendMessage("Canvas_Import", "LoadID", Number(data.id));
       sendMessage("Canvas_Import", "LoadPly", data.model_path);
-
       await objDownload(data.model_path);
     };
     const objDownload = async (objPath) => {

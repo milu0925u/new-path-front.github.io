@@ -28,7 +28,7 @@ export default function centralControl() {
         </RWDTitle>
         <div className="content">
           <CCLeft />
-          <div className="rwd-btn">
+          <div className="rwd-next-btn">
             <BlueButton
               text={datas.back}
               icon="icon-return-back"

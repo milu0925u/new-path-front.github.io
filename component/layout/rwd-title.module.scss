@@ -2,14 +2,15 @@
 .l_banner {
   display: none;
   justify-content: center;
-  z-index: 5;
-  gap: 10px;
-  padding-block: 15px;
+  align-items: center;
+  z-index: 1;
+  height: var(--big-title);
   .col_banner {
-    width: 40%;
+    width: 100%;
+    min-width: 100px;
+    max-width: 500px;
     height: 80px;
-    min-width: 200px;
-    font-size: 20px;
+    font-size: 24px;
     font-weight: bolder;
     border: 5px solid rgb(239, 239, 239);
     border-radius: 100px;
@@ -17,46 +18,14 @@
     align-items: center;
     justify-content: center;
     gap: 16px;
-  }
-}
-
-.banner_btn_group {
-  position: relative;
-  z-index: 5;
-  width: 80px;
-  .banner_btn_group_child {
-    position: absolute;
-    top: 0;
-    left: 0;
-    background: var(--main-blue-light-op08);
-    box-shadow: 1px 1px 3px var(--main-blue-light-op08);
-    > button:last-child {
-      position: absolute;
-      top: -5px;
-      left: -5px;
-      cursor: pointer;
-      background: var(--main-blue-light-op08);
-      box-shadow: 1cqi 1px 10px rgba(87, 84, 84, 0.64);
-      border-radius: 50%;
-      padding: 5px;
-      font-size: 10px;
+    padding-inline: 6vw;
+    &.blue {
+      background: var(--main-blue-light-op05);
+    }
+    &.orange {
+      background: var(--main-orange-light-op05);
     }
   }
-  .off {
-    display: none;
-  }
-  .on {
-    display: flex;
-    opacity: 1;
-    height: auto;
-  }
-}
-
-.blue_bg {
-  background: var(--main-blue-light-op05);
-}
-.orange_bg {
-  background: var(--main-orange-light-op05);
 }
 
 @media screen and (max-width: 1200px) {
@@ -66,6 +35,9 @@
 }
 
 @media screen and (max-width: 568px) {
+  .l_banner .col_banner {
+    font-size: 18px;
+  }
   .banner_btn_group .banner_btn_group_child.on {
     display: grid;
   }

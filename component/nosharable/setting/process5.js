@@ -35,7 +35,7 @@ export default function EmptyRun() {
       <div className="content">
         <LeftcontentParam />
         <EmptyRunScreen handleOrangeBTN={handleReturn} />
-        <div className="rwd-btn">
+        <div className="rwd-next-btn">
           <OrangeButton
             text={datas.confirm}
             icon="icon-ok"

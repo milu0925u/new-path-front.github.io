@@ -18,5 +18,9 @@ export default function EqLeftAll() {
     }
   };
 
-  return <div className={style.l_left_info}>{renderScreen()}</div>;
+  return (
+    <div className={`${style.l_left_info} ${style.height}`}>
+      {renderScreen()}
+    </div>
+  );
 }

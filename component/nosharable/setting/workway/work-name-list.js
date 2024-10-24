@@ -11,7 +11,7 @@ export default function WorkNameList() {
     dispatch(createWorkListAction({ name: value }));
   };
   return (
-    <div className={`${style.right_setting_name}`}>
+    <div className={style.right_setting_name}>
       <i className="icon-workname"></i>
       <input
         type="text"

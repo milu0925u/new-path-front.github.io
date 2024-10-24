@@ -130,6 +130,7 @@ export default function ProcessingList() {
   };
   // 顯示資料
   const [datasList, setDatasList] = useState([]);
+
   useEffect(() => {
     setDatasList(data[select]);
     if (select) {
@@ -138,8 +139,8 @@ export default function ProcessingList() {
   }, [data, select]);
   return (
     <>
-      <div className="bg-execute"></div>
-      <div className="container">
+      <div className="bg-execute bg-size"></div>
+      <div className="container container-center">
         <RWDTitle
           title={datas.processingconfigurationlist}
           icon="icon-processing-list"
@@ -155,7 +156,7 @@ export default function ProcessingList() {
             handleBlueBTN={handleModifyBTN}
           />
         </RWDTitle>
-        <div className="content content-margin">
+        <div className="content">
           <ListWork
             select={select}
             handleSelect={handleSelect}
@@ -168,7 +169,7 @@ export default function ProcessingList() {
             setDatasList={setDatasList}
           />
           {renderChoose()}
-          <div className="rwd-btn">
+          <div className="rwd-next-btn">
             <OrangeButton
               text={datas.executeprocessing}
               icon="icon-execute-work"

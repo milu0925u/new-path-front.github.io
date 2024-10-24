@@ -60,10 +60,10 @@ export default function ModelList() {
 
   return (
     <>
-      <div className="bg-clouds"></div>
-      <div className="bg-sky"></div>
-      <div className="container">
-        <RWDTitle title={datas.modellist} icon="icon-model-list" bgcolor="1">
+      <div className="bg-clouds bg-size"></div>
+      <div className="bg-sky bg-size"></div>
+      <div className="container container-center">
+        <RWDTitle title={datas.modellist} icon="icon-model-list" bgcolor={true}>
           <DeleteWhiteButton handleDeleteBTN={handleDeleteBTN} />
           <button className="rwd-display-none-btn"></button>
         </RWDTitle>
@@ -79,7 +79,7 @@ export default function ModelList() {
               handleOrangeBTN={handleNext}
             />
           </ChooseModel>
-          <div className="rwd-btn">
+          <div className="rwd-next-btn">
             <OrangeButton
               text={datas.selectmodel}
               icon="icon-chooseModel"

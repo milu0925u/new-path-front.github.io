@@ -85,11 +85,11 @@ export default function PointList() {
   };
   return (
     <>
-      <div className="bg-clouds"></div>
-      <div className="bg-sky"></div>
-      <div className="container">
+      <div className="bg-clouds bg-size"></div>
+      <div className="bg-sky bg-size"></div>
+      <div className="container container-center">
         <RWDTitle
-          bgcolor="1"
+          bgcolor={true}
           title={datas.punctuationlist}
           icon="icon-draw-list"
           switchState={opentool}
@@ -101,6 +101,11 @@ export default function PointList() {
             icon="icon-modifypoint"
             handleBlueBTN={handleSort}
           />
+          {/* <WhiteButton
+            text={datas.viewpoint}
+            icon="icon-viewpoint"
+            handleBlueBTN={handleSort}
+          /> */}
         </RWDTitle>
         <div className="content content-pd content-blue-full">
           <ListPoint
@@ -116,7 +121,7 @@ export default function PointList() {
               handleOrangeBTN={handleNext}
             />
           </ChoosePoint>
-          <div className="rwd-btn">
+          <div className="rwd-next-btn">
             <OrangeButton
               text={datas.selectpoint}
               icon="icon-choosePoint"

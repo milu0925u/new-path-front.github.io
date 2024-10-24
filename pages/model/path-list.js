@@ -50,11 +50,11 @@ export default function PathList() {
 
   return (
     <>
-      <div className="bg-clouds"></div>
-      <div className="bg-sky"></div>
-      <div className="container">
+      <div className="bg-clouds bg-size"></div>
+      <div className="bg-sky bg-size"></div>
+      <div className="container container-center">
         <RWDTitle
-          bgcolor="1"
+          bgcolor={true}
           title={datas.pathlist}
           icon="icon-path-list"
           switchState={opentool}
@@ -77,7 +77,7 @@ export default function PathList() {
               handleOrangeBTN={handleNext}
             />
           </Choosepath>
-          <div className="rwd-btn">
+          <div className="rwd-next-btn">
             <OrangeButton
               text={datas.selectpath}
               icon="icon-choosePoint"

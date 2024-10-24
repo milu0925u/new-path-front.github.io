@@ -76,7 +76,7 @@ export default function ChosenWorkWay() {
     router.push("/model/path-list");
   };
   return (
-    <div className="container">
+    <div className="container container-center">
       <RWDTitle
         title={datas.chooseprocessingmethod}
         icon="icon-choose-work-way"
@@ -119,6 +119,9 @@ export default function ChosenWorkWay() {
               handleOrangeBTN={handleNext}
             />
           </div>
+        </div>
+        <div className="rwd-next-btn">
+          <button className="rwd-display-none-btn"></button>
         </div>
       </div>
     </div>

@@ -23,7 +23,7 @@ export default function ListWork({
 
   return (
     <div
-      className={`${style.col_list} ${style.col_list_bg} ${style.list_radius}`}
+      className={`${style.col_list} ${style.col_list_bg} ${style.list_radius} ${style.col_list_mt}`}
     >
       <div className={style.list_f}>
         <Search alldatasList={data[select]} setDatasList={setDatasList} />

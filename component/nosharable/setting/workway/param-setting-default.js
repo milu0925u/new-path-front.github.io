@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import style from "@/component/nosharable//setting/setting.module.scss";
 import OrangeButton from "@/component/button/orange-button";
 import Range from "@/component/nosharable/right-content/work/range";
@@ -16,8 +16,8 @@ export default function ParamSettingDefault({ handleSave }) {
           <div className={style.flex_text}>
             <i className="icon-welddeep"></i>
             <h6>{`${datas.weldingprocess}-${datas.verticaldepthadjustment}`}</h6>
-            <input type="number" pattern="[0-9]*" disabled />
           </div>
+          <input type="number" pattern="[0-9]*" disabled />
           <Range />
         </div>
         <div>
@@ -31,7 +31,7 @@ export default function ParamSettingDefault({ handleSave }) {
           </div>
         </div>
       </div>
-      <div className={`${style.setting_btn} nextbtn`}>
+      <div className="next-btn">
         <OrangeButton
           text={datas.save}
           icon="icon-save"

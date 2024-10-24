@@ -4,13 +4,12 @@ import { useDispatch, useSelector } from "react-redux";
 import RWDTitle from "@/component/layout/rwd-title";
 
 import {
-  SaveSetWorkingAction,
   SaveWorkListAction,
   updateWorkListAction,
 } from "@/redux/actions/ListAction";
-import LeftcontentParam from "@/component/nosharable//info/eq-left-info";
+
 import OrangeButton from "@/component/button/orange-button";
-import LayoutMain from "@/component/layout/layout-main";
+
 import toast from "react-hot-toast";
 import ReturnBlueButton from "@/component/button/return-blue-button";
 import ReturnWhiteButton from "@/component/button/return-white-button";
@@ -73,10 +72,16 @@ export default function ProcessingSet() {
     }
   };
 
+  useEffect(() => {
+    if (create.method === undefined) {
+      router.push("/processing/processing-chose");
+    }
+  }, [router]);
+
   return (
     <>
-      <div className="bg-execute"></div>
-      <div className="container">
+      <div className="bg-execute bg-size"></div>
+      <div className="container container-center">
         <RWDTitle
           title={datas.processingsetting}
           icon="icon-armparametersettings"
@@ -87,7 +92,7 @@ export default function ProcessingSet() {
         <div className="content">
           <EqLeftAllParam />
           {renderCurrentScreen()}
-          <div className="rwd-btn">
+          <div className="rwd-next-btn">
             <OrangeButton
               text={datas.save}
               icon="icon-save"

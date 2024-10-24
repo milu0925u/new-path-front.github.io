@@ -1,32 +1,29 @@
 .l_run {
-  width: 100%;
-  height: 100%;
-  flex: 1;
   border-radius: 30px;
   background: var(--white-op08);
-  padding-inline: 20px;
-  padding-top: 30px;
+  padding: 20px 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   .run_screen {
     position: relative;
-    background: var(--white);
-    border-radius: 20px;
-    width: 100%;
-    height: 500px;
-    img {
-      width: 100%;
-      height: 100%;
-      border-radius: 20px;
-    }
+    display: flex;
+    justify-content: center;
+    align-items: center;
     .run_screen_vedio {
       width: 100%;
-      height: 100%;
+      height: 450px;
       border-radius: 20px;
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 20px;
+      }
     }
   }
   .run_btn {
-    height: 80px;
     display: flex;
-    align-items: center;
     justify-content: space-around;
   }
   .rwd_run_btn {
@@ -53,85 +50,70 @@
 }
 
 .l_run_list {
-  width: 70%;
+  width: 100%;
   border-radius: 30px;
   padding: 20px 15px 50px 15px;
-  display: flex;
   background: white;
+  &.flex {
+    display: flex;
+  }
   .l_run_list_worklist {
     width: 100%;
-    margin-top: 50px;
-    border-radius: 30px;
-    display: flex;
     > div {
       width: 80%;
     }
-    > button {
-      margin: auto 50px 30px auto;
-    }
+  }
+  > button {
+    margin: auto 40px 30px auto;
   }
   .l_run_list_arm {
-    margin-block: auto;
-    width: 100%;
-    max-height: 350px;
-    min-height: 200px;
-    height: 100%;
-    padding: 0 50px 0 60px;
-    font-size: 18px;
+    padding-block: 10vh;
+    padding-inline: 3vw;
     font-weight: bolder;
     h3 {
-      font-size: 28px;
-      font-weight: bolder;
-      padding-bottom: 30px;
+      font-size: 24px;
     }
-    .speed {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      i {
-        font-size: 20px;
+    h6,
+    button {
+      margin-bottom: 0.8rem;
+    }
+    > div {
+      padding-block: 2rem;
+      .speed_text {
+        display: flex;
+        gap: 5px;
+        i {
+          font-size: 20px;
+        }
+      }
+      .speed_input {
+        display: flex;
+        align-items: center;
+        gap: 5px;
       }
     }
     .l_run_arm_setting {
       display: flex;
-      flex-wrap: wrap;
       justify-content: space-between;
-      // gap: 30px;
-      // background: firebrick;
-      > div > * {
-        margin-bottom: 12px;
-      }
-      .l_run_arm_setting_btn {
+      height: 227px;
+      > div:last-child {
         margin-top: auto;
       }
     }
-    .arm_btn button {
-      margin-left: auto;
+    .l_run_button {
+      width: 32vw;
+      display: flex;
+      justify-content: space-between;
     }
   }
 }
 
-@media screen and (max-width: 1600px) {
-  .l_run_list {
-    .l_run_list_arm {
-      .l_run_arm_setting {
-        gap: 0;
-      }
-      .l_run_arm_setting_btn {
-        width: 100%;
-        min-height: 200px;
-        display: flex;
-        justify-content: center;
-        align-items: flex-end;
-      }
-    }
-  }
+.rwd_run_button {
+  display: none;
 }
 
 @media screen and (max-width: 1200px) {
   .l_run {
-    .run_screen {
-    }
     .run_btn {
       display: none;
     }
@@ -140,9 +122,10 @@
     }
   }
   .l_run_list {
-    width: 100%;
+    padding: 0;
+    padding-top: 20px;
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     .l_run_list_worklist {
       margin: 0;
       > div {
@@ -152,33 +135,58 @@
         display: none;
       }
     }
+    > button {
+      margin-inline: auto;
+    }
     .l_run_list_arm {
+      width: 300px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 12px;
       h3 {
         text-align: center;
-        line-height: 60px;
-        border-bottom: 3px;
-        border-style: solid;
-        border-color: rgba(0, 0, 0, 0.1);
-        padding: 0;
+        font-size: 28px;
+      }
+      h6,
+      button {
+        margin-top: 1rem;
+      }
+      > div {
+        padding-block: 1rem;
+        .speed_text {
+          gap: 12px;
+          align-items: center;
+          i {
+            font-size: 24px;
+          }
+        }
       }
       .l_run_arm_setting {
-        padding-top: 30px;
-        display: flex;
+        justify-content: inherit;
         flex-direction: column;
-        gap: 30px;
-        .speed {
+        height: auto;
+        .speed_input {
+          input {
+            width: 100%;
+          }
+        }
+        > div:last-child {
+          display: flex;
           justify-content: center;
         }
       }
-      .arm_btn {
-        margin-inline: auto;
-      }
-      .l_run_arm_setting_btn {
+      .l_run_button {
         display: none;
       }
     }
-    > div:nth-child(2) {
-      display: none;
-    }
+  }
+  .rwd_run_button {
+    display: flex;
+    // flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    gap: 16px;
+    padding-block: 16px;
   }
 }

@@ -1,22 +1,22 @@
-import React from 'react'
+import React from "react";
 
-import { useDispatch, useSelector } from 'react-redux'
-import style from './info.module.scss'
-import BlueButton from '@/component/button/blue-button'
-import Range from '../right-content/work/range'
-import { wirteParamWorkingAction } from '@/redux/actions/ListAction'
+import { useDispatch, useSelector } from "react-redux";
+import style from "./info.module.scss";
+import BlueButton from "@/component/button/blue-button";
+import Range from "../right-content/work/range";
+import { wirteParamWorkingAction } from "@/redux/actions/ListAction";
 export default function RightcontentParam({ children }) {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  const { create } = useSelector((state) => state.workList)
-  const { datas } = useSelector((state) => state.public)
+  const { create } = useSelector((state) => state.workList);
+  const { datas } = useSelector((state) => state.public);
 
   const handleParamSetting = (e) => {
-    dispatch(wirteParamWorkingAction(e.target.name, e.target.value))
-  }
+    dispatch(wirteParamWorkingAction(e.target.name, e.target.value));
+  };
   const handleBlueBTN = () => {
-    console.log('手臂控制未設置')
-  }
+    console.log("手臂控制未設置");
+  };
 
   return (
     <div className={style.l_right_info}>
@@ -48,7 +48,7 @@ export default function RightcontentParam({ children }) {
             onChange={handleParamSetting}
           />
         </div>
-        <div className="nextbtn">{children[0]}</div>
+        <div className="next-btn">{children[0]}</div>
       </div>
 
       <div className={style.col_right_info}>
@@ -85,8 +85,8 @@ export default function RightcontentParam({ children }) {
           text={datas.startingpoint}
           icon="icon-backtostart"
         />
-        <div className="nextbtn">{children[1]}</div>
+        <div className="next-btn">{children[1]}</div>
       </div>
     </div>
-  )
+  );
 }

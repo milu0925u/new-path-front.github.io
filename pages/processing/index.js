@@ -45,20 +45,20 @@ export default function Processing() {
 
   return (
     <>
-      <div className="bg-execute"></div>
+      <div className="bg-execute bg-size"></div>
       <div className="container">
         <div className={style.mobile_menu}>
-          <div className={`${style.title} ${style.title_orange}`}>
+          <div className={`${style.mobile_menu_title} ${style.orange}`}>
             <i className="icon-navbar-title-execute"></i>
             <span>{datas.executeprocessing}</span>
           </div>
-          <div className="content content-pd">
+          <div className="content content-width">
             <ul>
-              {datas?.execute?.map((item) => (
+              {datas?.execute?.map((item, i) => (
                 <li
                   role="button"
-                  className={style.li_orange}
-                  key={item.name}
+                  className={style.orange}
+                  key={i}
                   data-href={item.href}
                   onClick={(e) => {
                     handleNavigation(e);

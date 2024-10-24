@@ -42,15 +42,12 @@ export default function Header() {
           onClick={(e) => {
             handleNavigation(e);
           }}
-        >
-          <div></div>
-        </button>
-        <div className={style.header_f}>
-          {/* <button onClick={handleUser}>
+        ></button>
+        <div className={style.header_btn}>
+          <button onClick={handleUser}>
             <i className="icon-user"></i>
             <span>{datas?.user}</span>
-          </button> */}
-          <button></button>
+          </button>
           <button onClick={handleLang}>
             <i className="icon-language"></i>
             <span>{datas?.language}</span>

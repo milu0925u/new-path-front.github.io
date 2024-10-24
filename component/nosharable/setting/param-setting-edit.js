@@ -60,7 +60,7 @@ export default function ParamSettingEdit() {
               handleOrangeBTN={handleSave}
             />
           </RightcontentParam>
-          <div className="rwd-btn">
+          <div className="rwd-next-btn">
             <OrangeButton
               text={datas.dryrun}
               icon="icon-testrun"

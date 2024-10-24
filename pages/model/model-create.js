@@ -181,10 +181,14 @@ export default function ModelCreate() {
     <>
       {pageset === "connect" ? (
         <>
-          <div className="bg-clouds"></div>
-          <div className="bg-sky"></div>
-          <div className="container">
-            <RWDTitle title={datas.scanningobject} icon="icon-scan" bgcolor="1">
+          <div className="bg-clouds bg-size"></div>
+          <div className="bg-sky bg-size"></div>
+          <div className="container container-center">
+            <RWDTitle
+              title={datas.scanningobject}
+              icon="icon-scan"
+              bgcolor={true}
+            >
               <button className="rwd-display-none-btn"></button>
               <button className="rwd-display-none-btn"></button>
             </RWDTitle>
@@ -205,7 +209,7 @@ export default function ModelCreate() {
                   handleOrangeBTN={handleNext}
                 />
               </CameraCreateFunction>
-              <div className="rwd-btn">
+              <div className="rwd-next-btn">
                 <OrangeButton
                   text={datas.startscanning}
                   icon="icon-scan"
@@ -218,10 +222,14 @@ export default function ModelCreate() {
         </>
       ) : (
         <>
-          <div className="bg-clouds"></div>
-          <div className="bg-sky"></div>
-          <div className="container">
-            <RWDTitle title={datas.viewmodel} icon="icon-view-scan" bgcolor="1">
+          <div className="bg-clouds bg-size"></div>
+          <div className="bg-sky bg-size"></div>
+          <div className="container container-center">
+            <RWDTitle
+              title={datas.viewmodel}
+              icon="icon-view-scan"
+              bgcolor={true}
+            >
               <ReturnWhiteButton handleReturnBTN={handleReturn} />
               <button className="rwd-display-none-btn"></button>
             </RWDTitle>
@@ -241,7 +249,7 @@ export default function ModelCreate() {
                 />
               </CameraViewName>
 
-              <div className="rwd-btn">
+              <div className="rwd-next-btn">
                 <OrangeButton
                   text={datas.savemodel}
                   icon="icon-save"

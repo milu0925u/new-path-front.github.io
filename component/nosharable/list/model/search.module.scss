@@ -8,14 +8,14 @@
   padding-inline: 15px;
   position: relative;
   display: flex;
-  gap: 12px;
+  gap: 8px;
   align-items: center;
 
   input {
     width: 100%;
     font-size: 18px;
     &::placeholder {
-      font-size: 14px;
+      font-size: 10px;
       color: #999;
     }
   }

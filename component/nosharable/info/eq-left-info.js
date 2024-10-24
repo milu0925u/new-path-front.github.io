@@ -29,7 +29,7 @@ export default function LeftcontentParam({ setScreen }) {
 
   return (
     <div className={style.l_left_info}>
-      <div className={style.left_info_title}>
+      <div className={`${style.left_info_title} ${style.none}`}>
         {start.method ? (
           <>
             <img src={`/images/work/${start.method}.svg`} />
@@ -39,52 +39,59 @@ export default function LeftcontentParam({ setScreen }) {
           ""
         )}
       </div>
-      <div className={style.left_info_content}>
+      <div className={`${style.left_info_content}`}>
         {/* 加工路徑 */}
-        <div
-          onClick={() => {
-            setScreen("chosen-path");
-          }}
-        >
-          <h6>{datas.selectprocessingpath}</h6>
-          {Object.keys(start.path).length === 0 ? (
-            <i className="icon-cancle icon-cancle-bg"></i>
-          ) : (
-            <i className="icon-ok icon-ok-bg"></i>
-          )}
+        <div className={style.left_info_text}>
+          <div
+            onClick={() => {
+              setScreen("chosen-path");
+            }}
+          >
+            <h6>{datas.selectprocessingpath}</h6>
+            {Object.keys(start.path).length === 0 ? (
+              <i className="icon-cancle icon-cancle-bg"></i>
+            ) : (
+              <i className="icon-ok icon-ok-bg"></i>
+            )}
+          </div>
+          <p style={{ marginInline: "auto" }}>
+            {start.path.name ? start.path.name : ""}
+          </p>
         </div>
-        <p style={{ marginInline: "auto" }}>
-          {start.path.name ? start.path.name : ""}
-        </p>
         {/* 加工參數 */}
-        <div
-          onClick={() => {
-            setScreen("chosen-param");
-          }}
-        >
-          <h6>{datas.processingparam}</h6>
-          {Object.keys(start.eq).length === 0 &&
-          Object.keys(start.param).length === 0 ? (
-            <i className="icon-cancle icon-cancle-bg"></i>
-          ) : (
-            <i className="icon-ok icon-ok-bg"></i>
-          )}
+        <div className={style.left_info_text}>
+          <div
+            onClick={() => {
+              setScreen("chosen-param");
+            }}
+          >
+            <h6>{datas.processingparam}</h6>
+            {Object.keys(start.eq).length === 0 &&
+            Object.keys(start.param).length === 0 ? (
+              <i className="icon-cancle icon-cancle-bg"></i>
+            ) : (
+              <i className="icon-ok icon-ok-bg"></i>
+            )}
+          </div>
+          <p style={{ marginInline: "auto" }}>
+            {start.param.name ? start.param.name : ""}
+          </p>
         </div>
-        <p style={{ marginInline: "auto" }}>
-          {start.param.name ? start.param.name : ""}
-        </p>
-        <div
-          style={{ cursor: "pointer" }}
-          onClick={() => {
-            setScreen("chosen-arm");
-          }}
-        >
-          <h6>{datas.armparam}</h6>
-          {Object.keys(start.arm).length === 0 ? (
-            <i className="icon-cancle icon-cancle-bg"></i>
-          ) : (
-            <i className="icon-ok icon-ok-bg"></i>
-          )}
+        {/* 手臂參數 */}
+        <div className={style.left_info_text}>
+          <div
+            style={{ cursor: "pointer" }}
+            onClick={() => {
+              setScreen("chosen-arm");
+            }}
+          >
+            <h6>{datas.armparam}</h6>
+            {Object.keys(start.arm).length === 0 ? (
+              <i className="icon-cancle icon-cancle-bg"></i>
+            ) : (
+              <i className="icon-ok icon-ok-bg"></i>
+            )}
+          </div>
         </div>
       </div>
     </div>

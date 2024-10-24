@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import style from "./info.module.scss";
 import { useSelector } from "react-redux";
+import { useRouter } from "next/router";
 export default function EqLeftAllParam() {
   const { create } = useSelector((state) => state.workList);
   const { datas } = useSelector((state) => state.public);
+  const router = useRouter();
 
   // 顯示目前的文字
   const renderTitle = () => {
@@ -36,25 +38,29 @@ export default function EqLeftAllParam() {
     }
   }, []);
   return (
-    <div className={style.l_left_info}>
-      <div className={style.left_info_title}>
-        <img src={`/images/work/${create.method}.svg`} />
-        <span>{renderTitle()}</span>
-      </div>
-      <div className={style.left_info_content}>
-        <div className={style.block}>
+    <>
+      {router.pathname === "/processing/processing-set" ? null : (
+        <div className={`${style.l_left_info} ${style.height}`}>
+          <div className={style.left_info_title}>
+            <img src={`/images/work/${create.method}.svg`} />
+            <span>{renderTitle()}</span>
+          </div>
+          <div className={style.left_info_content}>
+            {/* <div className={style.block}>
           <h6>{datas.selectprocessingpath}</h6>
-          <p>{path ? path : "未選擇"}</p>
+          <p>{path ? path : datas.notselected}</p>
+        </div> */}
+            <div>
+              <h6>{datas.equipmentsetup}</h6>
+              <i className="icon-ok icon-ok-bg"></i>
+            </div>
+            <div>
+              <h6>{datas.processingparam}</h6>
+              <span></span>
+            </div>
+          </div>
         </div>
-        <div>
-          <h6>{datas.equipmentsetup}</h6>
-          <i className="icon-ok icon-ok-bg"></i>
-        </div>
-        <div>
-          <h6>{datas.processingparam}</h6>
-          <span></span>
-        </div>
-      </div>
-    </div>
+      )}
+    </>
   );
 }

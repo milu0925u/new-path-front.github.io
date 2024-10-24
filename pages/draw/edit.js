@@ -220,8 +220,8 @@ export default function Edit() {
   }, []);
   return (
     <>
-      <div className="bg-sky"></div>
-      <div className="bg-space"></div>
+      <div className="bg-sky bg-size"></div>
+      <div className="bg-space bg-size"></div>
       {/* RWD */}
       <div
         className="l_unity"

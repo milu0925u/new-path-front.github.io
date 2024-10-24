@@ -39,7 +39,7 @@ export default function SecurityList({ handleNext, text, handleActive }) {
             ))}
         </div>
       </div>
-      <div className="nextbtn">
+      <div className="next-btn">
         <OrangeButton
           text={datas.confirm}
           icon="icon-ok"

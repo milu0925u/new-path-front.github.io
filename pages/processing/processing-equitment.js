@@ -52,8 +52,8 @@ export default function ProcessingEquitment() {
   }, [router]);
   return (
     <>
-      <div className="bg-execute"></div>
-      <div className="container">
+      <div className="bg-execute bg-size"></div>
+      <div className="container container-center">
         <RWDTitle title={datas.equipmentsetup} icon="icon-execute">
           <ReturnWhiteButton handleReturnBTN={handleReturn} />
           <button className="rwd-display-none-btn"></button>
@@ -61,7 +61,7 @@ export default function ProcessingEquitment() {
         <div className="content">
           <EqLeftAll />
           <EquitmentSet />
-          <div className="rwd-btn-2">
+          <div className="rwd-next-btn-2">
             <ReturnBlueButton handleReturnBTN={handleReturn} />
             <OrangeButton
               text={datas.save}

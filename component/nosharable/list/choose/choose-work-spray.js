@@ -7,7 +7,7 @@ export default function ChooseWorkSpray({ handleOrangeBTN }) {
   const { current } = useSelector((state) => state.workList);
   return (
     <div className={style.chosen_list}>
-      <div className={style.chosen_list_data}>
+      <div className={`${style.chosen_list_data} ${style.col_list_mt}`}>
         {current ? (
           <>
             <div className={style.chosen_list_title}>
@@ -51,7 +51,7 @@ export default function ChooseWorkSpray({ handleOrangeBTN }) {
           <div className={style.empty_chosen}>{datas.emptychosen}</div>
         )}
       </div>
-      <div className="nextbtn">
+      <div className="next-btn">
         <OrangeButton
           text={datas.executeprocessing}
           icon="icon-execute-work"

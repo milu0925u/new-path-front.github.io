@@ -32,17 +32,16 @@ export default function CameraViewName({
       <div className={style.col_function}>
         <h6>{datas.scanbackgroundremovalrange}</h6>
         <div>
-          <div>
-            <input
-              type="number"
-              className={styles.input_default}
-              value={barValue}
-              onChange={(e) => {
-                handleBarValue(e);
-              }}
-            />
-            mm
-          </div>
+          <input
+            type="number"
+            className={styles.input_default}
+            value={barValue}
+            onChange={(e) => {
+              handleBarValue(e);
+            }}
+          />
+          <span className={style.input_span}>mm</span>
+
           <OrangeButton
             text={datas.ok}
             icon="icon-ok"
@@ -50,7 +49,7 @@ export default function CameraViewName({
           />
         </div>
       </div>
-      <div className="nextbtn">{children}</div>
+      <div className="next-btn">{children}</div>
     </div>
   );
 }

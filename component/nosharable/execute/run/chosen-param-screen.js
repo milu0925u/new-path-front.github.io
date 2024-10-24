@@ -23,7 +23,6 @@ export default function ChosenParamScreen() {
   useEffect(() => {
     dispatch(readWorkListAction());
   }, []);
-  console.log(current);
 
   const handleNext = () => {
     if (Object.keys(current).length === 0) {
@@ -114,12 +113,12 @@ export default function ChosenParamScreen() {
           datasList={datasList}
           setDatasList={setDatasList}
         />
-        <OrangeButton
-          text={datas.ok}
-          icon="icon-ok"
-          handleOrangeBTN={handleNext}
-        />
       </div>
+      <OrangeButton
+        text={datas.ok}
+        icon="icon-ok"
+        handleOrangeBTN={handleNext}
+      />
     </div>
   );
 }

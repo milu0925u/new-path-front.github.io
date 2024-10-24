@@ -34,9 +34,9 @@ export default function Navbar() {
   };
 
   // navbar > and <
-  const [click, setClick] = useState(true);
+  const [navhide, setnavhide] = useState(true);
   const handleClick = () => {
-    setClick(!click);
+    setnavhide(!navhide);
   };
 
   useEffect(() => {
@@ -48,20 +48,16 @@ export default function Navbar() {
   }, []);
   const handleResize = () => {
     if (window.innerWidth > 1400) {
-      setClick(true);
+      setnavhide(true);
     }
   };
 
   return (
-    <div
-      className={`${style.navbar} ${
-        click ? style.navbar_open : style.navbar_close
-      }`}
-    >
+    <div className={`${style.navbar} ${navhide ? style.open : style.close}`}>
       <div className={style.navbar_body}>
         <ul>
-          {click ? (
-            <li className={style.title}>
+          {navhide ? (
+            <li className={style.navbar_title}>
               <span className={style.one}>{datas.pathconfigurationsetup}</span>
             </li>
           ) : (
@@ -86,14 +82,14 @@ export default function Navbar() {
                 role="button"
               >
                 <i className={item.icon}></i>
-                {click ? <div>{item.name}</div> : ""}
+                {navhide ? <div>{item.name}</div> : ""}
               </li>
             );
           })}
         </ul>
         <ul>
-          {click ? (
-            <li className={style.title}>
+          {navhide ? (
+            <li className={style.navbar_title}>
               <span className={style.two}>{datas.executeprocessing}</span>
             </li>
           ) : (
@@ -108,13 +104,13 @@ export default function Navbar() {
               }}
             >
               <i className={item.icon}></i>
-              {click ? <div>{item.name}</div> : ""}
+              {navhide ? <div>{item.name}</div> : ""}
             </li>
           ))}
         </ul>
       </div>
       <button
-        className={`${style.bar} ${click ? style.barOpen : style.barClose}`}
+        className={`${style.bar} ${navhide ? style.open : style.close}`}
         onClick={handleClick}
       >
         <i className="icon-bar">

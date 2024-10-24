@@ -7,7 +7,7 @@ export default function ChoosePoint({ children }) {
 
   return (
     <div className={style.chosen_list}>
-      <div className={style.chosen_list_data}>
+      <div className={`${style.chosen_list_data} ${style.col_list_mt}`}>
         <div>
           <div>{datas.pointname}：</div>
           <div className={style.chosen_list_input}>
@@ -22,7 +22,7 @@ export default function ChoosePoint({ children }) {
           )}
         </div>
       </div>
-      <div className="nextbtn">{children}</div>
+      <div className="next-btn">{children}</div>
     </div>
   );
 }

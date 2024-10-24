@@ -60,7 +60,7 @@ export default function CameraFunction({
           </label>
         </div>
       </div>
-      <div className="nextbtn">{children}</div>
+      <div className="next-btn">{children}</div>
     </div>
   );
 }

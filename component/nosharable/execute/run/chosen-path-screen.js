@@ -21,7 +21,7 @@ export default function ChosenPathScreen() {
 
   const handleEdit = () => {};
   return (
-    <div className={style.l_run_list}>
+    <div className={`${style.l_run_list} ${style.flex}`}>
       <Listpath handleBlueBTN={handleEdit} />
       <Choosepath>
         <OrangeButton
@@ -30,6 +30,13 @@ export default function ChosenPathScreen() {
           handleOrangeBTN={handleNext}
         />
       </Choosepath>
+      <div className="rwd-next-btn">
+        <OrangeButton
+          text={datas.save}
+          icon="icon-save"
+          handleOrangeBTN={handleNext}
+        />
+      </div>
     </div>
   );
 }

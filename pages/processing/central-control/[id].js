@@ -39,7 +39,7 @@ export default function centralControlID() {
         <div className="content">
           <CCLeft />
           <CCRight />
-          <div className="rwd-btn">
+          <div className="rwd-next-btn">
             <ReturnBlueButton handleReturnBTN={handleReturn} />
           </div>
         </div>
